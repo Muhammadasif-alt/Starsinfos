@@ -12,6 +12,7 @@ use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class SiteTest extends TestCase
@@ -57,6 +58,17 @@ class SiteTest extends TestCase
             ->push(route('blog.author', BlogPost::first()->author));
 
         $urls->each(fn (string $url) => $this->get($url)->assertOk());
+    }
+
+    public function test_bisp_is_hidden_from_the_header_menu_but_stays_live(): void
+    {
+        $response = $this->get('/')->assertOk();
+
+        $this->assertStringNotContainsString('BISP 8171', Str::between($response->getContent(), '<nav id="m"', '</nav>'));
+        $this->assertStringContainsString('>Blog<', Str::between($response->getContent(), '<nav id="m"', '</nav>'));
+        $response->assertSee('BISP 8171 Quick Tools');
+
+        $this->get('/bisp-8171')->assertOk();
     }
 
     public function test_disclaimer_only_shows_on_bisp_and_schemes(): void

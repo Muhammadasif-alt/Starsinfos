@@ -12,9 +12,12 @@ use Illuminate\View\View;
 class LayoutComposer
 {
     /** Position of the Blog link in the header menu, after News. */
-    private const BLOG_MENU_POSITION = 4;
+    private const BLOG_MENU_POSITION = 3;
 
-    private const MENU_ORDER = ['jobs', 'government-schemes', 'bisp-8171', 'news', 'education', 'home-decor'];
+    private const MENU_ORDER = ['jobs', 'government-schemes', 'news', 'education', 'home-decor'];
+
+    /** Categories that stay live but are left out of the header menu. */
+    private const MENU_HIDDEN = ['bisp-8171'];
 
     public function compose(View $view): void
     {
@@ -24,6 +27,7 @@ class LayoutComposer
         ]);
 
         $menu = $data['footerCategories']
+            ->reject(fn (Category $category) => in_array($category->slug, self::MENU_HIDDEN, true))
             ->sortBy(fn (Category $category) => array_search($category->slug, self::MENU_ORDER, true))
             ->map(fn (Category $category) => ['label' => $category->name, 'url' => $category->url()])
             ->values();
