@@ -27,6 +27,6 @@ class ContactController extends Controller
             report($exception);
         }
 
-        return back()->with('contact_status', 'Shukriya! Aap ka message mil gaya hai.');
+        return back()->with('contact_status', 'Thank you! We have received your message.');
     }
 }

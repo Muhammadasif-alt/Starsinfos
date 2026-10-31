@@ -100,12 +100,12 @@ class PostSeeder extends Seeder
     private function body(string $title): string
     {
         return <<<HTML
-            <p><strong>Sample content:</strong> yeh demo text hai. Publish karne se pehle isay official source se tasdeeq shuda maloomat se badal dein.</p>
-            <p>Is guide mein {$title} ke baare mein aam maloomat di gayi hai.</p>
+            <p><strong>Sample content:</strong> this is demo text. Replace it with information verified from the official source before publishing.</p>
+            <p>This guide gives general information about {$title}.</p>
             <h2>Eligibility</h2>
-            <ul><li>Official notification mein di gayi shartein parhein.</li><li>Zaroori documents pehle se tayyar rakhein.</li></ul>
+            <ul><li>Read the requirements in the official notification.</li><li>Keep the required documents ready in advance.</li></ul>
             <h2>How to Apply</h2>
-            <ol><li>Official website kholein.</li><li>Form ghaur se bharein.</li><li>Last date se pehle jama karwayein.</li></ol>
+            <ol><li>Open the official website.</li><li>Fill in the form carefully.</li><li>Submit it before the last date.</li></ol>
             HTML;
     }
 }

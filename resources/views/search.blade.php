@@ -14,7 +14,7 @@
 
     <h2>Posts ({{ $posts->total() }})</h2>
     @if ($posts->isEmpty())
-        <p class="empty">Koi post nahi mili.</p>
+        <p class="empty">No posts found.</p>
     @else
         <div class="posts">
             @foreach ($posts as $post)

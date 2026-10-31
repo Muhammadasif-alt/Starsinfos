@@ -32,7 +32,7 @@
 
     <h2>Latest in {{ $category->name }}</h2>
     @if ($posts->isEmpty())
-        <p class="empty">Is category mein abhi koi post nahi hai.</p>
+        <p class="empty">There are no posts in this category yet.</p>
     @else
         <div class="posts">
             @foreach ($posts as $post)

@@ -45,8 +45,8 @@ class BlogPostSeeder extends Seeder
 
     private function body(string $excerpt): string
     {
-        $paragraph = '<p>Sample content: is article ka asal text admin panel se shamil karein. '.str_repeat('Har qadam par official hidayat parhein, apne documents tayyar rakhein aur waqt par kaam mukammal karein. ', 12).'</p>';
+        $paragraph = '<p>Sample content: add the final text of this article from the admin panel. '.str_repeat('Read the official instructions at every step, keep your documents ready and finish each task on time. ', 12).'</p>';
 
-        return "<p>{$excerpt}</p><h2>Shuruaat</h2>{$paragraph}<h2>Aham Baatein</h2>{$paragraph}<h2>Aakhri Mashwara</h2>{$paragraph}";
+        return "<p>{$excerpt}</p><h2>Getting Started</h2>{$paragraph}<h2>Key Points</h2>{$paragraph}<h2>Final Advice</h2>{$paragraph}";
     }
 }

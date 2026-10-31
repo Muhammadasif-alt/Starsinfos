@@ -1,5 +1,5 @@
 @if ($posts->isEmpty())
-    <p class="empty">Abhi koi blog post nahi hai.</p>
+    <p class="empty">There are no blog posts yet.</p>
 @else
     <div class="bl">
         @foreach ($posts as $post)
