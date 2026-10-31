@@ -1,0 +1,111 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\User;
+use Database\Seeders\Concerns\SeedsImages;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+class PostSeeder extends Seeder
+{
+    use SeedsImages;
+
+    /** Keyed by source URL: [subcategory slug, title, image, closes in days or null, flags] */
+    private const POSTS = [
+        'https://www.fpsc.gov.pk' => [
+            ['government-jobs', 'Government Jobs – Clerk & Assistant Posts', 'jobs-banner', 15, []],
+            ['bank-jobs', 'Bank Jobs – Officer Grade Hiring', 'jobs-blocks', 20, ['is_trending']],
+            ['army-police-jobs', 'Army & Police – Constable Recruitment', 'jobs-illustration', 25, []],
+            ['teaching-jobs', 'Teaching Jobs – FPSC & PPSC Updates', 'jobs-blocks', 30, ['is_trending']],
+            ['online-work-from-home-jobs', 'Work From Home – Online Jobs', 'jobs-illustration', null, []],
+            ['private-jobs', 'Healthcare Jobs in Private Hospitals', 'jobs-healthcare', 35, []],
+        ],
+        'https://www.pakistan.gov.pk' => [
+            ['solar-schemes', 'Solar Scheme Registration Guide', 'scheme-solar', null, ['is_trending']],
+            ['youth-loan-schemes', 'Youth Loan Scheme – Eligibility & How to Apply', 'schemes-banner', null, []],
+            ['student-scholarships', 'Free Laptop Scheme for Students – Complete Guide', 'scheme-laptops', null, []],
+            ['business-support-programs', 'Green Tractor Program – Farmers Guide', 'scheme-tractor', null, []],
+            ['housing-schemes', 'Housing Schemes – Application Process', 'schemes-banner', null, []],
+            ['eligibility-application-process', 'Government Scheme Eligibility – Common Requirements', 'schemes-banner', null, []],
+        ],
+        'https://bisp.gov.pk' => [
+            ['8171-eligibility-guide', '8171 Eligibility Guide: Kaun Apply Kar Sakta Hai?', 'bisp-banner', null, ['is_featured']],
+            ['payment-updates', '8171 Payment Update – CNIC Status Check', 'bisp-8171-update', null, []],
+            ['cnic-status-check-guide', 'CNIC Status Check Karne ka Tareeqa', 'bisp-mobile', null, []],
+            ['registration-dynamic-survey', 'Dynamic Survey Registration – Step by Step', 'bisp-logo', null, []],
+            ['official-portal-guides', 'BISP Official Portal Use Karne ki Guide', 'bisp-mobile', null, []],
+            ['bisp-latest-updates', 'BISP Latest Updates – Kya Naya Hai?', 'bisp-office', null, []],
+        ],
+        'https://www.pakistan.gov.pk/news' => [
+            ['government-updates', 'Government Announces New Public Update', 'news-banner', null, []],
+            ['pakistan-news', 'Pakistan News – This Week in Brief', 'news-banner', null, []],
+            ['education-news', 'Education News – Admissions Season Begins', 'education-banner', null, []],
+            ['jobs-news', 'Jobs News – Recruitment Announcements Roundup', 'jobs-blocks', null, []],
+            ['technology-news', 'Technology News – Digital Services for Citizens', 'news-banner', null, []],
+            ['business-news', 'Business News – Support for Small Businesses', 'news-banner', null, []],
+        ],
+        'https://www.hec.gov.pk' => [
+            ['bs-admissions', 'BS Admissions Open – Merit List & Entry Test Dates', 'education-banner', 10, []],
+            ['entry-tests', 'Entry Test Schedule for BS Programs', 'education-banner', 18, ['is_trending']],
+            ['university-admissions', 'University Admissions – How to Apply Online', 'education-banner', 25, []],
+            ['college-admissions', 'Intermediate College Admissions Guide', 'education-banner', 30, []],
+            ['scholarships', 'Scholarships for Pakistani Students', 'education-banner', null, []],
+            ['results-merit-lists', 'Results & Merit Lists – Kaise Check Karein', 'education-banner', null, []],
+        ],
+        '' => [
+            ['living-room-ideas', '10 Small Living Room Ideas on a Budget', 'decor-living-ideas', null, []],
+            ['indoor-home-decor', 'Bold Colours for a Modern Indoor Look', 'decor-green-lounge', null, []],
+            ['furniture-lighting', 'Furniture & Lighting Tips for Warm Rooms', 'decor-warm-living', null, []],
+            ['small-house-design', 'Small House Design – Space Saving Ideas', 'decor-neutral-lounge', null, []],
+            ['diy-decoration-ideas', 'DIY Decoration Ideas for Every Room', 'decor-window-seat', null, []],
+            ['outdoor-home-decor', 'Classic Pakistani Drawing Room Styling', 'decor-classic-lounge', null, []],
+        ],
+    ];
+
+    public function run(): void
+    {
+        $authors = collect(['Admin', 'Sara'])->map(fn (string $name) => User::firstOrCreate(
+            ['email' => Str::slug($name).'.author@example.com'],
+            ['name' => $name, 'password' => Hash::make(Str::random(40)), 'role' => 'author', 'bio' => 'Editorial contributor.'],
+        ));
+
+        $index = 0;
+
+        foreach (self::POSTS as $source => $posts) {
+            foreach ($posts as [$categorySlug, $title, $image, $closesIn, $flags]) {
+                Post::updateOrCreate(['slug' => Str::slug($title)], [
+                    'category_id' => Category::where('slug', $categorySlug)->value('id'),
+                    'author_id' => $authors[$index % 2]->id,
+                    'title' => $title,
+                    'excerpt' => "{$title} ke baare mein zaroori maloomat, shartein aur aglay qadam.",
+                    'body' => $this->body($title),
+                    'featured_image' => $this->seedImage($image),
+                    'source_url' => $source ?: null,
+                    'status' => 'published',
+                    'is_featured' => in_array('is_featured', $flags, true),
+                    'is_trending' => in_array('is_trending', $flags, true),
+                    'closing_date' => $closesIn ? now()->addDays($closesIn) : null,
+                    'published_at' => now()->subHours(($index * 7 + 1) % 200),
+                ]);
+
+                $index++;
+            }
+        }
+    }
+
+    private function body(string $title): string
+    {
+        return <<<HTML
+            <p><strong>Sample content:</strong> yeh demo text hai. Publish karne se pehle isay official source se tasdeeq shuda maloomat se badal dein.</p>
+            <p>Is guide mein {$title} ke baare mein aam maloomat di gayi hai.</p>
+            <h2>Eligibility</h2>
+            <ul><li>Official notification mein di gayi shartein parhein.</li><li>Zaroori documents pehle se tayyar rakhein.</li></ul>
+            <h2>How to Apply</h2>
+            <ol><li>Official website kholein.</li><li>Form ghaur se bharein.</li><li>Last date se pehle jama karwayein.</li></ol>
+            HTML;
+    }
+}

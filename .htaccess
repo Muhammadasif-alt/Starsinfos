@@ -1,0 +1,5 @@
+# Used only when the document root cannot be pointed at /public.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
