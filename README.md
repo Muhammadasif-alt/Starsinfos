@@ -30,7 +30,8 @@ php artisan serve
 5. Over SSH, in the site's folder:
 
    ```bash
-   composer install --no-dev --optimize-autoloader
+   composer install --no-dev --optimize-autoloader --no-scripts
+   php artisan package:discover
    php artisan key:generate
    php artisan migrate --seed --force
    php artisan storage:link
@@ -46,7 +47,7 @@ php artisan serve
    php artisan make:filament-user
    ```
 
-No Node is needed on the server because `public/build` is committed.
+No Node is needed on the server because `public/build` is committed. `--no-scripts` is required because Hostinger disables `proc_open`, which Composer scripts use.
 
 ## Before going live
 
