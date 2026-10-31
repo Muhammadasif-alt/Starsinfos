@@ -8,9 +8,9 @@ use Illuminate\Database\Seeder;
 class FaqSeeder extends Seeder
 {
     private const FAQS = [
-        ['Kya yeh official government website hai?', 'Nahi. Yeh sirf information website hai. Hamesha official portal se tasdeeq karein.'],
-        ['BISP 8171 ki information kitni nayi hoti hai?', 'Hum updates ko regularly check karte hain, aur purani information par "Outdated" label lagate hain.'],
-        ['Kya main apna article bhej sakta hun?', 'Ji haan, "Write for Us" page par rabta karein.'],
+        ['Is this an official government website?', 'No. This is an information website only. Always confirm details on the official portal.'],
+        ['How up to date is the BISP 8171 information?', 'We check for updates regularly and label older information as "Outdated".'],
+        ['Can I submit my own article?', 'Yes. Please get in touch through our "Write for Us" page.'],
     ];
 
     public function run(): void

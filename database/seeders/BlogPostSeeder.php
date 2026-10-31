@@ -15,10 +15,10 @@ class BlogPostSeeder extends Seeder
     use SeedsImages;
 
     private const POSTS = [
-        ['Government Scheme ke Liye Apply Karne se Pehle 7 Zaroori Baatein', 'Documents, eligibility aur aam ghaltiyan jo application reject karwa deti hain.', 'government-schemes', 'schemes-banner', 'Admin', true],
-        ['CV Kaise Banayein: Pakistan Jobs ke Liye Tips', 'Aik saaf aur asar-dar CV banane ke aasan tareeqe.', 'jobs', 'jobs-illustration', 'Sara', false],
-        ['Entry Test ki Tayari: 30 Din ka Plan', 'Mahine bhar ka simple study plan aur revision ke tips.', 'education', 'education-banner', 'Ali', false],
-        ['Kam Budget mein Ghar ko Naya Look Dein', 'Thoray kharch mein ghar ko behtar banane ke ideas.', 'home-decor', 'decor-warm-living', 'Maria', false],
+        ['7 Things to Know Before Applying for a Government Scheme', 'Documents, eligibility and the common mistakes that get applications rejected.', 'government-schemes', 'schemes-banner', 'Admin', true],
+        ['How to Write a CV: Tips for Jobs in Pakistan', 'Simple ways to build a clear and effective CV.', 'jobs', 'jobs-illustration', 'Sara', false],
+        ['Entry Test Preparation: A 30-Day Plan', 'A simple month-long study plan with revision tips.', 'education', 'education-banner', 'Ali', false],
+        ['Give Your Home a New Look on a Small Budget', 'Affordable ideas to refresh your home.', 'home-decor', 'decor-warm-living', 'Maria', false],
     ];
 
     public function run(): void
