@@ -31,6 +31,7 @@ class SettingSeeder extends Seeder
                 ['title' => 'Check Eligibility', 'text' => 'Read the requirements and the documents you need.'],
                 ['title' => 'Verify Official Source', 'text' => 'Use our link to confirm the details on the official website.'],
                 ['title' => 'Apply', 'text' => 'Submit your application before the last date.'],
+                ['title' => 'Track Your Application', 'text' => 'Save your application slip and check the portal for test and interview dates.'],
             ],
             'disclaimer' => 'This is an information website, not an official government portal.',
             'newsletter_title' => 'Get the Latest Updates Every Day',

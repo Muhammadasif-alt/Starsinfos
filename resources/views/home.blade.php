@@ -7,9 +7,9 @@
 @endpush
 
 @section('hero')
-    <section class="hero"><div class="wrap hero__inner">
+    <section class="hero" style="--img:url('{{ asset('images/home-hero.jpg') }}')"><div class="wrap hero__inner">
         <div>
-            <h1>{{ $settings['hero_title'] ?? config('app.name') }}</h1>
+            <h1>{!! str_replace('Next Job', '<mark>Next Job</mark>', e($settings['hero_title'] ?? config('app.name'))) !!}</h1>
             <p>{{ $settings['hero_text'] ?? '' }}</p>
             <form class="search" action="{{ route('search') }}" role="search">
                 <input type="search" name="q" placeholder="Search jobs by title or department…" aria-label="Search">
@@ -43,7 +43,10 @@
 
     <div class="stats"><div class="wrap"><div class="stats__bar">
         @foreach ($settings['stats'] ?? [] as $stat)
-            <div class="stat"><b>{{ $stat['value'] }}</b><span>{{ $stat['label'] }}</span></div>
+            <div class="stat">
+                <span class="stat__icon"><x-site-icon :name="['briefcase', 'book', 'bell', 'check'][$loop->index] ?? 'check'" :size="30" /></span>
+                <span><b>{{ $stat['value'] }}</b><span>{{ $stat['label'] }}</span></span>
+            </div>
         @endforeach
     </div></div></div>
 @endsection
@@ -94,10 +97,15 @@
     <div class="sh"><h2>Trending Now</h2><a href="{{ route('search') }}">View all →</a></div>
     <div class="feat">
         @if ($featured)
-            <a @class(['big', 'has-img' => $featured->image_url]) @if ($featured->image_url) style="--img:url('{{ $featured->image_url }}')" @endif href="{{ $featured->url() }}">
-                <span class="tag">Featured · {{ $featured->category->root()->name }}</span>
-                <h3>{{ $featured->title }}</h3>
-                <small>{{ $featured->excerpt }} · {{ $featured->published_at->format('j M Y') }}</small>
+            <a @class(['big', 'has-img' => $featured->image_url]) href="{{ $featured->url() }}">
+                @if ($featured->image_url)
+                    <img class="big__img" src="{{ $featured->image_url }}" alt="{{ $featured->title }}" loading="lazy">
+                @endif
+                <span class="big__body">
+                    <span class="tag">Featured · {{ $featured->category->root()->name }}</span>
+                    <h3>{{ $featured->title }}</h3>
+                    <small>{{ $featured->excerpt }} · {{ $featured->published_at->format('j M Y') }}</small>
+                </span>
             </a>
         @endif
         <div class="list">
@@ -160,12 +168,17 @@
     <div class="sh"><h2>Career Advice</h2><a href="{{ route('blog.index') }}">All career advice →</a></div>
     <div class="feat">
         @if ($leadCareerPost = $careerPosts->first())
-            <a @class(['big', 'has-img' => $leadCareerPost->image_url]) @if ($leadCareerPost->image_url) style="--img:url('{{ $leadCareerPost->image_url }}')" @endif href="{{ $leadCareerPost->url() }}">
-                @if ($leadCareerPost->category)
-                    <span class="tag">{{ $leadCareerPost->category->name }}</span>
+            <a @class(['big', 'has-img' => $leadCareerPost->image_url]) href="{{ $leadCareerPost->url() }}">
+                @if ($leadCareerPost->image_url)
+                    <img class="big__img" src="{{ $leadCareerPost->image_url }}" alt="{{ $leadCareerPost->title }}" loading="lazy">
                 @endif
-                <h3>{{ $leadCareerPost->title }}</h3>
-                <small>{{ $leadCareerPost->excerpt }} · {{ $leadCareerPost->read_time }} min read</small>
+                <span class="big__body">
+                    @if ($leadCareerPost->topic_label ?? $leadCareerPost->category)
+                        <span class="tag">{{ $leadCareerPost->topic_label ?? $leadCareerPost->category->name }}</span>
+                    @endif
+                    <h3>{{ $leadCareerPost->title }}</h3>
+                    <small>{{ $leadCareerPost->excerpt }} · {{ $leadCareerPost->read_time }} min read</small>
+                </span>
             </a>
         @endif
         <div class="list">

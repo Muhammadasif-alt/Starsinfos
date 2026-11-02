@@ -62,7 +62,7 @@ class ManageSettings extends Page implements HasForms
                 ]),
             ]),
             Section::make('How to Apply')->schema([
-                Repeater::make('steps')->hiddenLabel()->columns(2)->minItems(4)->maxItems(4)->schema([
+                Repeater::make('steps')->hiddenLabel()->columns(2)->minItems(3)->maxItems(6)->schema([
                     TextInput::make('title')->required(),
                     TextInput::make('text')->required(),
                 ]),

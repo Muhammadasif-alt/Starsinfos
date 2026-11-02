@@ -36,13 +36,13 @@ class HomeController extends Controller
             'trending' => Post::with($withCategory)->latestPublished()->where('is_trending', true)->take(4)->get(),
             'jobsCategory' => $jobsCategory,
             'jobCategories' => $jobsCategory ? $jobsCategory->children()->with('parent')->get() : collect(),
-            'jobs' => $this->openJobs($jobsCategory)->orderByDesc('published_at')->take(6)->get(),
+            'jobs' => $this->openJobs($jobsCategory)->orderByDesc('published_at')->take(4)->get(),
             'newJobs' => $this->openJobs($jobsCategory)->orderByDesc('published_at')->take(3)->get(),
             'bispTools' => Category::with('parent')->whereIn('slug', self::BISP_TOOLS)->orderBy('sort_order')->get(),
             'bispEligibility' => Category::with('parent')->where('slug', '8171-eligibility-guide')->first(),
             'latestPosts' => Post::with($withCategory)->latestPublished()->take(6)->get(),
             'admissions' => Admission::whereDate('last_date', '>=', today())->orderBy('sort_order')->get(),
-            'careerPosts' => BlogPost::with('author', 'category')->published()->orderByDesc('is_featured')->orderByDesc('published_at')->take(4)->get(),
+            'careerPosts' => BlogPost::with('author', 'category')->latestPublished()->take(4)->get(),
             'faqs' => Faq::where('is_active', true)->orderBy('sort_order')->get(),
         ];
     }

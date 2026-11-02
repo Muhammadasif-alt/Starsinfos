@@ -44,7 +44,7 @@ class SiteTest extends TestCase
         $this->get('/')->assertOk()->assertSeeInOrder([
             'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Browse Categories', 'Disclaimer', 'Trending Now',
             'How to Apply', 'Latest Posts', 'Admissions Calendar',
-            'Career Advice', 'Frequently Asked Questions', '<footer>',
+            'Career Advice', 'Frequently Asked Questions', '<footer',
         ], false)->assertSee('FAQPage', false);
     }
 

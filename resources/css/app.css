@@ -394,3 +394,26 @@ details{border-bottom:1px solid var(--line);padding:20px 4px}summary{font-size:1
 @media(max-width:960px){.career-featured{grid-template-columns:minmax(0,1fr)}.career-featured__item.is-lead{grid-row:auto;min-height:320px}}
 @media(max-width:640px){.career-grid,.career-resources>div{grid-template-columns:minmax(0,1fr)}.career-featured__item:not(.is-lead){flex-direction:column;align-items:stretch}.career-featured__item:not(.is-lead) .career-featured__img{width:100%}.career-featured__item:not(.is-lead) .job-row__go{display:none}}
 .career-featured-wrap{margin-top:48px}
+
+/* Homepage hero banner and footer skyline */
+.hero{padding-top:64px;background:linear-gradient(90deg,rgba(6,61,45,.85) 0,rgba(6,61,45,.55) 32%,rgba(6,61,45,0) 48%),var(--img) right center/cover no-repeat,#0B6B4F}
+@media(min-width:1101px){.hero__inner{grid-template-columns:minmax(0,1fr) 400px;gap:300px}}
+.hero h1 mark{background:none;color:var(--acc);text-decoration:underline;text-decoration-thickness:5px;text-underline-offset:8px}
+.stats__bar .stat{display:flex;align-items:center;justify-content:center;gap:16px;text-align:left}
+.stats__bar .stat b{line-height:1.1}
+.stat__icon{flex:none;display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:#E6F3EC;color:var(--p2)}
+footer{background:linear-gradient(180deg,rgba(8,79,58,.96) 0,rgba(8,79,58,.88) 55%,rgba(8,79,58,.7) 100%),var(--img) center bottom/cover no-repeat,var(--p2)}
+@media(max-width:960px){.hero{background:linear-gradient(180deg,rgba(6,61,45,.82),rgba(6,61,45,.6)),var(--img) right center/cover no-repeat,#0B6B4F}}
+@media(max-width:640px){.stats__bar .stat{flex-direction:column;gap:8px;text-align:center}.stat__icon{width:46px;height:46px}}
+
+/* Lead cards show the full banner; four latest jobs in one row; even steps */
+.big.has-img{display:flex;flex-direction:column;justify-content:flex-start;padding:0;overflow:hidden;min-height:0;background:var(--p2)}
+.big__img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.big__body{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:22px 26px 26px}
+.big.has-img h3{font-size:clamp(22px,2.2vw,28px);margin:10px 0 6px}
+.big.has-img small{color:#D5E6DE}
+.li__thumb{width:168px;height:auto;aspect-ratio:16/9}
+.job-grid{grid-template-columns:repeat(4,1fr)}
+.steps{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+@media(max-width:1100px){.job-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.job-grid{grid-template-columns:minmax(0,1fr)}.li__thumb{width:112px}}

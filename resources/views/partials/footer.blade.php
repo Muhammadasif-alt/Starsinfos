@@ -1,4 +1,4 @@
-<footer><div class="wrap">
+<footer style="--img:url('{{ asset('images/footer-skyline.jpg') }}')"><div class="wrap">
     <div class="cols">
         <div class="footer-about">
             <h5>{{ config('app.name') }}</h5>
