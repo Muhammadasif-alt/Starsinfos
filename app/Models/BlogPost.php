@@ -15,8 +15,18 @@ class BlogPost extends Model
 
     private const WORDS_PER_MINUTE = 200;
 
+    /** Career Advice topics: slug => label and icon. */
+    public const TOPICS = [
+        'cv-resume' => ['label' => 'CV & Resume Writing', 'icon' => 'file'],
+        'job-application' => ['label' => 'Job Application Tips', 'icon' => 'clipboard'],
+        'interview' => ['label' => 'Interview Preparation', 'icon' => 'users'],
+        'career-development' => ['label' => 'Career Development', 'icon' => 'chart'],
+        'entry-test' => ['label' => 'Entry Test Preparation', 'icon' => 'pen'],
+        'working-abroad' => ['label' => 'Working Abroad', 'icon' => 'globe'],
+    ];
+
     protected $fillable = [
-        'author_id', 'category_id', 'title', 'slug', 'excerpt', 'body', 'featured_image',
+        'author_id', 'category_id', 'topic', 'title', 'slug', 'excerpt', 'body', 'featured_image',
         'meta_title', 'meta_description', 'tags', 'faqs', 'status', 'is_featured', 'published_at',
     ];
 
@@ -51,6 +61,11 @@ class BlogPost extends Model
     public function url(): string
     {
         return route('blog.show', $this->slug);
+    }
+
+    public function getTopicLabelAttribute(): ?string
+    {
+        return self::TOPICS[$this->topic]['label'] ?? null;
     }
 
     public function getImageUrlAttribute(): ?string

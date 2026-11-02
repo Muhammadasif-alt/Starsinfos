@@ -5,8 +5,8 @@
         @endif
     </div>
     <div class="b">
-        @if ($post->category)
-            <span class="tag">{{ $post->category->name }}</span>
+        @if ($post->topic_label ?? $post->category?->name)
+            <span class="tag">{{ $post->topic_label ?? $post->category->name }}</span>
         @endif
         <h4>{{ $post->title }}</h4>
         <p>{{ $post->excerpt }}</p>
@@ -16,5 +16,6 @@
             <span>· {{ $post->published_at->format('j M Y') }}</span>
             <span>· {{ $post->read_time }} min read</span>
         </div>
+        <span class="blog-card__cta">Read Guide →</span>
     </div>
 </a>

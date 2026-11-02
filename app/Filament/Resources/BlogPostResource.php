@@ -46,6 +46,7 @@ class BlogPostResource extends Resource
                 Section::make('Publish')->schema([
                     Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->default('draft')->required(),
                     DateTimePicker::make('published_at')->default(now())->required(),
+                    Select::make('topic')->label('Career topic')->options(collect(BlogPost::TOPICS)->map(fn (array $topic) => $topic['label'])->all()),
                     Select::make('category_id')->label('Category')
                         ->relationship('category', 'name', fn (Builder $query) => $query->whereNull('parent_id')),
                     Select::make('author_id')->label('Author')->relationship('author', 'name')->required()->default(fn () => auth()->id()),

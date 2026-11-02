@@ -85,6 +85,17 @@ class SiteTest extends TestCase
         $this->get('/jobs/bank-jobs?q=Quetta')->assertSee('Quetta Clerk Opening')->assertDontSee('Lahore Contract Opening');
     }
 
+    public function test_career_advice_filters_by_topic_and_search(): void
+    {
+        $author = User::first();
+        BlogPost::factory()->create(['author_id' => $author->id, 'title' => 'Writing a Strong CV', 'topic' => 'cv-resume']);
+        BlogPost::factory()->create(['author_id' => $author->id, 'title' => 'Facing a Panel Interview', 'topic' => 'interview']);
+
+        $this->get('/blog')->assertOk()->assertSee('Career Advice &amp; Guidance', false)->assertSee('Featured Career Guides');
+        $this->get('/blog?topic=cv-resume')->assertSee('Writing a Strong CV')->assertDontSee('Facing a Panel Interview');
+        $this->get('/blog?q=Panel')->assertSee('Facing a Panel Interview')->assertDontSee('Writing a Strong CV');
+    }
+
     public function test_bisp_is_hidden_from_the_header_menu_but_stays_live(): void
     {
         $response = $this->get('/')->assertOk();
