@@ -22,7 +22,7 @@ class ManageSettings extends Page implements HasForms
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
-    protected static ?string $navigationGroup = 'Site';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $navigationLabel = 'Settings';
 
@@ -49,6 +49,7 @@ class ManageSettings extends Page implements HasForms
             ]),
             Section::make('Hero')->schema([
                 TextInput::make('hero_title')->required()->maxLength(255),
+                TextInput::make('hero_highlight')->label('Highlighted words')->maxLength(80)->helperText('Words from the title shown in gold, e.g. Trusted Guide.'),
                 Textarea::make('hero_text')->required()->rows(2),
                 Repeater::make('hero_chips')->label('Quick chips')->columns(2)->maxItems(6)->schema([
                     TextInput::make('label')->required(),

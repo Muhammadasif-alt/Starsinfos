@@ -9,10 +9,11 @@
 @section('hero')
     <section class="hero" style="--img:url('{{ asset('images/home-hero.jpg') }}')"><div class="wrap hero__inner">
         <div>
-            <h1>{!! str_replace('Next Job', '<mark>Next Job</mark>', e($settings['hero_title'] ?? config('app.name'))) !!}</h1>
+            @php($highlight = e($settings['hero_highlight'] ?? ''))
+            <h1>{!! $highlight !== '' ? str_replace($highlight, '<mark>'.$highlight.'</mark>', e($settings['hero_title'] ?? config('app.name'))) : e($settings['hero_title'] ?? config('app.name')) !!}</h1>
             <p>{{ $settings['hero_text'] ?? '' }}</p>
             <form class="search" action="{{ route('search') }}" role="search">
-                <input type="search" name="q" placeholder="Search jobs by title or department…" aria-label="Search">
+                <input type="search" name="q" placeholder="Search jobs, schemes, admissions…" aria-label="Search">
                 <button type="submit">Search</button>
             </form>
             <div class="chips">
@@ -22,21 +23,19 @@
             </div>
         </div>
 
-        @if ($newJobs->isNotEmpty())
-            <aside class="hero-card" aria-label="New jobs">
-                <h2>New Jobs</h2>
-                @foreach ($newJobs as $job)
+        @if ($latestUpdates->isNotEmpty())
+            <aside class="hero-card" aria-label="Latest updates">
+                <h2>Latest Updates</h2>
+                @foreach ($latestUpdates as $job)
                     <a class="hero-card__job" href="{{ $job->url() }}">
                         <span class="new-badge">New</span>
                         <span>
                             <b>{{ $job->title }}</b>
-                            <small>{{ $job->category->name }} · {{ $job->closing_label }}</small>
+                            <small>{{ $job->category->root()->name }} · {{ $job->closing_date ? $job->closing_label : $job->published_at->format('j M Y') }}</small>
                         </span>
                     </a>
                 @endforeach
-                @if ($jobsCategory)
-                    <a class="hero-card__all" href="{{ $jobsCategory->url() }}">Browse All Jobs →</a>
-                @endif
+                <a class="hero-card__all" href="{{ route('search') }}">View All Updates →</a>
             </aside>
         @endif
     </div></section>

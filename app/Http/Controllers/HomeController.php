@@ -37,7 +37,10 @@ class HomeController extends Controller
             'jobsCategory' => $jobsCategory,
             'jobCategories' => $jobsCategory ? $jobsCategory->children()->with('parent')->get() : collect(),
             'jobs' => $this->openJobs($jobsCategory)->orderByDesc('published_at')->take(4)->get(),
-            'newJobs' => $this->openJobs($jobsCategory)->orderByDesc('published_at')->take(3)->get(),
+            'latestUpdates' => Post::with($withCategory)->latestPublished()
+                ->where(fn ($query) => $query->whereNull('closing_date')->orWhereDate('closing_date', '>=', today()))
+                ->where(fn ($query) => $query->whereNull('application_status')->orWhere('application_status', '!=', 'Closed'))
+                ->take(3)->get(),
             'bispTools' => Category::with('parent')->whereIn('slug', self::BISP_TOOLS)->orderBy('sort_order')->get(),
             'bispEligibility' => Category::with('parent')->where('slug', '8171-eligibility-guide')->first(),
             'latestPosts' => Post::with($withCategory)->latestPublished()->take(6)->get(),

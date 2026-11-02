@@ -26,34 +26,38 @@ class BlogPostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static ?string $navigationGroup = 'Publish';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationLabel = 'Career Advice';
+
+    protected static ?string $modelLabel = 'career article';
+
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
         return $form->schema([
             Group::make([
-                Section::make([
+                Section::make('Article')->description('Write in simple, friendly language. Read time is worked out automatically.')->icon('heroicon-o-pencil')->schema([
                     SlugField::title(),
                     SlugField::make(),
-                    Textarea::make('excerpt')->rows(2),
+                    Textarea::make('excerpt')->label('Short summary')->rows(2)->maxLength(300)->helperText('One or two sentences shown on cards and in Google results.'),
                     RichEditor::make('body')->required()->fileAttachmentsDisk('public')->fileAttachmentsDirectory('content'),
                 ]),
                 SeoSection::make(),
             ])->columnSpan(2),
             Group::make([
-                Section::make('Publish')->schema([
-                    Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->default('draft')->required(),
+                Section::make('Publish')->icon('heroicon-o-paper-airplane')->schema([
+                    Select::make('status')->options(['published' => 'Published (live)', 'draft' => 'Draft (hidden)'])->default('published')->required()->native(false),
                     DateTimePicker::make('published_at')->default(now())->required(),
-                    Select::make('topic')->label('Career topic')->options(collect(BlogPost::TOPICS)->map(fn (array $topic) => $topic['label'])->all()),
+                    Select::make('topic')->label('Career topic')->required()->helperText('Decides where the article appears on the Career Advice page.')->options(collect(BlogPost::TOPICS)->map(fn (array $topic) => $topic['label'])->all()),
                     Select::make('category_id')->label('Category')
                         ->relationship('category', 'name', fn (Builder $query) => $query->whereNull('parent_id')),
                     Select::make('author_id')->label('Author')->relationship('author', 'name')->required()->default(fn () => auth()->id()),
                     Toggle::make('is_featured')->label('Featured'),
                 ]),
-                Section::make('Image')->schema([
-                    FileUpload::make('featured_image')->hiddenLabel()->image()->disk('public')->directory('blog')->maxSize(4096),
+                Section::make('Banner image')->icon('heroicon-o-photo')->schema([
+                    FileUpload::make('featured_image')->hiddenLabel()->image()->imageEditor()->disk('public')->directory('blog')->maxSize(4096)->helperText('Best size 1600 × 900. Under 4 MB.'),
                 ]),
             ])->columnSpan(1),
         ])->columns(3);
