@@ -44,7 +44,7 @@ class SiteTest extends TestCase
         $this->get('/')->assertOk()->assertSeeInOrder([
             'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Browse Categories', 'Disclaimer', 'Trending Now',
             'How to Apply', 'Latest Posts', 'Admissions Calendar',
-            'Career Advice', 'Frequently Asked Questions', 'id="newsletter"', '<footer>',
+            'Career Advice', 'Frequently Asked Questions', '<footer>',
         ], false)->assertSee('FAQPage', false);
     }
 
@@ -65,6 +65,8 @@ class SiteTest extends TestCase
         $this->get('/jobs')->assertOk()->assertSee('jobs-filter', false);
         $this->get('/government-schemes/solar-schemes')->assertOk()->assertSee('scheme-cats', false);
         $this->get('/news')->assertOk()->assertDontSee('scheme-cats', false);
+        $this->get('/education')->assertOk()->assertSee('edu-updates', false)->assertSee('Admissions Calendar');
+        $this->get('/education/entry-tests')->assertOk()->assertSee('edu-updates', false)->assertDontSee('edu-cards', false);
     }
 
     public function test_jobs_can_be_filtered(): void

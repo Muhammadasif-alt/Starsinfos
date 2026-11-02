@@ -58,6 +58,17 @@ class CategorySeeder extends Seeder
         'bank-schemes-loans' => 'banknote',
     ];
 
+    private const EDUCATION_ICONS = [
+        'bs-admissions' => 'graduation',
+        'university-admissions' => 'landmark',
+        'college-admissions' => 'building',
+        'entry-tests' => 'pen',
+        'results-merit-lists' => 'chart',
+        'scholarships' => 'award',
+        'matric-intermediate' => 'book',
+        'degree-programs' => 'file',
+    ];
+
     public function run(): void
     {
         foreach (self::TREE as $order => [$name, $slug, $color, $icon, $image, $description, $children]) {
@@ -77,7 +88,7 @@ class CategorySeeder extends Seeder
                     'parent_id' => $root->id,
                     'name' => $childName,
                     'color' => $color,
-                    'icon' => self::JOB_ICONS[$childSlug] ?? self::SCHEME_ICONS[$childSlug] ?? null,
+                    'icon' => self::JOB_ICONS[$childSlug] ?? self::SCHEME_ICONS[$childSlug] ?? self::EDUCATION_ICONS[$childSlug] ?? null,
                     'sort_order' => $childOrder,
                 ]);
             }

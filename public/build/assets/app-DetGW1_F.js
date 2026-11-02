@@ -1,0 +1,1 @@
+const a=document.getElementById("m");document.querySelector(".burger")?.addEventListener("click",e=>{const t=a.classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",String(t))});document.querySelectorAll("[data-copy]").forEach(e=>{e.addEventListener("click",async()=>{await navigator.clipboard.writeText(e.dataset.copy),e.textContent="Copied!"})});

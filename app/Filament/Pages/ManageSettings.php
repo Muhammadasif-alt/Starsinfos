@@ -67,10 +67,6 @@ class ManageSettings extends Page implements HasForms
                     TextInput::make('text')->required(),
                 ]),
             ]),
-            Section::make('Newsletter')->schema([
-                TextInput::make('newsletter_title')->required(),
-                TextInput::make('newsletter_text')->required(),
-            ]),
             Section::make('Social links')->schema([
                 Repeater::make('social_links')->hiddenLabel()->columns(2)->defaultItems(0)->schema([
                     TextInput::make('label')->required()->helperText('e.g. Facebook'),

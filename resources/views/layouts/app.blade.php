@@ -14,8 +14,6 @@
 
     <main class="wrap">
         @yield('content')
-
-        @include('partials.newsletter')
     </main>
 
     @include('partials.footer')

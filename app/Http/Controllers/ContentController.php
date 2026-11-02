@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admission;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Post;
@@ -53,6 +54,34 @@ class ContentController extends Controller
         return view('posts.show', compact('post', 'root', 'related'));
     }
 
+    /** Highlight cards on the Education & Admissions page: subcategory slug => [title, text, call to action]. */
+    private const EDUCATION_HIGHLIGHTS = [
+        'bs-admissions' => ['Admissions 2026', 'Apply for BS and other degree programs.', 'View Details'],
+        'scholarships' => ['Scholarships', 'Find national and international scholarships.', 'View Opportunities'],
+        'entry-tests' => ['Entry Tests', 'Prepare for tests such as NTS, ECAT and MDCAT.', 'Start Preparation'],
+        'results-merit-lists' => ['Results & Merit Lists', 'Check results and merit lists online.', 'Check Now'],
+    ];
+
+    private function education(Category $category, Category $root): View
+    {
+        $subcategories = $root->children()->with('parent')->get();
+
+        $highlights = collect(self::EDUCATION_HIGHLIGHTS)
+            ->map(fn (array $copy, string $slug) => ['category' => $subcategories->firstWhere('slug', $slug)] + array_combine(['title', 'text', 'cta'], $copy))
+            ->filter(fn (array $highlight) => $highlight['category'])
+            ->values();
+
+        return view('posts.education', [
+            'category' => $category,
+            'root' => $root,
+            'subcategories' => $subcategories,
+            'highlights' => $highlights,
+            'posts' => Post::with('category.parent')->latestPublished()->whereIn('category_id', $category->familyIds())->paginate(8),
+            'admissions' => Admission::whereDate('last_date', '>=', today())->orderBy('sort_order')->get(),
+            'scholarships' => $subcategories->firstWhere('slug', 'scholarships'),
+        ]);
+    }
+
     /** Jobs archive with search and filters on department, location and job type. */
     private function jobs(Category $category, Category $root, Request $request): View
     {
@@ -94,6 +123,10 @@ class ContentController extends Controller
 
         if ($root->slug === 'jobs') {
             return $this->jobs($category, $root, $request);
+        }
+
+        if ($root->slug === 'education') {
+            return $this->education($category, $root);
         }
 
         $usesListing = $root->slug === 'government-schemes';
