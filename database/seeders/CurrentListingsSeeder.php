@@ -99,7 +99,7 @@ class CurrentListingsSeeder extends Seeder
             'parent_id' => $root->id,
             'name' => 'Bank Schemes & Loans',
             'color' => $root->color,
-            'icon' => '🏦',
+            'icon' => 'banknote',
             'sort_order' => 8,
         ]);
     }

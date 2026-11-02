@@ -12,50 +12,50 @@ class CategorySeeder extends Seeder
     use SeedsImages;
 
     private const TREE = [
-        ['Jobs', 'jobs', '#2563EB', '💼', 'jobs-banner', 'Govt, Bank, Army & Police, Teaching, FPSC & PPSC', [
+        ['Jobs', 'jobs', '#2563EB', 'briefcase', 'jobs-banner', 'Govt, Bank, Army & Police, Teaching, FPSC & PPSC', [
             'Government Jobs', 'Private Jobs', 'Bank Jobs', 'Army & Police Jobs', 'Teaching Jobs',
             'WAPDA & Railway Jobs', 'FPSC & PPSC Jobs', 'Online & Work From Home Jobs', 'Latest Jobs in Pakistan',
         ]],
-        ['Government Schemes', 'government-schemes', '#0B6B4F', '🏛️', 'schemes-banner', 'Loans, Housing, Solar, Scholarships', [
+        ['Government Schemes', 'government-schemes', '#0B6B4F', 'landmark', 'schemes-banner', 'Loans, Housing, Solar, Scholarships', [
             'Government Financial Assistance', 'Housing Schemes', 'Youth Loan Schemes', 'Solar Schemes',
             'Student Scholarships', 'Business Support Programs', 'Registration Guides', 'Eligibility & Application Process', 'Bank Schemes & Loans',
         ]],
-        ['BISP 8171', 'bisp-8171', '#7C3AED', '💳', 'bisp-banner', 'Eligibility, Payments, CNIC Status, Survey', [
+        ['BISP 8171', 'bisp-8171', '#7C3AED', 'card', 'bisp-banner', 'Eligibility, Payments, CNIC Status, Survey', [
             'BISP Latest Updates', '8171 Eligibility Guide', 'Payment Updates', 'Registration & Dynamic Survey',
             'CNIC Status Check Guide', 'BISP Beneficiary Information', 'Official Portal Guides',
         ]],
-        ['News', 'news', '#D13B3B', '📰', 'news-banner', 'Pakistan, Govt Updates, Business, Tech', [
+        ['News', 'news', '#D13B3B', 'newspaper', 'news-banner', 'Pakistan, Govt Updates, Business, Tech', [
             'Pakistan News', 'Government Updates', 'Education News', 'Jobs News',
             'Technology News', 'Business News', 'Public Announcements',
         ]],
-        ['Education & Admissions', 'education', '#0E8FA3', '🎓', 'education-banner', 'BS, University, Entry Tests, Merit Lists', [
+        ['Education & Admissions', 'education', '#0E8FA3', 'graduation', 'education-banner', 'BS, University, Entry Tests, Merit Lists', [
             'BS Admissions', 'University Admissions', 'College Admissions', 'Entry Tests',
             'Results & Merit Lists', 'Scholarships', 'Matric & Intermediate', 'Degree Programs',
         ]],
     ];
 
     private const JOB_ICONS = [
-        'government-jobs' => '🏛️',
-        'private-jobs' => '🏢',
-        'bank-jobs' => '🏦',
-        'army-police-jobs' => '🛡️',
-        'teaching-jobs' => '📚',
-        'wapda-railway-jobs' => '⚡',
-        'fpsc-ppsc-jobs' => '📝',
-        'online-work-from-home-jobs' => '💻',
-        'latest-jobs-in-pakistan' => '🔔',
+        'government-jobs' => 'landmark',
+        'private-jobs' => 'building',
+        'bank-jobs' => 'banknote',
+        'army-police-jobs' => 'shield',
+        'teaching-jobs' => 'book',
+        'wapda-railway-jobs' => 'zap',
+        'fpsc-ppsc-jobs' => 'file',
+        'online-work-from-home-jobs' => 'laptop',
+        'latest-jobs-in-pakistan' => 'bell',
     ];
 
     private const SCHEME_ICONS = [
-        'government-financial-assistance' => '💰',
-        'housing-schemes' => '🏠',
-        'youth-loan-schemes' => '🌱',
-        'solar-schemes' => '☀️',
-        'student-scholarships' => '🎓',
-        'business-support-programs' => '💼',
-        'registration-guides' => '📝',
-        'eligibility-application-process' => '✅',
-        'bank-schemes-loans' => '🏦',
+        'government-financial-assistance' => 'wallet',
+        'housing-schemes' => 'home',
+        'youth-loan-schemes' => 'sprout',
+        'solar-schemes' => 'sun',
+        'student-scholarships' => 'graduation',
+        'business-support-programs' => 'users',
+        'registration-guides' => 'clipboard',
+        'eligibility-application-process' => 'check',
+        'bank-schemes-loans' => 'banknote',
     ];
 
     public function run(): void

@@ -2,11 +2,11 @@
     <div class="contact-info">
         <div class="page-card prose">{!! $page->safe_body !!}</div>
         <a class="contact-link" href="{{ url('write-for-us') }}">
-            <span class="ic">✍️</span>
+            <span class="ic"><x-site-icon name="pen" /></span>
             <span><b>Write for Us</b><small>Share an article idea with our team.</small></span>
         </a>
         <a class="contact-link" href="{{ url('editorial-policy') }}">
-            <span class="ic">✅</span>
+            <span class="ic"><x-site-icon name="check" /></span>
             <span><b>Editorial Policy</b><small>See how we check our information.</small></span>
         </a>
         @include('partials.disclaimer')

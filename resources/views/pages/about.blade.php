@@ -12,7 +12,7 @@
 <div class="grid">
     @foreach ($categories as $category)
         <a class="cat" style="--c:{{ $category->color }}" href="{{ $category->url() }}">
-            <div class="ic">{{ $category->icon }}</div>
+            <div class="ic"><x-site-icon :name="$category->icon" :size="26" /></div>
             <h3>{{ $category->name }}</h3>
             <p>{{ $category->description }}</p>
         </a>

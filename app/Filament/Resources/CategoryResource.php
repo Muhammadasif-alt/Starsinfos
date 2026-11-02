@@ -6,6 +6,7 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Support\SlugField;
 use App\Models\Category;
 use App\Models\Page;
+use App\Support\Icons;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -37,7 +38,7 @@ class CategoryResource extends Resource
             SlugField::title('name'),
             SlugField::topLevel(Page::class),
             ColorPicker::make('color')->required()->default('#0B6B4F'),
-            TextInput::make('icon')->maxLength(16)->helperText('An emoji, e.g. 💼'),
+            Select::make('icon')->options(Icons::options())->searchable(),
             TextInput::make('sort_order')->numeric()->default(0),
             Textarea::make('description')->rows(2)->columnSpanFull(),
             FileUpload::make('image')->image()->disk('public')->directory('categories')->maxSize(4096)->columnSpanFull(),

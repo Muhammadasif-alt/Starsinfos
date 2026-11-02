@@ -54,7 +54,7 @@
         <div class="job-cats">
             @foreach ($jobCategories as $jobCategory)
                 <a class="job-cat" href="{{ $jobCategory->url() }}">
-                    <span class="job-cat__icon">{{ $jobCategory->icon ?? '💼' }}</span>
+                    <span class="job-cat__icon"><x-site-icon :name="$jobCategory->icon" /></span>
                     <b>{{ $jobCategory->name }}</b>
                     <span class="job-cat__arrow" aria-hidden="true">→</span>
                 </a>
@@ -67,7 +67,7 @@
         @foreach ($jobs as $job)
             <a class="job-card" href="{{ $job->url() }}">
                 <div class="job-card__top">
-                    <span class="job-card__icon">{{ $job->category->icon ?? '💼' }}</span>
+                    <span class="job-card__icon"><x-site-icon :name="$job->category->icon" /></span>
                     <em @class(['job-card__badge', 'is-open' => ! $job->closing_date])>{{ $job->closing_label }}</em>
                 </div>
                 <h3>{{ $job->title }}</h3>
@@ -81,7 +81,7 @@
     <div class="grid">
         @foreach ($categories as $category)
             <a class="cat" style="--c:{{ $category->color }}" href="{{ $category->url() }}">
-                <div class="ic">{{ $category->icon }}</div>
+                <div class="ic"><x-site-icon :name="$category->icon" :size="26" /></div>
                 <h3>{{ $category->name }}</h3>
                 <p>{{ $category->description }}</p>
             </a>
@@ -131,7 +131,7 @@
         @endforeach
     </div>
 
-    <div class="sh"><h2>🎓 Admissions Calendar &amp; BISP Tools</h2><a href="{{ url('education') }}">All admissions →</a></div>
+    <div class="sh"><h2>Admissions Calendar &amp; BISP Tools</h2><a href="{{ url('education') }}">All admissions →</a></div>
     <div class="two">
         <div class="tw"><table>
             <tr><th>Program</th><th>Type</th><th>Last Date</th><th>Entry Test</th></tr>
@@ -145,7 +145,7 @@
             @endforeach
         </table></div>
         <div class="panel bisp">
-            <h3>💳 BISP 8171 Quick Tools</h3>
+            <h3 class="icon-title"><x-site-icon name="card" /> BISP 8171 Quick Tools</h3>
             @foreach ($bispTools as $tool)
                 <p>• <a href="{{ $tool->url() }}">{{ $tool->name }}</a></p>
             @endforeach

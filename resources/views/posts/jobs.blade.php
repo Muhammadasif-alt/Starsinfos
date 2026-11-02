@@ -6,7 +6,8 @@
 
 @section('hero')
     <x-listing-hero
-        eyebrow="💼 Career Opportunities"
+        icon="briefcase"
+        eyebrow="Career Opportunities"
         :title="$category->name"
         lead="Find Your Next Job in Pakistan"
         :crumbs="$category->parent
@@ -41,7 +42,7 @@
             <p class="jobs-search__divider"><span>Or explore by category</span></p>
             <div class="jobs-search__cats">
                 @foreach ($subcategories as $subcategory)
-                    <a href="{{ $subcategory->url() }}" @class(['active' => $subcategory->is($category)])><span aria-hidden="true">{{ $subcategory->icon }}</span>{{ $subcategory->name }}</a>
+                    <a href="{{ $subcategory->url() }}" @class(['active' => $subcategory->is($category)])><x-site-icon :name="$subcategory->icon" :size="18" />{{ $subcategory->name }}</a>
                 @endforeach
             </div>
         </form>
@@ -96,7 +97,7 @@
 
             @forelse ($posts as $post)
                 <a class="job-row" href="{{ $post->url() }}">
-                    <span class="job-row__icon" aria-hidden="true">{{ $post->category->icon ?? '💼' }}</span>
+                    <span class="job-row__icon"><x-site-icon :name="$post->category->icon" :size="30" /></span>
                     <span class="job-row__body">
                         <b>{{ $post->title }}</b>
                         <span>
@@ -127,7 +128,7 @@
     </div>
 
     <div class="jobs-cta">
-        <span class="jobs-cta__icon" aria-hidden="true">🤝</span>
+        <span class="jobs-cta__icon"><x-site-icon name="handshake" :size="44" /></span>
         <div>
             <h2>Build Your Career</h2>
             <p>Read practical tips on CVs, applications and interviews.</p>

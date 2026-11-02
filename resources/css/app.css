@@ -268,3 +268,15 @@ details{border-bottom:1px solid var(--line);padding:20px 4px}summary{font-size:1
 .status-pill.is-closed{background:#FDECEC;color:#B3261E}
 @media(max-width:960px){.scheme-strip{margin-top:-56px}}
 @media(max-width:640px){.scheme-strip{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.scheme-strip a{flex:none}}
+
+/* Single-colour green icons */
+.cat .ic,.job-cat__icon,.job-card__icon,.job-row__icon,.contact-link .ic,.jobs-cta__icon{display:inline-grid;place-items:center;color:var(--p2)}
+.cat .ic{background:#E6F3EC}
+.job-row__icon{color:var(--p2)}
+.jobs-cta__icon{color:#fff}
+.jobs-hero__eyebrow{display:inline-flex;align-items:center;gap:8px}
+.jobs-hero__eyebrow svg,.jobs-search__cats svg,.scheme-cats svg,.scheme-strip svg{color:var(--p2)}
+.jobs-search__cats a:hover svg,.jobs-search__cats a.active svg,.scheme-cats a.active svg{color:#fff}
+.scheme-cats a span{display:inline-flex;align-items:center;gap:8px}
+.icon-title{display:flex;align-items:center;gap:10px}
+.icon-title svg{color:var(--bisp)}

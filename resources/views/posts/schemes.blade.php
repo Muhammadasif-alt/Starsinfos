@@ -6,7 +6,8 @@
 
 @section('hero')
     <x-listing-hero
-        eyebrow="🏛️ Government Schemes"
+        icon="landmark"
+        eyebrow="Government Schemes"
         :title="$category->name"
         lead="Loans, housing, solar, scholarships and welfare programs"
         :crumbs="$category->parent
@@ -23,7 +24,7 @@
         <nav class="scheme-strip" aria-label="Popular scheme categories">
             @foreach ($subcategories->where('published_posts_count', '>', 0) as $subcategory)
                 <a href="{{ $subcategory->url() }}" @class(['active' => $subcategory->is($category)])>
-                    <span aria-hidden="true">{{ $subcategory->icon }}</span>{{ $subcategory->name }}
+                    <x-site-icon :name="$subcategory->icon" :size="28" />{{ $subcategory->name }}
                 </a>
             @endforeach
         </nav>
@@ -44,7 +45,7 @@
             </a>
             @foreach ($subcategories->where('published_posts_count', '>', 0) as $subcategory)
                 <a href="{{ $subcategory->url() }}" @class(['active' => $subcategory->is($category)])>
-                    <span><span aria-hidden="true">{{ $subcategory->icon }}</span> {{ $subcategory->name }}</span><em>{{ $subcategory->published_posts_count }}</em>
+                    <span><x-site-icon :name="$subcategory->icon" :size="18" /> {{ $subcategory->name }}</span><em>{{ $subcategory->published_posts_count }}</em>
                 </a>
             @endforeach
         </nav>
@@ -57,7 +58,7 @@
 
             @forelse ($posts as $post)
                 <a class="job-row" href="{{ $post->url() }}">
-                    <span class="job-row__icon" aria-hidden="true">{{ $post->category->icon ?? $root->icon }}</span>
+                    <span class="job-row__icon"><x-site-icon :name="$post->category->icon ?? $root->icon" :size="30" /></span>
                     <span class="job-row__body">
                         <b>{{ $post->title }}</b>
                         <span>{{ $post->excerpt }}</span>
