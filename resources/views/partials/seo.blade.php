@@ -5,6 +5,8 @@
 @endphp
 <title>{{ $seoTitle }}</title>
 <meta name="description" content="{{ $seoDescription }}">
+<link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
 <link rel="canonical" href="{{ $seoUrl }}">
 <meta property="og:site_name" content="{{ config('app.name') }}">
 <meta property="og:type" content="{{ $type ?? 'website' }}">

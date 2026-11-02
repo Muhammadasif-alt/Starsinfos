@@ -1,7 +1,7 @@
 <footer style="--img:url('{{ asset('images/footer-skyline.jpg') }}')"><div class="wrap">
     <div class="cols">
         <div class="footer-about">
-            <h5>{{ config('app.name') }}</h5>
+            <a class="footer-logo" href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" width="180" height="48" loading="lazy"></a>
             <p>{{ $footerText }}</p>
         </div>
         <div>
