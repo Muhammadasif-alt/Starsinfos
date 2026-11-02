@@ -40,14 +40,6 @@ class PostSeeder extends Seeder
             ['official-portal-guides', 'How to Use the BISP Official Portal', 'bisp-mobile', null, []],
             ['bisp-latest-updates', 'BISP Latest Updates: What Is New?', 'bisp-office', null, []],
         ],
-        'https://www.pakistan.gov.pk/news' => [
-            ['government-updates', 'Government Announces New Public Update', 'news-banner', null, []],
-            ['pakistan-news', 'Pakistan News – This Week in Brief', 'news-banner', null, []],
-            ['education-news', 'Education News – Admissions Season Begins', 'education-banner', null, []],
-            ['jobs-news', 'Jobs News – Recruitment Announcements Roundup', 'jobs-blocks', null, []],
-            ['technology-news', 'Technology News – Digital Services for Citizens', 'news-banner', null, []],
-            ['business-news', 'Business News – Support for Small Businesses', 'news-banner', null, []],
-        ],
         'https://www.hec.gov.pk' => [
             ['bs-admissions', 'BS Admissions Open – Merit List & Entry Test Dates', 'education-banner', 10, []],
             ['entry-tests', 'Entry Test Schedule for BS Programs', 'education-banner', 18, ['is_trending']],

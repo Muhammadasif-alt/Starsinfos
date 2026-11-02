@@ -97,7 +97,7 @@
 
             @forelse ($posts as $post)
                 <a class="job-row" href="{{ $post->url() }}">
-                    <span class="job-row__icon"><x-site-icon :name="$post->category->icon" :size="30" /></span>
+                    <span class="job-row__icon"><x-site-icon name="landmark-solid" :size="34" /></span>
                     <span class="job-row__body">
                         <b>{{ $post->title }}</b>
                         <span>

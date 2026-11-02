@@ -54,12 +54,12 @@ class ContentController extends Controller
         return view('posts.show', compact('post', 'root', 'related'));
     }
 
-    /** Highlight cards on the Education & Admissions page: subcategory slug => [title, text, call to action]. */
+    /** Highlight cards on the Education & Admissions page: subcategory slug => [title, text, call to action, background image]. */
     private const EDUCATION_HIGHLIGHTS = [
-        'bs-admissions' => ['Admissions 2026', 'Apply for BS and other degree programs.', 'View Details'],
-        'scholarships' => ['Scholarships', 'Find national and international scholarships.', 'View Opportunities'],
-        'entry-tests' => ['Entry Tests', 'Prepare for tests such as NTS, ECAT and MDCAT.', 'Start Preparation'],
-        'results-merit-lists' => ['Results & Merit Lists', 'Check results and merit lists online.', 'Check Now'],
+        'bs-admissions' => ['Admissions 2026', 'Apply for BS and other degree programs.', 'View Details', 'edu-admissions.jpg'],
+        'scholarships' => ['Scholarships', 'Find national and international scholarships.', 'View Opportunities', 'edu-scholarships.jpg'],
+        'entry-tests' => ['Entry Tests', 'Prepare for tests such as NTS, ECAT and MDCAT.', 'Start Preparation', 'edu-entry-tests.jpg'],
+        'results-merit-lists' => ['Results & Merit Lists', 'Check results and merit lists online.', 'Check Now', 'edu-results.jpg'],
     ];
 
     private function education(Category $category, Category $root): View
@@ -67,7 +67,7 @@ class ContentController extends Controller
         $subcategories = $root->children()->with('parent')->get();
 
         $highlights = collect(self::EDUCATION_HIGHLIGHTS)
-            ->map(fn (array $copy, string $slug) => ['category' => $subcategories->firstWhere('slug', $slug)] + array_combine(['title', 'text', 'cta'], $copy))
+            ->map(fn (array $copy, string $slug) => ['category' => $subcategories->firstWhere('slug', $slug)] + array_combine(['title', 'text', 'cta', 'image'], $copy))
             ->filter(fn (array $highlight) => $highlight['category'])
             ->values();
 

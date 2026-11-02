@@ -36,7 +36,7 @@
     @unless ($category->parent)
         <div class="edu-cards">
             @foreach ($highlights as $highlight)
-                <a class="edu-card" href="{{ $highlight['category']->url() }}">
+                <a class="edu-card" style="--img:url('{{ asset('images/'.$highlight['image']) }}')" href="{{ $highlight['category']->url() }}">
                     <span class="edu-card__icon"><x-site-icon :name="$highlight['category']->icon" :size="30" /></span>
                     <h2>{{ $highlight['title'] }}</h2>
                     <p>{{ $highlight['text'] }}</p>

@@ -24,10 +24,6 @@ class CategorySeeder extends Seeder
             'BISP Latest Updates', '8171 Eligibility Guide', 'Payment Updates', 'Registration & Dynamic Survey',
             'CNIC Status Check Guide', 'BISP Beneficiary Information', 'Official Portal Guides',
         ]],
-        ['News', 'news', '#D13B3B', 'newspaper', 'news-banner', 'Pakistan, Govt Updates, Business, Tech', [
-            'Pakistan News', 'Government Updates', 'Education News', 'Jobs News',
-            'Technology News', 'Business News', 'Public Announcements',
-        ]],
         ['Education & Admissions', 'education', '#0E8FA3', 'graduation', 'education-banner', 'BS, University, Entry Tests, Merit Lists', [
             'BS Admissions', 'University Admissions', 'College Admissions', 'Entry Tests',
             'Results & Merit Lists', 'Scholarships', 'Matric & Intermediate', 'Degree Programs',

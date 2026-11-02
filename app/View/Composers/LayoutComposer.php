@@ -11,10 +11,10 @@ use Illuminate\View\View;
 
 class LayoutComposer
 {
-    /** Position of the Blog link in the header menu, after News. */
-    private const BLOG_MENU_POSITION = 3;
+    /** Position of the Blog link in the header menu, after Government Schemes. */
+    private const BLOG_MENU_POSITION = 2;
 
-    private const MENU_ORDER = ['jobs', 'government-schemes', 'news', 'education'];
+    private const MENU_ORDER = ['jobs', 'government-schemes', 'education'];
 
     /** Categories that stay live but are left out of the header menu. */
     private const MENU_HIDDEN = ['bisp-8171'];

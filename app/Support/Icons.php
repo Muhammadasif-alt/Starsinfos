@@ -29,6 +29,7 @@ class Icons
         'card' => '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
         'newspaper' => '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2m12 5h-8m5 4h-5m0-12h8v4h-8z"/>',
         'pen' => '<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+        'landmark-solid' => '<path d="M12 1.5 1.5 7v2.5h21V7z"/><path d="M3.5 11h3.2v7.5H3.5zm6.9 0h3.2v7.5h-3.2zm6.9 0h3.2v7.5h-3.2zM1.5 20h21v2.5h-21z"/>',
         'award' => '<circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/>',
         'chart' => '<path d="M3 3v18h18"/><path d="M18 17V9m-5 8V5m-5 12v-3"/>',
         'handshake' => '<path d="m11 17 2 2a1 1 0 1 0 3-3m-3.5-3.5 2.5 2.5a1 1 0 1 0 3-3l-3.9-3.9a2.8 2.8 0 0 0-4 0l-.9.9a1 1 0 1 1-3-3l2.8-2.8a5.8 5.8 0 0 1 7 1l.7.7 2.8 2.8M2 9l4-4m16 8-4 4M6 9l-4 4 4 4"/>',
@@ -38,7 +39,11 @@ class Icons
     {
         $paths = self::PATHS[$name] ?? self::PATHS[self::DEFAULT];
 
-        return '<svg width="'.$size.'" height="'.$size.'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'.$paths.'</svg>';
+        $paint = str_ends_with((string) $name, '-solid')
+            ? 'fill="currentColor"'
+            : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+
+        return '<svg width="'.$size.'" height="'.$size.'" viewBox="0 0 24 24" '.$paint.' aria-hidden="true">'.$paths.'</svg>';
     }
 
     /** @return array<string, string> name => label, for select inputs */

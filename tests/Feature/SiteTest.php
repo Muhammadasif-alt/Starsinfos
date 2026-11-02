@@ -30,8 +30,8 @@ class SiteTest extends TestCase
 
     public function test_seed_matches_the_brief(): void
     {
-        $this->assertSame(5, Category::whereNull('parent_id')->count());
-        $this->assertSame(30, Post::count());
+        $this->assertSame(4, Category::whereNull('parent_id')->count());
+        $this->assertSame(24, Post::count());
         $this->assertSame(4, BlogPost::count());
 
         Category::whereNull('parent_id')->get()->each(
@@ -64,7 +64,7 @@ class SiteTest extends TestCase
     {
         $this->get('/jobs')->assertOk()->assertSee('jobs-filter', false);
         $this->get('/government-schemes/solar-schemes')->assertOk()->assertSee('scheme-cats', false);
-        $this->get('/news')->assertOk()->assertDontSee('scheme-cats', false);
+        $this->get('/bisp-8171')->assertOk()->assertDontSee('scheme-cats', false);
         $this->get('/education')->assertOk()->assertSee('edu-updates', false)->assertSee('Admissions Calendar');
         $this->get('/education/entry-tests')->assertOk()->assertSee('edu-updates', false)->assertDontSee('edu-cards', false);
     }
@@ -106,7 +106,7 @@ class SiteTest extends TestCase
     public function test_drafts_and_posts_under_the_wrong_category_are_hidden(): void
     {
         $post = Post::with('category.parent')->first();
-        $this->get('/news/'.$post->slug)->assertNotFound();
+        $this->get('/bisp-8171/'.$post->slug)->assertNotFound();
 
         $post->update(['status' => 'draft']);
         $this->get($post->url())->assertNotFound();

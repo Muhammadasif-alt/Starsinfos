@@ -90,6 +90,7 @@
 
     @include('partials.disclaimer')
 
+    @if ($featured || $trending->isNotEmpty())
     <div class="sh"><h2>Trending Now</h2><a href="{{ route('search') }}">View all →</a></div>
     <div class="feat">
         @if ($featured)
@@ -116,6 +117,7 @@
             @endforeach
         </div>
     </div>
+    @endif
 
     <div class="sh"><h2>How to Apply (Simple Steps)</h2></div>
     <div class="steps">

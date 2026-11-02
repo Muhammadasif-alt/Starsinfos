@@ -22,7 +22,7 @@ class PageSeeder extends Seeder
         $site = config('app.name');
 
         $pages = [
-            'about-us' => ['About Us', "<p>{$site} is an information website for Pakistan that brings together jobs, government schemes, BISP 8171, admissions and news in one place.</p><p>Our aim is to explain complicated information in simple language and to reference the official source in every guide.</p>"],
+            'about-us' => ['About Us', "<p>{$site} is an information website for Pakistan that brings together jobs, government schemes, BISP 8171 and admissions in one place.</p><p>Our aim is to explain complicated information in simple language and to reference the official source in every guide.</p>"],
             'contact-us' => ['Contact Us', '<p>Have a question, correction or suggestion? Contact us using the form below.</p>'],
             'privacy-policy' => ['Privacy Policy', "<p>{$site} collects only the information you choose to give us, such as your email address for the newsletter or your contact form details.</p><h2>How we use your information</h2><p>Your information is used only to send updates and reply to your questions. It is never sold.</p><h2>Cookies</h2><p>This website uses the cookies needed for sessions and security.</p>"],
             'disclaimer' => ['Disclaimer', "<p>{$site} is an information website, not an official government portal. We are not affiliated with any government organization.</p><p>Always confirm details with the official source before applying. We do not charge a fee for any application.</p>"],
