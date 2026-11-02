@@ -56,14 +56,6 @@ class PostSeeder extends Seeder
             ['scholarships', 'Scholarships for Pakistani Students', 'education-banner', null, []],
             ['results-merit-lists', 'Results & Merit Lists: How to Check Them', 'education-banner', null, []],
         ],
-        '' => [
-            ['living-room-ideas', '10 Small Living Room Ideas on a Budget', 'decor-living-ideas', null, []],
-            ['indoor-home-decor', 'Bold Colours for a Modern Indoor Look', 'decor-green-lounge', null, []],
-            ['furniture-lighting', 'Furniture & Lighting Tips for Warm Rooms', 'decor-warm-living', null, []],
-            ['small-house-design', 'Small House Design – Space Saving Ideas', 'decor-neutral-lounge', null, []],
-            ['diy-decoration-ideas', 'DIY Decoration Ideas for Every Room', 'decor-window-seat', null, []],
-            ['outdoor-home-decor', 'Classic Pakistani Drawing Room Styling', 'decor-classic-lounge', null, []],
-        ],
     ];
 
     public function run(): void

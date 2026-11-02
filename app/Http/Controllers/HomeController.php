@@ -45,8 +45,6 @@ class HomeController extends Controller
             'bispEligibility' => Category::with('parent')->where('slug', '8171-eligibility-guide')->first(),
             'latestPosts' => Post::with($withCategory)->latestPublished()->take(6)->get(),
             'admissions' => Admission::whereDate('last_date', '>=', today())->orderBy('sort_order')->get(),
-            'decor' => $roots->firstWhere('slug', 'home-decor'),
-            'decorTiles' => $this->decorTiles($roots->firstWhere('slug', 'home-decor')),
             'featuredBlog' => $featuredBlog,
             'latestBlogs' => $blogPosts->reject(fn (BlogPost $post) => $post->is($featuredBlog))->take(3),
             'faqs' => Faq::where('is_active', true)->orderBy('sort_order')->get(),
@@ -60,14 +58,5 @@ class HomeController extends Controller
             ->published()
             ->whereIn('category_id', $jobs ? $jobs->familyIds() : [])
             ->where(fn ($query) => $query->whereNull('closing_date')->orWhereDate('closing_date', '>=', today()));
-    }
-
-    private function decorTiles(?Category $decor)
-    {
-        if (! $decor) {
-            return collect();
-        }
-
-        return $decor->children()->with('parent')->reorder()->orderByRaw('image is null')->orderBy('sort_order')->take(6)->get();
     }
 }

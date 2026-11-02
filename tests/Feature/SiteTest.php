@@ -30,9 +30,9 @@ class SiteTest extends TestCase
 
     public function test_seed_matches_the_brief(): void
     {
-        $this->assertSame(6, Category::whereNull('parent_id')->count());
-        $this->assertSame(36, Post::count());
-        $this->assertSame(4, BlogPost::count());
+        $this->assertSame(5, Category::whereNull('parent_id')->count());
+        $this->assertSame(30, Post::count());
+        $this->assertSame(3, BlogPost::count());
 
         Category::whereNull('parent_id')->get()->each(
             fn (Category $root) => $this->assertSame(6, Post::whereIn('category_id', $root->familyIds())->count(), $root->slug),
@@ -43,7 +43,7 @@ class SiteTest extends TestCase
     {
         $this->get('/')->assertOk()->assertSeeInOrder([
             'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Browse Categories', 'Disclaimer', 'Trending Now',
-            'How to Apply', 'Latest Posts', 'Admissions Calendar', 'Home &amp; Decor Ideas',
+            'How to Apply', 'Latest Posts', 'Admissions Calendar',
             'From Our Blog', 'Frequently Asked Questions', 'id="newsletter"', '<footer>',
         ], false)->assertSee('FAQPage', false);
     }

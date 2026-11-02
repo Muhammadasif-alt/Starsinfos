@@ -144,13 +144,6 @@
         </div>
     </div>
 
-    <div class="sh"><h2>🛋️ Home &amp; Decor Ideas</h2>@if ($decor)<a href="{{ $decor->url() }}">More ideas →</a>@endif</div>
-    <div class="gal">
-        @foreach ($decorTiles as $tile)
-            <a @class(['tile', 'has-img' => $tile->image_url]) style="--c:{{ $tile->color }}@if ($tile->image_url);--img:url('{{ $tile->image_url }}')@endif" href="{{ $tile->url() }}">{{ $tile->name }}</a>
-        @endforeach
-    </div>
-
     <div class="sh"><h2>✍️ From Our Blog</h2><a href="{{ route('blog.index') }}">All blog posts →</a></div>
     <div class="blog">
         @if ($featuredBlog)

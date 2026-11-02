@@ -1,7 +1,7 @@
 /* Homepage design styles */
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 --bg:#FFFFFF;--card:#fff;--ink:#12251E;--mute:#5B6B64;--line:#DCE6E1;--p:#0B6B4F;--p2:#084F3A;--acc:#F2A900;
---jobs:#2563EB;--decor:#C2652A;--sch:#0B6B4F;--news:#D13B3B;--bisp:#7C3AED;--edu:#0E8FA3}
+--jobs:#2563EB;--sch:#0B6B4F;--news:#D13B3B;--bisp:#7C3AED;--edu:#0E8FA3}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -24,7 +24,7 @@ nav a:hover{background:#F2F8F5;color:var(--p)}
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .chips span,.chips a{background:#fff;border:1px solid var(--line);color:var(--p);padding:7px 16px;border-radius:99px;font-size:14px}
 h2{font-size:30px;line-height:1.2;margin:48px 0 20px}
-.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
 .cat{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:14px;padding:26px 22px}
 .cat .ic{font-size:36px}.cat h3{margin:10px 0 6px;font-size:20px;line-height:1.25}.cat p{margin:0;font-size:15px;color:var(--mute)}
 .cat:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
@@ -49,7 +49,6 @@ footer .cp{border-top:1px solid rgba(255,255,255,.2);margin-top:32px;padding-top
 .bisp{background:linear-gradient(160deg,#F4EEFF,#fff);border-color:#DCCBFB}.bisp p{font-size:17px;color:var(--mute);margin:0 0 14px}.btn{display:block;text-align:center;background:var(--bisp);color:#fff;border-radius:12px;padding:15px;font-weight:700;margin-top:22px}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 26px}.step i{font-style:normal;display:inline-grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--p);color:#fff;font-size:19px;font-weight:700;margin-bottom:14px}.step h4{margin:0 0 8px;font-size:20px}.step p{margin:0;font-size:15px;color:var(--mute)}
 .tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:16px;background:var(--card);border:1px solid var(--line)}th,td{padding:18px 22px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}th{background:#F2F8F5;color:var(--p2)}
-.gal{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}.tile{border-radius:16px;height:240px;padding:18px;color:#fff;font-size:18px;line-height:1.25;font-weight:700;display:flex;align-items:end;background:var(--c)}
 details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:14px}summary{font-size:18px;font-weight:600;cursor:pointer}details p{margin:12px 0 0;color:var(--mute);font-size:16px}
 .nl{background:linear-gradient(135deg,#0B6B4F,#0E8FA3);color:#fff;border-radius:22px;padding:64px 32px;margin-top:80px;text-align:center}.nl h3{margin:0 0 10px;font-size:34px;line-height:1.2}.nl p{margin:0 0 24px;opacity:.9;font-size:18px}.nl .row{display:flex;gap:10px;max-width:620px;margin:0 auto}.nl input{flex:1;border:0;border-radius:12px;padding:17px 20px;min-width:0;font-size:17px}.nl button{border:0;border-radius:12px;background:var(--acc);font-size:16px;font-weight:700;padding:0 30px;cursor:pointer}
 .blog{display:grid;grid-template-columns:1.2fr 1fr;gap:24px}.bl{display:flex;flex-direction:column;gap:18px}
@@ -60,9 +59,9 @@ details{background:var(--card);border:1px solid var(--line);border-radius:14px;p
 @media(max-width:820px){.feat,.two{grid-template-columns:minmax(0,1fr)}.stats__bar{grid-template-columns:repeat(2,1fr)}}
 
 /* The full menu labels need more room than the design's short ones, so it collapses earlier. */
-@media(max-width:1100px){.gal,.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:960px){.posts{grid-template-columns:repeat(2,1fr)}.hero{padding:64px 0 116px}.hero__inner{grid-template-columns:minmax(0,1fr);gap:40px}.big{min-height:360px}}
-@media(max-width:640px){.gal,.grid{grid-template-columns:repeat(2,1fr)}.wrap{padding:0 16px}.posts{grid-template-columns:1fr}.hero{padding:44px 0 108px}.search input{padding:15px;font-size:16px}.search button{padding:0 20px;font-size:15px}.big{padding:24px}.big h3{font-size:26px}.sh{margin-top:52px}h2{font-size:25px}.panel{padding:22px}.tile{height:170px}.nl{padding:40px 20px;margin-top:56px}.nl h3{font-size:26px}.nl .row{flex-direction:column}.nl button{padding:14px}.bimg{width:96px;min-width:96px;height:96px}.bpost{gap:14px;padding:12px}.bpost h4{font-size:16px}.stat b{font-size:30px}}
+@media(max-width:640px){.grid{grid-template-columns:repeat(2,1fr)}.wrap{padding:0 16px}.posts{grid-template-columns:1fr}.hero{padding:44px 0 108px}.search input{padding:15px;font-size:16px}.search button{padding:0 20px;font-size:15px}.big{padding:24px}.big h3{font-size:26px}.sh{margin-top:52px}h2{font-size:25px}.panel{padding:22px}.nl{padding:40px 20px;margin-top:56px}.nl h3{font-size:26px}.nl .row{flex-direction:column}.nl button{padding:14px}.bimg{width:96px;min-width:96px;height:96px}.bpost{gap:14px;padding:12px}.bpost h4{font-size:16px}.stat b{font-size:30px}}
 
 @media(max-width:960px){nav{display:none;position:absolute;top:76px;left:0;right:0;background:var(--card);flex-direction:column;padding:8px 16px;border-bottom:1px solid var(--line)}
 nav.open{display:flex}.burger{display:block}}
@@ -74,7 +73,6 @@ nav.open{display:flex}.burger{display:block}}
 .bimg{overflow:hidden}
 .hero .search{border-color:#fff;box-shadow:0 18px 44px rgba(0,0,0,.28)}.hero .chips a{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}.hero .chips a:hover{background:#fff;color:var(--p2)}
 .big.has-img{background:linear-gradient(to top,rgba(8,30,23,.96) 22%,rgba(8,30,23,.8) 38%,rgba(8,30,23,0) 62%),var(--img) top/cover}
-.tile.has-img{background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,.1) 65%),var(--img) center/cover}
 .av img{width:100%;height:100%;border-radius:50%;object-fit:cover}
 .li,.job span a{min-width:0}
 .job a:hover,.bisp a:not(.btn):hover,.li:hover{color:var(--p)}

@@ -32,20 +32,6 @@ class CategorySeeder extends Seeder
             'BS Admissions', 'University Admissions', 'College Admissions', 'Entry Tests',
             'Results & Merit Lists', 'Scholarships', 'Matric & Intermediate', 'Degree Programs',
         ]],
-        ['Home & Decor', 'home-decor', '#C2652A', '🛋️', 'decor-banner', 'Living Room, Kitchen, Garden, DIY Ideas', [
-            'Indoor Home Decor', 'Outdoor Home Decor', 'Living Room Ideas', 'Bedroom Design', 'Kitchen Design',
-            'Bathroom Design', 'Garden & Balcony', 'Furniture & Lighting', 'Small House Design', 'DIY Decoration Ideas',
-        ]],
-    ];
-
-    /** Subcategories shown as gallery tiles on the homepage: slug => [image, tile colour]. */
-    private const DECOR_TILES = [
-        'living-room-ideas' => ['decor-living-ideas', '#C2652A'],
-        'garden-balcony' => ['decor-neutral-lounge', '#0B6B4F'],
-        'kitchen-design' => ['decor-window-seat', '#7C5A3A'],
-        'bedroom-design' => ['decor-green-lounge', '#0E8FA3'],
-        'small-house-design' => ['decor-warm-living', '#B4572F'],
-        'diy-decoration-ideas' => ['decor-classic-lounge', '#5B6B64'],
     ];
 
     private const JOB_ICONS = [
@@ -74,14 +60,12 @@ class CategorySeeder extends Seeder
 
             foreach ($children as $childOrder => $childName) {
                 $childSlug = Str::slug($childName);
-                [$tileImage, $tileColor] = self::DECOR_TILES[$childSlug] ?? [null, $color];
 
                 Category::updateOrCreate(['slug' => $childSlug], [
                     'parent_id' => $root->id,
                     'name' => $childName,
-                    'color' => $tileColor,
+                    'color' => $color,
                     'icon' => self::JOB_ICONS[$childSlug] ?? null,
-                    'image' => $this->seedImage($tileImage),
                     'sort_order' => $childOrder,
                 ]);
             }

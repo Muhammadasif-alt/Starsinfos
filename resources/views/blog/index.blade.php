@@ -1,13 +1,13 @@
 @extends('layouts.app', ['seo' => [
     'title' => 'Blog',
-    'description' => 'Practical guides and tips on jobs, government schemes, education and home decor.',
+    'description' => 'Practical guides and tips on jobs, government schemes and education.',
     'canonical' => route('blog.index'),
 ]])
 
 @section('hero')
     <x-page-hero
         title="Our Blog"
-        lead="Practical guides and tips on jobs, government schemes, education and home decor."
+        lead="Practical guides and tips on jobs, government schemes and education."
         variant="dark"
         :crumbs="['Home' => route('home'), 'Blog' => null]"
     >

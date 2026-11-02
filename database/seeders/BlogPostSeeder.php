@@ -18,7 +18,6 @@ class BlogPostSeeder extends Seeder
         ['7 Things to Know Before Applying for a Government Scheme', 'Documents, eligibility and the common mistakes that get applications rejected.', 'government-schemes', 'schemes-banner', 'Admin', true],
         ['How to Write a CV: Tips for Jobs in Pakistan', 'Simple ways to build a clear and effective CV.', 'jobs', 'jobs-illustration', 'Sara', false],
         ['Entry Test Preparation: A 30-Day Plan', 'A simple month-long study plan with revision tips.', 'education', 'education-banner', 'Ali', false],
-        ['Give Your Home a New Look on a Small Budget', 'Affordable ideas to refresh your home.', 'home-decor', 'decor-warm-living', 'Maria', false],
     ];
 
     public function run(): void

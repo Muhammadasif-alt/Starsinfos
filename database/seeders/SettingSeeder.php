@@ -20,7 +20,7 @@ class SettingSeeder extends Seeder
                 ['label' => 'Work From Home', 'url' => '/jobs/online-work-from-home-jobs'],
             ],
             'stats' => [
-                ['value' => '6', 'label' => 'Main Categories'],
+                ['value' => '5', 'label' => 'Main Categories'],
                 ['value' => '50+', 'label' => 'Topics Covered'],
                 ['value' => 'Daily', 'label' => 'Fresh Updates'],
                 ['value' => '100%', 'label' => 'Verified Sources'],
