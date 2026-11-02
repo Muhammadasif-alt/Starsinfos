@@ -1,15 +1,15 @@
 @extends('layouts.app', ['seo' => [
-    'title' => 'Blog',
-    'description' => 'Practical guides and tips on jobs, government schemes and education.',
+    'title' => 'Career Advice',
+    'description' => 'Practical tips on CVs, job applications, interviews and entry tests.',
     'canonical' => route('blog.index'),
 ]])
 
 @section('hero')
     <x-page-hero
-        title="Our Blog"
-        lead="Practical guides and tips on jobs, government schemes and education."
+        title="Career Advice"
+        lead="Practical tips on CVs, job applications, interviews and entry tests."
         variant="dark"
-        :crumbs="['Home' => route('home'), 'Blog' => null]"
+        :crumbs="['Home' => route('home'), 'Career Advice' => null]"
     >
         <div class="chips">
             <a href="{{ route('blog.index') }}" @class(['active' => ! $activeCategory])>All</a>

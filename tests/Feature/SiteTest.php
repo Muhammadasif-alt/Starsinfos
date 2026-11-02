@@ -44,7 +44,7 @@ class SiteTest extends TestCase
         $this->get('/')->assertOk()->assertSeeInOrder([
             'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Browse Categories', 'Disclaimer', 'Trending Now',
             'How to Apply', 'Latest Posts', 'Admissions Calendar',
-            'From Our Blog', 'Frequently Asked Questions', 'id="newsletter"', '<footer>',
+            'Career Advice', 'Frequently Asked Questions', 'id="newsletter"', '<footer>',
         ], false)->assertSee('FAQPage', false);
     }
 
@@ -64,8 +64,8 @@ class SiteTest extends TestCase
     {
         $response = $this->get('/')->assertOk();
 
-        $this->assertStringNotContainsString('BISP 8171', Str::between($response->getContent(), '<nav id="m"', '</nav>'));
-        $this->assertStringContainsString('>Blog<', Str::between($response->getContent(), '<nav id="m"', '</nav>'));
+        $this->assertStringNotContainsString('BISP 8171', Str::betweenFirst($response->getContent(), '<nav id="m"', '</nav>'));
+        $this->assertStringContainsString('>Career Advice<', Str::betweenFirst($response->getContent(), '<nav id="m"', '</nav>'));
         $response->assertSee('BISP 8171 Quick Tools');
 
         $this->get('/bisp-8171')->assertOk();
@@ -73,9 +73,9 @@ class SiteTest extends TestCase
 
     public function test_disclaimer_only_shows_on_bisp_and_schemes(): void
     {
-        $this->get('/bisp-8171')->assertSee('not an official government portal');
-        $this->get('/government-schemes/solar-schemes')->assertSee('not an official government portal');
-        $this->get('/jobs')->assertDontSee('not an official government portal');
+        $this->get('/bisp-8171')->assertSee('<b>Disclaimer:</b>', false);
+        $this->get('/government-schemes/solar-schemes')->assertSee('<b>Disclaimer:</b>', false);
+        $this->get('/jobs')->assertDontSee('<b>Disclaimer:</b>', false);
     }
 
     public function test_drafts_and_posts_under_the_wrong_category_are_hidden(): void

@@ -15,7 +15,7 @@
         :title="$post->title"
         :lead="$post->excerpt"
         variant="dark"
-        :crumbs="['Home' => route('home'), 'Blog' => route('blog.index'), $post->title => null]"
+        :crumbs="['Home' => route('home'), 'Career Advice' => route('blog.index'), $post->title => null]"
     >
         <div class="meta">
             @include('partials.avatar', ['user' => $post->author])

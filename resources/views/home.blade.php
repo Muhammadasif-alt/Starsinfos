@@ -22,12 +22,12 @@
             </div>
         </div>
 
-        @if ($closingSoon->isNotEmpty())
-            <aside class="hero-card" aria-label="Jobs closing soon">
-                <h2>⏰ Closing Soon</h2>
-                @foreach ($closingSoon as $job)
+        @if ($newJobs->isNotEmpty())
+            <aside class="hero-card" aria-label="New jobs">
+                <h2>New Jobs</h2>
+                @foreach ($newJobs as $job)
                     <a class="hero-card__job" href="{{ $job->url() }}">
-                        <span class="hero-card__icon">{{ $job->category->icon ?? '💼' }}</span>
+                        <span class="new-badge">New</span>
                         <span>
                             <b>{{ $job->title }}</b>
                             <small>{{ $job->category->name }} · {{ $job->closing_label }}</small>
@@ -53,11 +53,7 @@
         <div class="sh"><h2>Find Jobs by Category</h2>@if ($jobsCategory)<a href="{{ $jobsCategory->url() }}">All jobs →</a>@endif</div>
         <div class="job-cats">
             @foreach ($jobCategories as $jobCategory)
-                <a class="job-cat" href="{{ $jobCategory->url() }}">
-                    <span class="job-cat__icon">{{ $jobCategory->icon ?? '💼' }}</span>
-                    <b>{{ $jobCategory->name }}</b>
-                    <span class="job-cat__arrow" aria-hidden="true">→</span>
-                </a>
+                <a class="job-cat" href="{{ $jobCategory->url() }}"><span aria-hidden="true">{{ $jobCategory->icon ?? '💼' }}</span>{{ $jobCategory->name }}</a>
             @endforeach
         </div>
     @endif
@@ -66,12 +62,13 @@
     <div class="job-grid">
         @foreach ($jobs as $job)
             <a class="job-card" href="{{ $job->url() }}">
-                <span class="job-cat__icon">{{ $job->category->icon ?? '💼' }}</span>
-                <div class="job-card__body">
-                    <h3>{{ $job->title }}</h3>
-                    <small>{{ $job->category->name }}</small>
+                <div class="job-card__top">
+                    <span class="job-card__icon">{{ $job->category->icon ?? '💼' }}</span>
+                    <em @class(['job-card__badge', 'is-open' => ! $job->closing_date])>{{ $job->closing_label }}</em>
                 </div>
-                <em @class(['job-card__badge', 'is-open' => ! $job->closing_date])>{{ $job->closing_label }}</em>
+                <h3>{{ $job->title }}</h3>
+                <small>{{ $job->category->name }}</small>
+                <span class="job-card__cta">View details →</span>
             </a>
         @endforeach
     </div>
@@ -100,7 +97,18 @@
         @endif
         <div class="list">
             @foreach ($trending as $post)
-                <a class="li" href="{{ $post->url() }}"><span class="num">{{ $loop->iteration }}</span>{{ $post->title }}</a>
+                <a class="li" style="--c:{{ $post->category->color }}" href="{{ $post->url() }}">
+                    <span class="li__thumb">
+                        @if ($post->image_url)
+                            <img src="{{ $post->image_url }}" alt="" loading="lazy">
+                        @endif
+                    </span>
+                    <span>
+                        <span class="tag">{{ $post->category->root()->name }}</span>
+                        <b>{{ $post->title }}</b>
+                        <small>{{ $post->published_at->format('j M Y') }}</small>
+                    </span>
+                </a>
             @endforeach
         </div>
     </div>
@@ -143,35 +151,11 @@
         </div>
     </div>
 
-    <div class="sh"><h2>✍️ From Our Blog</h2><a href="{{ route('blog.index') }}">All blog posts →</a></div>
-    <div class="blog">
-        @if ($featuredBlog)
-            <a class="bfeat" style="--c:{{ $featuredBlog->category?->color ?? '#0B6B4F' }}" href="{{ $featuredBlog->url() }}">
-                <div class="bi">
-                    @if ($featuredBlog->image_url)
-                        <img src="{{ $featuredBlog->image_url }}" alt="{{ $featuredBlog->title }}" loading="lazy">
-                    @endif
-                </div>
-                <div class="bd">
-                    @if ($featuredBlog->category)
-                        <span class="tag">{{ $featuredBlog->category->name }}</span>
-                    @endif
-                    <h3>{{ $featuredBlog->title }}</h3>
-                    <p>{{ $featuredBlog->excerpt }}</p>
-                    <div class="meta">
-                        @include('partials.avatar', ['user' => $featuredBlog->author])
-                        <span>{{ $featuredBlog->author->name }}</span>
-                        <span>· {{ $featuredBlog->published_at->format('j M Y') }}</span>
-                        <span>· {{ $featuredBlog->read_time }} min read</span>
-                    </div>
-                </div>
-            </a>
-        @endif
-        <div class="bl">
-            @foreach ($latestBlogs as $post)
-                @include('partials.blog-row')
-            @endforeach
-        </div>
+    <div class="sh"><h2>Career Advice</h2><a href="{{ route('blog.index') }}">All career advice →</a></div>
+    <div class="posts">
+        @foreach ($careerPosts as $post)
+            @include('partials.blog-card')
+        @endforeach
     </div>
 
     <div class="sh"><h2>Frequently Asked Questions</h2></div>

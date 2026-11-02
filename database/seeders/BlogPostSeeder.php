@@ -15,7 +15,7 @@ class BlogPostSeeder extends Seeder
     use SeedsImages;
 
     private const POSTS = [
-        ['7 Things to Know Before Applying for a Government Scheme', 'Documents, eligibility and the common mistakes that get applications rejected.', 'government-schemes', 'schemes-banner', 'Admin', true],
+        ['7 Things to Check Before Applying for a Government Job', 'Documents, eligibility and the common mistakes that get job applications rejected.', 'jobs', 'jobs-banner', 'Admin', true],
         ['How to Write a CV: Tips for Jobs in Pakistan', 'Simple ways to build a clear and effective CV.', 'jobs', 'jobs-illustration', 'Sara', false],
         ['Entry Test Preparation: A 30-Day Plan', 'A simple month-long study plan with revision tips.', 'education', 'education-banner', 'Ali', false],
     ];

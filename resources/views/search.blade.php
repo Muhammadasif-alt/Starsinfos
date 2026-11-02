@@ -29,6 +29,6 @@
         {{ $posts->links() }}
     @endif
 
-    <div class="sh"><h2>Blog ({{ $blogPosts->total() }})</h2></div>
+    <div class="sh"><h2>Career Advice ({{ $blogPosts->total() }})</h2></div>
     @include('blog.list', ['posts' => $blogPosts])
 @endsection

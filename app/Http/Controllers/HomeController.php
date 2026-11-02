@@ -30,9 +30,6 @@ class HomeController extends Controller
         $jobsCategory = $roots->firstWhere('slug', 'jobs');
         $withCategory = ['category.parent'];
 
-        $blogPosts = BlogPost::with('author', 'category.parent')->latestPublished()->get();
-        $featuredBlog = $blogPosts->firstWhere('is_featured', true) ?? $blogPosts->first();
-
         return [
             'categories' => $roots,
             'featured' => Post::with($withCategory)->latestPublished()->where('is_featured', true)->first(),
@@ -40,13 +37,12 @@ class HomeController extends Controller
             'jobsCategory' => $jobsCategory,
             'jobCategories' => $jobsCategory ? $jobsCategory->children()->with('parent')->get() : collect(),
             'jobs' => $this->openJobs($jobsCategory)->orderByDesc('published_at')->take(6)->get(),
-            'closingSoon' => $this->openJobs($jobsCategory)->whereNotNull('closing_date')->orderBy('closing_date')->take(3)->get(),
+            'newJobs' => $this->openJobs($jobsCategory)->orderByDesc('published_at')->take(3)->get(),
             'bispTools' => Category::with('parent')->whereIn('slug', self::BISP_TOOLS)->orderBy('sort_order')->get(),
             'bispEligibility' => Category::with('parent')->where('slug', '8171-eligibility-guide')->first(),
             'latestPosts' => Post::with($withCategory)->latestPublished()->take(6)->get(),
             'admissions' => Admission::whereDate('last_date', '>=', today())->orderBy('sort_order')->get(),
-            'featuredBlog' => $featuredBlog,
-            'latestBlogs' => $blogPosts->reject(fn (BlogPost $post) => $post->is($featuredBlog))->take(3),
+            'careerPosts' => BlogPost::with('author', 'category')->latestPublished()->orderByDesc('is_featured')->take(3)->get(),
             'faqs' => Faq::where('is_active', true)->orderBy('sort_order')->get(),
         ];
     }

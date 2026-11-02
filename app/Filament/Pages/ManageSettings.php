@@ -45,6 +45,7 @@ class ManageSettings extends Page implements HasForms
             Section::make('General')->schema([
                 TextInput::make('tagline')->required()->maxLength(255),
                 Textarea::make('disclaimer')->required()->rows(2),
+                Textarea::make('footer_text')->label('Footer description')->required()->rows(3),
             ]),
             Section::make('Hero')->schema([
                 TextInput::make('hero_title')->required()->maxLength(255),

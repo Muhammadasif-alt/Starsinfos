@@ -11,6 +11,7 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             'tagline' => 'Trusted information on jobs, government schemes and education in Pakistan.',
+            'footer_text' => 'Find government, private, bank and teaching jobs in Pakistan, with last dates and links to official sources. We also share career advice, government schemes, admissions and news to help you take your next step. This is an information website, not an official government portal, so always confirm details with the official source.',
             'hero_title' => 'Find Your Next Job in Pakistan',
             'hero_text' => 'Government, private, bank and teaching jobs with last dates and official sources, plus schemes and admissions in one place.',
             'hero_chips' => [

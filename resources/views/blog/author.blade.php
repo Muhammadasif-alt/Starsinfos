@@ -9,7 +9,7 @@
         :title="$user->name"
         :lead="$user->bio"
         variant="dark"
-        :crumbs="['Home' => route('home'), 'Blog' => route('blog.index'), $user->name => null]"
+        :crumbs="['Home' => route('home'), 'Career Advice' => route('blog.index'), $user->name => null]"
     />
 @endsection
 
