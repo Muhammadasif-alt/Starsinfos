@@ -31,7 +31,7 @@ class BlogController extends Controller
         $related = BlogPost::with('author', 'category')->latestPublished()
             ->whereKeyNot($post->id)
             ->when($post->category_id, fn ($query, $id) => $query->orderByRaw('category_id = ? desc', [$id]))
-            ->take(3)
+            ->take(4)
             ->get();
 
         return view('blog.show', compact('post', 'related'));

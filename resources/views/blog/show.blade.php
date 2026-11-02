@@ -27,30 +27,46 @@
 @endsection
 
 @section('content')
-    <article class="article">
-        @if ($post->image_url)
-            <img class="banner" src="{{ $post->image_url }}" alt="{{ $post->title }}">
-        @endif
+    <div class="detail">
+        <article class="detail__main">
+            @if ($post->image_url)
+                <img class="detail__banner" src="{{ $post->image_url }}" alt="{{ $post->title }}">
+            @endif
 
-        <div class="prose">{!! $post->safe_body !!}</div>
+            <div class="prose">{!! $post->safe_body !!}</div>
 
-        @include('partials.share', ['title' => $post->title, 'url' => $post->url()])
+            @include('partials.post-extras')
+            @include('partials.share', ['title' => $post->title, 'url' => $post->url()])
+        </article>
 
-        <div class="author-box">
-            @include('partials.avatar', ['user' => $post->author])
-            <div>
-                <h4><a href="{{ route('blog.author', $post->author) }}">{{ $post->author->name }}</a></h4>
+        <aside class="detail__side">
+            <div class="fact-card author-card">
+                @include('partials.avatar', ['user' => $post->author])
+                <h2><a href="{{ route('blog.author', $post->author) }}">{{ $post->author->name }}</a></h2>
                 <p>{{ $post->author->bio }}</p>
+                <a class="button button--ghost fact-card__cta" href="{{ route('blog.author', $post->author) }}">More from {{ $post->author->name }}</a>
             </div>
-        </div>
-    </article>
 
-    @if ($related->isNotEmpty())
-        <div class="sh"><h2>Related Articles</h2></div>
-        <div class="posts">
-            @foreach ($related as $relatedPost)
-                @include('partials.blog-card', ['post' => $relatedPost])
-            @endforeach
-        </div>
-    @endif
+            @if ($related->isNotEmpty())
+                <div class="side-list">
+                    <h2>More Career Advice</h2>
+                    @foreach ($related as $relatedPost)
+                        <a href="{{ $relatedPost->url() }}">
+                            <span class="side-list__thumb" style="--c:{{ $relatedPost->category?->color ?? '#0B6B4F' }}">
+                                @if ($relatedPost->image_url)
+                                    <img src="{{ $relatedPost->image_url }}" alt="" loading="lazy">
+                                @endif
+                            </span>
+                            <span><b>{{ $relatedPost->title }}</b><small>{{ $relatedPost->read_time }} min read</small></span>
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+
+            <a class="side-cta" href="{{ url('jobs') }}">
+                <x-site-icon name="briefcase" :size="28" />
+                <span><b>Looking for a job?</b><small>Browse the latest jobs with last dates.</small></span>
+            </a>
+        </aside>
+    </div>
 @endsection

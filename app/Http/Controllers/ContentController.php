@@ -48,7 +48,7 @@ class ContentController extends Controller
         $related = Post::with('category.parent')->latestPublished()
             ->whereKeyNot($post->id)
             ->whereIn('category_id', $root->familyIds())
-            ->take(3)
+            ->take(4)
             ->get();
 
         return view('posts.show', compact('post', 'root', 'related'));

@@ -17,12 +17,14 @@ class BlogPost extends Model
 
     protected $fillable = [
         'author_id', 'category_id', 'title', 'slug', 'excerpt', 'body', 'featured_image',
-        'meta_title', 'meta_description', 'status', 'is_featured', 'published_at',
+        'meta_title', 'meta_description', 'tags', 'faqs', 'status', 'is_featured', 'published_at',
     ];
 
     protected function casts(): array
     {
         return [
+            'tags' => 'array',
+            'faqs' => 'array',
             'is_featured' => 'boolean',
             'published_at' => 'datetime',
         ];

@@ -17,13 +17,15 @@ class Post extends Model
 
     protected $fillable = [
         'category_id', 'author_id', 'title', 'slug', 'excerpt', 'body', 'featured_image',
-        'meta_title', 'meta_description', 'source_url', 'department', 'location', 'job_type', 'application_status', 'status', 'is_featured',
+        'meta_title', 'meta_description', 'tags', 'faqs', 'source_url', 'department', 'location', 'job_type', 'application_status', 'status', 'is_featured',
         'is_trending', 'is_outdated', 'closing_date', 'published_at',
     ];
 
     protected function casts(): array
     {
         return [
+            'tags' => 'array',
+            'faqs' => 'array',
             'is_featured' => 'boolean',
             'is_trending' => 'boolean',
             'is_outdated' => 'boolean',

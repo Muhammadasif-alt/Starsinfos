@@ -4,7 +4,6 @@ namespace App\Support;
 
 use App\Models\BlogPost;
 use App\Models\Post;
-use Illuminate\Support\Collection;
 
 class JsonLd
 {
@@ -41,16 +40,46 @@ class JsonLd
         ];
     }
 
-    public static function faq(Collection $faqs): array
+    /** @param iterable<object|array{question: string, answer: string}> $faqs FAQ models or arrays */
+    public static function faq(iterable $faqs): array
     {
         return [
             '@context' => 'https://schema.org',
             '@type' => 'FAQPage',
-            'mainEntity' => $faqs->map(fn ($faq) => [
+            'mainEntity' => collect($faqs)->map(fn ($faq) => [
                 '@type' => 'Question',
-                'name' => $faq->question,
-                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq->answer],
-            ])->all(),
+                'name' => data_get($faq, 'question'),
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => data_get($faq, 'answer')],
+            ])->values()->all(),
         ];
+    }
+
+    private const EMPLOYMENT_TYPES = ['Permanent' => 'FULL_TIME', 'Contract' => 'CONTRACTOR', 'Internship' => 'INTERN'];
+
+    /** Job posting markup for open jobs that name their organization; null otherwise. */
+    public static function jobPosting(Post $post): ?array
+    {
+        if (! $post->department || $post->closing_label === 'Closed') {
+            return null;
+        }
+
+        $address = array_filter([
+            '@type' => 'PostalAddress',
+            'addressRegion' => $post->location && $post->location !== 'All Pakistan' ? $post->location : null,
+            'addressCountry' => 'PK',
+        ]);
+
+        return array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'JobPosting',
+            'title' => $post->title,
+            'description' => $post->safe_body,
+            'datePosted' => $post->published_at?->toDateString(),
+            'validThrough' => $post->closing_date?->endOfDay()->toIso8601String(),
+            'employmentType' => self::EMPLOYMENT_TYPES[$post->job_type] ?? null,
+            'hiringOrganization' => ['@type' => 'Organization', 'name' => $post->department, 'sameAs' => $post->source_url],
+            'jobLocation' => ['@type' => 'Place', 'address' => $address],
+            'directApply' => false,
+        ], fn ($value) => $value !== null);
     }
 }
