@@ -66,13 +66,12 @@
     <div class="job-grid">
         @foreach ($jobs as $job)
             <a class="job-card" href="{{ $job->url() }}">
-                <div class="job-card__top">
-                    <span class="job-cat__icon">{{ $job->category->icon ?? '💼' }}</span>
-                    <em @class(['job-card__badge', 'is-open' => ! $job->closing_date])>{{ $job->closing_label }}</em>
+                <span class="job-cat__icon">{{ $job->category->icon ?? '💼' }}</span>
+                <div class="job-card__body">
+                    <h3>{{ $job->title }}</h3>
+                    <small>{{ $job->category->name }}</small>
                 </div>
-                <h3>{{ $job->title }}</h3>
-                <small>{{ $job->category->name }}</small>
-                <span class="job-card__cta">View details →</span>
+                <em @class(['job-card__badge', 'is-open' => ! $job->closing_date])>{{ $job->closing_label }}</em>
             </a>
         @endforeach
     </div>
