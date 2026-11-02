@@ -42,7 +42,7 @@ class HomeController extends Controller
             'bispEligibility' => Category::with('parent')->where('slug', '8171-eligibility-guide')->first(),
             'latestPosts' => Post::with($withCategory)->latestPublished()->take(6)->get(),
             'admissions' => Admission::whereDate('last_date', '>=', today())->orderBy('sort_order')->get(),
-            'careerPosts' => BlogPost::with('author', 'category')->latestPublished()->orderByDesc('is_featured')->take(3)->get(),
+            'careerPosts' => BlogPost::with('author', 'category')->published()->orderByDesc('is_featured')->orderByDesc('published_at')->take(4)->get(),
             'faqs' => Faq::where('is_active', true)->orderBy('sort_order')->get(),
         ];
     }

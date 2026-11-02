@@ -18,6 +18,7 @@ class BlogPostSeeder extends Seeder
         ['7 Things to Check Before Applying for a Government Job', 'Documents, eligibility and the common mistakes that get job applications rejected.', 'jobs', 'jobs-banner', 'Admin', true],
         ['How to Write a CV: Tips for Jobs in Pakistan', 'Simple ways to build a clear and effective CV.', 'jobs', 'jobs-illustration', 'Sara', false],
         ['Entry Test Preparation: A 30-Day Plan', 'A simple month-long study plan with revision tips.', 'education', 'education-banner', 'Ali', false],
+        ['How to Prepare for a Job Interview in Pakistan', 'Simple steps to research the employer, practise your answers and make a good impression.', 'jobs', 'jobs-healthcare', 'Sara', false],
     ];
 
     public function run(): void

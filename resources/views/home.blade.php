@@ -53,7 +53,11 @@
         <div class="sh"><h2>Find Jobs by Category</h2>@if ($jobsCategory)<a href="{{ $jobsCategory->url() }}">All jobs →</a>@endif</div>
         <div class="job-cats">
             @foreach ($jobCategories as $jobCategory)
-                <a class="job-cat" href="{{ $jobCategory->url() }}"><span aria-hidden="true">{{ $jobCategory->icon ?? '💼' }}</span>{{ $jobCategory->name }}</a>
+                <a class="job-cat" href="{{ $jobCategory->url() }}">
+                    <span class="job-cat__icon">{{ $jobCategory->icon ?? '💼' }}</span>
+                    <b>{{ $jobCategory->name }}</b>
+                    <span class="job-cat__arrow" aria-hidden="true">→</span>
+                </a>
             @endforeach
         </div>
     @endif
@@ -152,10 +156,34 @@
     </div>
 
     <div class="sh"><h2>Career Advice</h2><a href="{{ route('blog.index') }}">All career advice →</a></div>
-    <div class="posts">
-        @foreach ($careerPosts as $post)
-            @include('partials.blog-card')
-        @endforeach
+    <div class="feat">
+        @if ($leadCareerPost = $careerPosts->first())
+            <a @class(['big', 'has-img' => $leadCareerPost->image_url]) @if ($leadCareerPost->image_url) style="--img:url('{{ $leadCareerPost->image_url }}')" @endif href="{{ $leadCareerPost->url() }}">
+                @if ($leadCareerPost->category)
+                    <span class="tag">{{ $leadCareerPost->category->name }}</span>
+                @endif
+                <h3>{{ $leadCareerPost->title }}</h3>
+                <small>{{ $leadCareerPost->excerpt }} · {{ $leadCareerPost->read_time }} min read</small>
+            </a>
+        @endif
+        <div class="list">
+            @foreach ($careerPosts->skip(1) as $post)
+                <a class="li" style="--c:{{ $post->category?->color ?? '#0B6B4F' }}" href="{{ $post->url() }}">
+                    <span class="li__thumb">
+                        @if ($post->image_url)
+                            <img src="{{ $post->image_url }}" alt="" loading="lazy">
+                        @endif
+                    </span>
+                    <span>
+                        @if ($post->category)
+                            <span class="tag">{{ $post->category->name }}</span>
+                        @endif
+                        <b>{{ $post->title }}</b>
+                        <small>{{ $post->published_at->format('j M Y') }} · {{ $post->read_time }} min read</small>
+                    </span>
+                </a>
+            @endforeach
+        </div>
     </div>
 
     <div class="sh"><h2>Frequently Asked Questions</h2></div>

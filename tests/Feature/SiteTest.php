@@ -32,7 +32,7 @@ class SiteTest extends TestCase
     {
         $this->assertSame(5, Category::whereNull('parent_id')->count());
         $this->assertSame(30, Post::count());
-        $this->assertSame(3, BlogPost::count());
+        $this->assertSame(4, BlogPost::count());
 
         Category::whereNull('parent_id')->get()->each(
             fn (Category $root) => $this->assertSame(6, Post::whereIn('category_id', $root->familyIds())->count(), $root->slug),
