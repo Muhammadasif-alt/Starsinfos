@@ -52,6 +52,10 @@ class Post extends Model
 
     public function getClosingLabelAttribute(): string
     {
-        return $this->closing_date ? 'Last: '.$this->closing_date->format('j M') : 'Open';
+        if (! $this->closing_date) {
+            return 'Open';
+        }
+
+        return $this->closing_date->isBefore(today()) ? 'Closed' : 'Last: '.$this->closing_date->format('j M');
     }
 }

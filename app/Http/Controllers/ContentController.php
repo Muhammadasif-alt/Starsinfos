@@ -9,6 +9,9 @@ use Illuminate\View\View;
 
 class ContentController extends Controller
 {
+    /** Root categories shown as a searchable list instead of a card grid. */
+    private const LISTING_ROOTS = ['jobs', 'government-schemes'];
+
     /** /{slug}: a root category, otherwise a static page. */
     public function show(string $slug): View
     {
@@ -55,11 +58,15 @@ class ContentController extends Controller
     {
         $root = $category->root();
 
-        $posts = Post::with('category.parent')->latestPublished()
-            ->whereIn('category_id', $category->familyIds())
-            ->paginate(12);
+        $usesListing = in_array($root->slug, self::LISTING_ROOTS, true);
 
-        return view('posts.archive', [
+        $posts = Post::with('category.parent')->published()
+            ->whereIn('category_id', $category->familyIds())
+            ->when($usesListing, fn ($query) => $query->orderByRaw('case when closing_date < ? then 1 else 0 end', [today()->toDateString()]))
+            ->orderByDesc('published_at')
+            ->paginate($usesListing ? 15 : 12);
+
+        return view($usesListing ? 'posts.listing' : 'posts.archive', [
             'category' => $category,
             'root' => $root,
             'subcategories' => $root->children()->with('parent')->get(),

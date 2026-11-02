@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
         ]],
         ['Government Schemes', 'government-schemes', '#0B6B4F', '🏛️', 'schemes-banner', 'Loans, Housing, Solar, Scholarships', [
             'Government Financial Assistance', 'Housing Schemes', 'Youth Loan Schemes', 'Solar Schemes',
-            'Student Scholarships', 'Business Support Programs', 'Registration Guides', 'Eligibility & Application Process',
+            'Student Scholarships', 'Business Support Programs', 'Registration Guides', 'Eligibility & Application Process', 'Bank Schemes & Loans',
         ]],
         ['BISP 8171', 'bisp-8171', '#7C3AED', '💳', 'bisp-banner', 'Eligibility, Payments, CNIC Status, Survey', [
             'BISP Latest Updates', '8171 Eligibility Guide', 'Payment Updates', 'Registration & Dynamic Survey',

@@ -60,6 +60,13 @@ class SiteTest extends TestCase
         $urls->each(fn (string $url) => $this->get($url)->assertOk());
     }
 
+    public function test_jobs_and_schemes_use_the_listing_layout(): void
+    {
+        $this->get('/jobs')->assertOk()->assertSee('listing-row', false);
+        $this->get('/government-schemes/solar-schemes')->assertOk()->assertSee('listing-nav', false);
+        $this->get('/news')->assertOk()->assertDontSee('listing-nav', false);
+    }
+
     public function test_bisp_is_hidden_from_the_header_menu_but_stays_live(): void
     {
         $response = $this->get('/')->assertOk();
