@@ -1,6 +1,10 @@
 <div class="contact-grid">
     <div class="contact-info">
         <div class="page-card prose">{!! $page->safe_body !!}</div>
+        <a class="contact-link" href="mailto:{{ config('mail.admin_address') }}">
+            <span class="ic"><x-site-icon name="file" /></span>
+            <span><b>Email Us</b><small>{{ config('mail.admin_address') }}</small></span>
+        </a>
         <a class="contact-link" href="{{ url('write-for-us') }}">
             <span class="ic"><x-site-icon name="pen" /></span>
             <span><b>Write for Us</b><small>Share an article idea with our team.</small></span>

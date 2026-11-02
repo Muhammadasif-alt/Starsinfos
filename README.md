@@ -1,4 +1,4 @@
-# InfoHub PK
+# Stars Infos
 
 Multi-niche information website built with Laravel 12, Filament v3 and Blade. The site name comes from `APP_NAME` in `.env`.
 

@@ -3,6 +3,7 @@
         <div class="footer-about">
             <a class="footer-logo" href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" width="180" height="48" loading="lazy"></a>
             <p>{{ $footerText }}</p>
+            <a class="footer-email" href="mailto:{{ config('mail.admin_address') }}"><x-site-icon name="file" :size="18" /> {{ config('mail.admin_address') }}</a>
         </div>
         <div>
             <h5>Categories</h5>
