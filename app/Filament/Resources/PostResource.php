@@ -123,23 +123,27 @@ class PostResource extends Resource
     {
         $root = static::$rootSlug;
         $isJob = $root === 'jobs';
+        $isScheme = $root === 'government-schemes';
 
         return $table
+            ->recordUrl(fn (Post $record) => static::getUrl('edit', ['record' => $record]))
             ->defaultSort('published_at', 'desc')
             ->emptyStateHeading('No '.str(static::$noun)->plural().' yet')
             ->emptyStateDescription('Use the button above to add the first one.')
             ->columns([
-                Tables\Columns\ImageColumn::make('featured_image')->disk('public')->label('Banner')->width(96)->height(54),
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable()->wrap()->limit(70)
-                    ->description(fn (Post $record) => $record->department ?? $record->category?->name),
-                Tables\Columns\TextColumn::make('category.name')->label('Category')->sortable()->toggleable(),
-                Tables\Columns\TextColumn::make('closing_date')->label($isJob ? 'Last date' : 'Closes')->date('j M Y')->sortable()
-                    ->badge()->color(fn (Post $record) => $record->closing_label === 'Closed' ? 'danger' : 'warning')->placeholder('—'),
+                Tables\Columns\ImageColumn::make('featured_image')->disk('public')->label('')->width(112)->height(63)->extraImgAttributes(['style' => 'border-radius:8px;object-fit:cover']),
+                Tables\Columns\TextColumn::make('title')->searchable()->sortable()->wrap()->grow()->weight('medium')
+                    ->extraAttributes(['style' => 'min-width:320px'])
+                    ->description(fn (Post $record) => collect([$record->category?->name, $record->department])->filter()->unique()->implode(' · ')),
+                Tables\Columns\TextColumn::make('closing_date')->label('Last date')->date('j M Y')->sortable()
+                    ->badge()->color(fn (Post $record) => $record->closing_label === 'Closed' ? 'danger' : 'warning')->placeholder('—')->visible(! $isScheme),
+                Tables\Columns\TextColumn::make('application_label')->label('Applications')->badge()->placeholder('—')
+                    ->color(fn (?string $state) => $state === 'Closed' ? 'danger' : 'success')->visible($isScheme || $root === null),
                 Tables\Columns\TextColumn::make('status')->badge()->formatStateUsing(fn (string $state) => ucfirst($state))
                     ->color(fn (string $state) => $state === 'published' ? 'success' : 'gray'),
                 Tables\Columns\ToggleColumn::make('is_featured')->label('Featured'),
                 Tables\Columns\ToggleColumn::make('is_trending')->label('Trending'),
-                Tables\Columns\TextColumn::make('published_at')->label('Published')->date('j M Y')->sortable()->toggleable(),
+                Tables\Columns\TextColumn::make('published_at')->label('Published')->date('j M Y')->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')->options(['published' => 'Published', 'draft' => 'Draft']),
@@ -149,10 +153,12 @@ class PostResource extends Resource
                 Tables\Filters\Filter::make('closed')->label('Closed')->query(fn (Builder $query) => $query->whereDate('closing_date', '<', today())),
             ])
             ->actions([
-                Tables\Actions\Action::make('view')->label('View')->icon('heroicon-o-eye')->color('gray')
-                    ->url(fn (Post $record) => $record->url())->openUrlInNewTab()->visible(fn (Post $record) => $record->status === 'published'),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->iconButton()->tooltip('Edit'),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('view')->label('View on site')->icon('heroicon-o-eye')
+                        ->url(fn (Post $record) => $record->url())->openUrlInNewTab()->visible(fn (Post $record) => $record->status === 'published'),
+                    Tables\Actions\DeleteAction::make(),
+                ])->tooltip('More'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkAction::make('publish')->label('Publish')->icon('heroicon-o-check-circle')
