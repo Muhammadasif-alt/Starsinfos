@@ -10,15 +10,17 @@
     <script type="application/ld+json">@json(\App\Support\JsonLd::article($post))</script>
 @endpush
 
-@section('content')
-    @include('partials.breadcrumbs', ['crumbs' => array_merge(
-        ['Home' => route('home'), $root->name => $root->url()],
-        $post->category->parent ? [$post->category->name => $post->category->url()] : [],
-        [$post->title => null],
-    )])
-
-    <article class="article">
-        <h1 class="page-title">{{ $post->title }}</h1>
+@section('hero')
+    <x-page-hero
+        :title="$post->title"
+        :color="$post->category->color"
+        variant="tint"
+        :crumbs="array_merge(
+            ['Home' => route('home'), $root->name => $root->url()],
+            $post->category->parent ? [$post->category->name => $post->category->url()] : [],
+            [$post->title => null],
+        )"
+    >
         <div class="meta">
             @include('partials.avatar', ['user' => $post->author])
             <span>{{ $post->author->name }}</span>
@@ -28,7 +30,11 @@
                 <span class="badge-out">Outdated</span>
             @endif
         </div>
+    </x-page-hero>
+@endsection
 
+@section('content')
+    <article class="article">
         @if ($post->category->showsDisclaimer())
             @include('partials.disclaimer')
         @endif

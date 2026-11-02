@@ -18,7 +18,11 @@ class ContentController extends Controller
             return $this->archive($category);
         }
 
-        return view('page', ['page' => Page::published()->where('slug', $slug)->firstOrFail()]);
+        return view('page', [
+            'page' => Page::published()->where('slug', $slug)->firstOrFail(),
+            'pages' => Page::published()->orderBy('id')->get(['id', 'title', 'slug']),
+            'categories' => Category::roots()->get(),
+        ]);
     }
 
     /** /{category}/{slug}: a subcategory archive, otherwise a post in that category. */

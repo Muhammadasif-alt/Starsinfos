@@ -5,32 +5,32 @@
     'canonical' => $category->url(),
 ]])
 
+@section('hero')
+    <x-page-hero
+        :title="$category->name"
+        :lead="$category->description"
+        :image="$category->image_url"
+        :color="$category->color"
+        variant="tint"
+        :crumbs="$category->parent
+            ? ['Home' => route('home'), $root->name => $root->url(), $category->name => null]
+            : ['Home' => route('home'), $category->name => null]"
+    >
+        <div class="chips">
+            <a href="{{ $root->url() }}" @class(['active' => ! $category->parent])>All</a>
+            @foreach ($subcategories as $subcategory)
+                <a href="{{ $subcategory->url() }}" @class(['active' => $subcategory->is($category)])>{{ $subcategory->name }}</a>
+            @endforeach
+        </div>
+    </x-page-hero>
+@endsection
+
 @section('content')
-    @include('partials.breadcrumbs', ['crumbs' => $category->parent
-        ? ['Home' => route('home'), $root->name => $root->url(), $category->name => null]
-        : ['Home' => route('home'), $category->name => null]])
-
-    <h1 class="page-title">{{ $category->name }}</h1>
-    @if ($category->description)
-        <p class="lead">{{ $category->description }}</p>
-    @endif
-
-    @if ($category->image_url)
-        <img class="banner" src="{{ $category->image_url }}" alt="{{ $category->name }}">
-    @endif
-
-    <div class="chips">
-        <a href="{{ $root->url() }}" @class(['active' => ! $category->parent])>All</a>
-        @foreach ($subcategories as $subcategory)
-            <a href="{{ $subcategory->url() }}" @class(['active' => $subcategory->is($category)])>{{ $subcategory->name }}</a>
-        @endforeach
-    </div>
-
     @if ($category->showsDisclaimer())
         @include('partials.disclaimer')
     @endif
 
-    <h2>Latest in {{ $category->name }}</h2>
+    <div class="sh"><h2>Latest in {{ $category->name }}</h2></div>
     @if ($posts->isEmpty())
         <p class="empty">There are no posts in this category yet.</p>
     @else

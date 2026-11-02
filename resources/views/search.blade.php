@@ -4,15 +4,20 @@
     <meta name="robots" content="noindex,follow">
 @endpush
 
+@section('hero')
+    <x-page-hero
+        :title="$term !== '' ? 'Results for: '.$term : 'All Posts'"
+        :crumbs="['Home' => route('home'), 'Search' => null]"
+    >
+        <form class="search" action="{{ route('search') }}" role="search">
+            <input type="search" name="q" value="{{ $term }}" placeholder="Search jobs, BISP, admissions…" aria-label="Search">
+            <button type="submit">Search</button>
+        </form>
+    </x-page-hero>
+@endsection
+
 @section('content')
-    <h1 class="page-title">{{ $term !== '' ? 'Search results for "'.$term.'"' : 'All Posts' }}</h1>
-
-    <form class="search" action="{{ route('search') }}" role="search">
-        <input type="search" name="q" value="{{ $term }}" placeholder="Search jobs, BISP, admissions…" aria-label="Search">
-        <button type="submit">Search</button>
-    </form>
-
-    <h2>Posts ({{ $posts->total() }})</h2>
+    <div class="sh"><h2>Posts ({{ $posts->total() }})</h2></div>
     @if ($posts->isEmpty())
         <p class="empty">No posts found.</p>
     @else
@@ -24,6 +29,6 @@
         {{ $posts->links() }}
     @endif
 
-    <h2>Blog ({{ $blogPosts->total() }})</h2>
+    <div class="sh"><h2>Blog ({{ $blogPosts->total() }})</h2></div>
     @include('blog.list', ['posts' => $blogPosts])
 @endsection

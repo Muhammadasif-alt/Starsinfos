@@ -7,6 +7,16 @@ use Illuminate\Database\Seeder;
 
 class PageSeeder extends Seeder
 {
+    private const EXCERPTS = [
+        'about-us' => 'Clear, practical information on jobs, government schemes, education and home decor for people across Pakistan.',
+        'contact-us' => 'Have a question, a correction or a suggestion? We would like to hear from you.',
+        'privacy-policy' => 'What information we collect, how we use it and how we protect it.',
+        'disclaimer' => 'Important information about the purpose and limits of this website.',
+        'terms-and-conditions' => 'The terms that apply when you use this website.',
+        'editorial-policy' => 'How we research, check and update the information we publish.',
+        'write-for-us' => 'Share your knowledge on jobs, education, careers and home decor with our readers.',
+    ];
+
     public function run(): void
     {
         $site = config('app.name');
@@ -22,7 +32,7 @@ class PageSeeder extends Seeder
         ];
 
         foreach ($pages as $slug => [$title, $body]) {
-            Page::updateOrCreate(['slug' => $slug], ['title' => $title, 'body' => $body, 'status' => 'published']);
+            Page::updateOrCreate(['slug' => $slug], ['title' => $title, 'excerpt' => self::EXCERPTS[$slug], 'body' => $body, 'status' => 'published']);
         }
     }
 }

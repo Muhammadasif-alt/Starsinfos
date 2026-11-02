@@ -10,18 +10,24 @@
     <script type="application/ld+json">@json(\App\Support\JsonLd::article($post))</script>
 @endpush
 
-@section('content')
-    @include('partials.breadcrumbs', ['crumbs' => ['Home' => route('home'), 'Blog' => route('blog.index'), $post->title => null]])
-
-    <article class="article">
-        <h1 class="page-title">{{ $post->title }}</h1>
+@section('hero')
+    <x-page-hero
+        :title="$post->title"
+        :lead="$post->excerpt"
+        variant="dark"
+        :crumbs="['Home' => route('home'), 'Blog' => route('blog.index'), $post->title => null]"
+    >
         <div class="meta">
             @include('partials.avatar', ['user' => $post->author])
             <a href="{{ route('blog.author', $post->author) }}">{{ $post->author->name }}</a>
             <span>· {{ $post->published_at->format('j M Y') }}</span>
             <span>· {{ $post->read_time }} min read</span>
         </div>
+    </x-page-hero>
+@endsection
 
+@section('content')
+    <article class="article">
         @if ($post->image_url)
             <img class="banner" src="{{ $post->image_url }}" alt="{{ $post->title }}">
         @endif
@@ -41,9 +47,9 @@
 
     @if ($related->isNotEmpty())
         <div class="sh"><h2>Related Articles</h2></div>
-        <div class="bl">
-            @foreach ($related as $post)
-                @include('partials.blog-row')
+        <div class="posts">
+            @foreach ($related as $relatedPost)
+                @include('partials.blog-card', ['post' => $relatedPost])
             @endforeach
         </div>
     @endif

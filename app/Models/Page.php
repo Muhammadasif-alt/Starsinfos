@@ -10,7 +10,7 @@ class Page extends Model
 {
     use FlushesSiteCache;
 
-    protected $fillable = ['title', 'slug', 'body', 'status'];
+    protected $fillable = ['title', 'slug', 'excerpt', 'body', 'status'];
 
     public function scopePublished(Builder $query): Builder
     {

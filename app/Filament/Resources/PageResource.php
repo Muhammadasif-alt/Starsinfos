@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Page;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -29,6 +30,7 @@ class PageResource extends Resource
             SlugField::title(),
             SlugField::topLevel(Category::class),
             Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->default('published')->required(),
+            Textarea::make('excerpt')->label('Hero text')->rows(2)->maxLength(500)->columnSpanFull(),
             RichEditor::make('body')->required()->columnSpanFull(),
         ])->columns(3);
     }
