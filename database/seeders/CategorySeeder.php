@@ -46,6 +46,18 @@ class CategorySeeder extends Seeder
         'latest-jobs-in-pakistan' => '🔔',
     ];
 
+    private const SCHEME_ICONS = [
+        'government-financial-assistance' => '💰',
+        'housing-schemes' => '🏠',
+        'youth-loan-schemes' => '🌱',
+        'solar-schemes' => '☀️',
+        'student-scholarships' => '🎓',
+        'business-support-programs' => '💼',
+        'registration-guides' => '📝',
+        'eligibility-application-process' => '✅',
+        'bank-schemes-loans' => '🏦',
+    ];
+
     public function run(): void
     {
         foreach (self::TREE as $order => [$name, $slug, $color, $icon, $image, $description, $children]) {
@@ -65,7 +77,7 @@ class CategorySeeder extends Seeder
                     'parent_id' => $root->id,
                     'name' => $childName,
                     'color' => $color,
-                    'icon' => self::JOB_ICONS[$childSlug] ?? null,
+                    'icon' => self::JOB_ICONS[$childSlug] ?? self::SCHEME_ICONS[$childSlug] ?? null,
                     'sort_order' => $childOrder,
                 ]);
             }

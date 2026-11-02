@@ -13,9 +13,11 @@ class Post extends Model
 {
     use FlushesSiteCache, HasFactory, HasPublication;
 
+    public const JOB_TYPES = ['Permanent', 'Contract', 'Internship'];
+
     protected $fillable = [
         'category_id', 'author_id', 'title', 'slug', 'excerpt', 'body', 'featured_image',
-        'meta_title', 'meta_description', 'source_url', 'status', 'is_featured',
+        'meta_title', 'meta_description', 'source_url', 'department', 'location', 'job_type', 'application_status', 'status', 'is_featured',
         'is_trending', 'is_outdated', 'closing_date', 'published_at',
     ];
 
@@ -48,6 +50,16 @@ class Post extends Model
     public function getImageUrlAttribute(): ?string
     {
         return $this->featured_image ? Storage::disk('public')->url($this->featured_image) : null;
+    }
+
+    /** Open or Closed for schemes: a past closing date wins over the stored status. */
+    public function getApplicationLabelAttribute(): ?string
+    {
+        if ($this->closing_date?->isBefore(today())) {
+            return 'Closed';
+        }
+
+        return $this->application_status;
     }
 
     public function getClosingLabelAttribute(): string

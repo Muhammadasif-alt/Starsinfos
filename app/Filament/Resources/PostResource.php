@@ -53,6 +53,12 @@ class PostResource extends Resource
                     Select::make('author_id')->label('Author')->relationship('author', 'name')->required()->default(fn () => auth()->id()),
                     DatePicker::make('closing_date')->helperText('For jobs and admissions.'),
                 ]),
+                Section::make('Listing details')->description('Job filters and scheme status.')->collapsed()->schema([
+                    TextInput::make('department')->maxLength(255)->datalist(fn () => Post::whereNotNull('department')->distinct()->pluck('department')->all()),
+                    TextInput::make('location')->maxLength(255)->datalist(fn () => Post::whereNotNull('location')->distinct()->pluck('location')->all()),
+                    Select::make('job_type')->options(array_combine(Post::JOB_TYPES, Post::JOB_TYPES)),
+                    Select::make('application_status')->label('Scheme status')->options(['Open' => 'Open', 'Closed' => 'Closed'])->helperText('A past closing date always shows Closed.'),
+                ]),
                 Section::make('Flags')->schema([
                     Toggle::make('is_featured')->label('Featured'),
                     Toggle::make('is_trending')->label('Trending'),

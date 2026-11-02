@@ -34,6 +34,11 @@ class Category extends Model
         return $this->hasMany(Post::class);
     }
 
+    public function publishedPosts(): HasMany
+    {
+        return $this->posts()->published();
+    }
+
     public function blogPosts(): HasMany
     {
         return $this->hasMany(BlogPost::class);

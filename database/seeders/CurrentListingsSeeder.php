@@ -48,6 +48,9 @@ class CurrentListingsSeeder extends Seeder
                 'body' => $post['body'].self::CHECKED,
                 'source_url' => $post['source'],
                 'closing_date' => $post['closing'] ?? null,
+                'department' => $post['department'] ?? null,
+                'location' => $post['location'] ?? null,
+                'job_type' => $post['job_type'] ?? null,
                 'is_featured' => $post['featured'] ?? false,
                 'is_trending' => $post['trending'] ?? false,
                 'status' => 'published',
@@ -75,6 +78,12 @@ class CurrentListingsSeeder extends Seeder
             'status' => 'published',
             'published_at' => now(),
             'featured_image' => $post->featured_image ?? ($images[$post->slug] ?? null),
+            'application_status' => [
+                'pm-youth-chromebook-scheme-eligibility-and-how-to-apply' => 'Open',
+                'apni-chhat-apna-ghar-interest-free-home-construction-loan-in-punjab' => 'Open',
+                'apni-chhat-mehfooz-chhat-interest-free-loan-for-roof-repair-or-an-extra-room' => 'Open',
+                'cm-punjab-free-solar-panel-scheme-eligibility-and-application-result' => 'Closed',
+            ][$post->slug] ?? null,
             'is_trending' => in_array($post->slug, [
                 'pm-youth-chromebook-scheme-eligibility-and-how-to-apply',
                 'apni-chhat-apna-ghar-interest-free-home-construction-loan-in-punjab',
@@ -112,6 +121,9 @@ class CurrentListingsSeeder extends Seeder
                 'source' => 'https://npftas.pk/',
                 'closing' => '2026-11-15',
                 'featured' => true,
+                'department' => 'Islamabad Capital Territory Police',
+                'location' => 'Islamabad',
+                'job_type' => 'Permanent',
                 'excerpt' => 'Islamabad Capital Territory Police · Sub Inspector, ASI and Constable posts · Apply through NPF-TAS',
                 'body' => '<p>Islamabad Capital Territory Police has opened recruitment for Executive Staff in the Dolphin Force. The official NPF-TAS portal lists 1 November 2026 as the published date and 15 November 2026 as the last date.</p>'
                     .$this->facts(['Organization' => 'Islamabad Capital Territory Police', 'Reported posts' => 'Sub Inspector (BS-14), Assistant Sub Inspector (BS-11) and Constable (BS-07)', 'Reported vacancies' => '1,058', 'Last date' => '15 November 2026'])
@@ -124,6 +136,9 @@ class CurrentListingsSeeder extends Seeder
                 'source' => 'https://www.joinpakarmy.gov.pk/',
                 'closing' => '2026-11-23',
                 'trending' => true,
+                'department' => 'Pakistan Army',
+                'location' => 'All Pakistan',
+                'job_type' => 'Permanent',
                 'excerpt' => 'Pakistan Army · Recruitment as a Soldier · Registration on Join Pak Army',
                 'body' => '<p>The official Join Pak Army website shows that registration for Recruitment as a Soldier is open until 23 November 2026.</p>'
                     .$this->facts(['Organization' => 'Pakistan Army', 'Post' => 'Soldier', 'Last date' => '23 November 2026'])
@@ -133,6 +148,9 @@ class CurrentListingsSeeder extends Seeder
                 'title' => 'PMA 159 Long Course: Join Pakistan Army as an Officer',
                 'category' => 'army-police-jobs',
                 'source' => 'https://www.joinpakarmy.gov.pk/',
+                'department' => 'Pakistan Army',
+                'location' => 'All Pakistan',
+                'job_type' => 'Permanent',
                 'excerpt' => 'Pakistan Army · Officer training course · Applications open on Join Pak Army',
                 'body' => '<p>The official Join Pak Army website lists PMA 159 Long Course (September 2026) as open for applications. Its homepage does not show a closing date, so check the course page before you apply.</p>'
                     .$this->facts(['Organization' => 'Pakistan Army', 'Course' => 'PMA 159 Long Course'])
@@ -147,7 +165,7 @@ class CurrentListingsSeeder extends Seeder
             $this->njpJob('Meteorological Assistant (BS-14): PMD, Balochistan', 'government-jobs', 'Pakistan Meteorological Department', 'BS-14', '2', 'Regular', 'Balochistan', '2026-11-12'),
             $this->njpJob('Staff Car Driver (BPS-04): Cabinet Division, Balochistan', 'government-jobs', 'Cabinet Division', 'BPS-04', '5', 'Regular', 'Balochistan', '2026-11-10'),
             $this->njpJob('Stenotypist (BPS-14): Cabinet Division, Balochistan', 'government-jobs', 'Cabinet Division', 'BPS-14', '2', 'Regular', 'Balochistan', '2026-11-10'),
-            $this->njpJob('Junior Accountant (BPS-11): Cadet College Hasanabdal', 'teaching-jobs', 'Cadet College Hasanabdal', 'BPS-11', '1', 'Contract', null, '2026-11-15', false, '2 years or more'),
+            $this->njpJob('Junior Accountant (BPS-11): Cadet College Hasanabdal', 'teaching-jobs', 'Cadet College Hasanabdal', 'BPS-11', '1', 'Contract', null, '2026-11-15', false, '2 years or more', 'Hasan Abdal'),
             $this->njpJob('Manager Legal: Pakistan National Shipping Corporation', 'government-jobs', 'Pakistan National Shipping Corporation', 'Grade-12', '1', 'Contract', null, '2026-11-15', false, '10 years or more'),
             $this->njpJob('Financial Analyst (Gas): Petroleum Division', 'government-jobs', 'Petroleum Division, Ministry of Energy', 'SPPS-IV', '1', 'Contract', null, '2026-11-08', false, '3 years or more'),
             $this->njpJob('Senior Officer Finance & Accounts: EXIM Bank of Pakistan', 'bank-jobs', 'EXIM Bank of Pakistan', 'M6', '1', 'Regular', null, '2026-11-04', false, '3 years or more', 'Islamabad'),
@@ -175,6 +193,9 @@ class CurrentListingsSeeder extends Seeder
             'source' => self::NJP,
             'closing' => $closing,
             'trending' => $trending,
+            'department' => $employer,
+            'location' => $location ?? $listedUnder,
+            'job_type' => $type === 'Regular' ? 'Permanent' : $type,
             'excerpt' => "{$employer} · {$scale} · {$vacancies} ".Str::plural('vacancy', (int) $vacancies)." · {$type}",
             'body' => "<p>{$employer} has listed this post on the National Jobs Portal, the Government of Pakistan's job platform.</p>".$this->facts($facts).$note.self::NJP_STEPS,
         ];

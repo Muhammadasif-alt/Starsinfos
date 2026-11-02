@@ -5,20 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ContentController extends Controller
 {
-    /** Root categories shown as a searchable list instead of a card grid. */
-    private const LISTING_ROOTS = ['jobs', 'government-schemes'];
-
     /** /{slug}: a root category, otherwise a static page. */
-    public function show(string $slug): View
+    public function show(Request $request, string $slug): View
     {
         $category = Category::roots()->where('slug', $slug)->first();
 
         if ($category) {
-            return $this->archive($category);
+            return $this->archive($category, $request);
         }
 
         return view('page', [
@@ -29,14 +28,14 @@ class ContentController extends Controller
     }
 
     /** /{category}/{slug}: a subcategory archive, otherwise a post in that category. */
-    public function nested(string $category, string $slug): View
+    public function nested(Request $request, string $category, string $slug): View
     {
         $root = Category::roots()->where('slug', $category)->firstOrFail();
 
         $subcategory = $root->children()->with('parent')->where('slug', $slug)->first();
 
         if ($subcategory) {
-            return $this->archive($subcategory);
+            return $this->archive($subcategory, $request);
         }
 
         $post = Post::with('category.parent', 'author')
@@ -54,11 +53,50 @@ class ContentController extends Controller
         return view('posts.show', compact('post', 'root', 'related'));
     }
 
-    private function archive(Category $category): View
+    /** Jobs archive with search and filters on department, location and job type. */
+    private function jobs(Category $category, Category $root, Request $request): View
+    {
+        $filters = [
+            'q' => trim((string) $request->query('q')),
+            'department' => (string) $request->query('department'),
+            'location' => (string) $request->query('location'),
+            'type' => array_values(array_intersect((array) $request->query('type', []), Post::JOB_TYPES)),
+        ];
+
+        $jobs = fn () => Post::published()->whereIn('category_id', $category->familyIds());
+
+        $posts = $jobs()->with('category.parent')
+            ->when($filters['q'] !== '', fn (Builder $query) => $query->search($filters['q']))
+            ->when($filters['department'] !== '', fn (Builder $query) => $query->where('department', $filters['department']))
+            ->when($filters['location'] !== '', fn (Builder $query) => $query->where('location', $filters['location']))
+            ->when($filters['type'], fn (Builder $query, array $types) => $query->whereIn('job_type', $types))
+            ->orderByRaw('case when closing_date < ? then 1 else 0 end', [today()->toDateString()])
+            ->orderByDesc('published_at')
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('posts.jobs', [
+            'category' => $category,
+            'root' => $root,
+            'subcategories' => $root->children()->with('parent')->get(),
+            'posts' => $posts,
+            'filters' => $filters,
+            'options' => [
+                'departments' => $jobs()->whereNotNull('department')->distinct()->orderBy('department')->pluck('department'),
+                'locations' => $jobs()->whereNotNull('location')->distinct()->orderBy('location')->pluck('location'),
+            ],
+        ]);
+    }
+
+    private function archive(Category $category, Request $request): View
     {
         $root = $category->root();
 
-        $usesListing = in_array($root->slug, self::LISTING_ROOTS, true);
+        if ($root->slug === 'jobs') {
+            return $this->jobs($category, $root, $request);
+        }
+
+        $usesListing = $root->slug === 'government-schemes';
 
         $posts = Post::with('category.parent')->published()
             ->whereIn('category_id', $category->familyIds())
@@ -66,10 +104,10 @@ class ContentController extends Controller
             ->orderByDesc('published_at')
             ->paginate($usesListing ? 15 : 12);
 
-        return view($usesListing ? 'posts.listing' : 'posts.archive', [
+        return view($usesListing ? 'posts.schemes' : 'posts.archive', [
             'category' => $category,
             'root' => $root,
-            'subcategories' => $root->children()->with('parent')->get(),
+            'subcategories' => $root->children()->with('parent')->withCount('publishedPosts')->get(),
             'posts' => $posts,
         ]);
     }

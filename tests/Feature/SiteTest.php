@@ -62,9 +62,25 @@ class SiteTest extends TestCase
 
     public function test_jobs_and_schemes_use_the_listing_layout(): void
     {
-        $this->get('/jobs')->assertOk()->assertSee('listing-row', false);
-        $this->get('/government-schemes/solar-schemes')->assertOk()->assertSee('listing-nav', false);
-        $this->get('/news')->assertOk()->assertDontSee('listing-nav', false);
+        $this->get('/jobs')->assertOk()->assertSee('jobs-filter', false);
+        $this->get('/government-schemes/solar-schemes')->assertOk()->assertSee('scheme-cats', false);
+        $this->get('/news')->assertOk()->assertDontSee('scheme-cats', false);
+    }
+
+    public function test_jobs_can_be_filtered(): void
+    {
+        $category = Category::where('slug', 'bank-jobs')->first();
+        $author = User::first();
+        $make = fn (string $title, string $location, string $type) => Post::factory()->create([
+            'category_id' => $category->id, 'author_id' => $author->id, 'title' => $title,
+            'department' => 'Test Department', 'location' => $location, 'job_type' => $type,
+        ]);
+        $make('Quetta Clerk Opening', 'Balochistan', 'Permanent');
+        $make('Lahore Contract Opening', 'Lahore', 'Contract');
+
+        $this->get('/jobs?location=Balochistan')->assertSee('Quetta Clerk Opening')->assertDontSee('Lahore Contract Opening');
+        $this->get('/jobs?type[]=Contract')->assertSee('Lahore Contract Opening')->assertDontSee('Quetta Clerk Opening');
+        $this->get('/jobs/bank-jobs?q=Quetta')->assertSee('Quetta Clerk Opening')->assertDontSee('Lahore Contract Opening');
     }
 
     public function test_bisp_is_hidden_from_the_header_menu_but_stays_live(): void
