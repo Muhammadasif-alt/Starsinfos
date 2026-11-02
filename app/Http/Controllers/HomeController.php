@@ -9,6 +9,7 @@ use App\Models\Faq;
 use App\Models\Post;
 use App\Models\Setting;
 use App\Support\SiteCache;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
@@ -26,6 +27,7 @@ class HomeController extends Controller
     private function homeData(): array
     {
         $roots = Category::roots()->get();
+        $jobsCategory = $roots->firstWhere('slug', 'jobs');
         $withCategory = ['category.parent'];
 
         $blogPosts = BlogPost::with('author', 'category.parent')->latestPublished()->get();
@@ -35,7 +37,10 @@ class HomeController extends Controller
             'categories' => $roots,
             'featured' => Post::with($withCategory)->latestPublished()->where('is_featured', true)->first(),
             'trending' => Post::with($withCategory)->latestPublished()->where('is_trending', true)->take(4)->get(),
-            'jobs' => $this->latestJobs($roots->firstWhere('slug', 'jobs')),
+            'jobsCategory' => $jobsCategory,
+            'jobCategories' => $jobsCategory ? $jobsCategory->children()->with('parent')->get() : collect(),
+            'jobs' => $this->openJobs($jobsCategory)->orderByDesc('published_at')->take(6)->get(),
+            'closingSoon' => $this->openJobs($jobsCategory)->whereNotNull('closing_date')->orderBy('closing_date')->take(3)->get(),
             'bispTools' => Category::with('parent')->whereIn('slug', self::BISP_TOOLS)->orderBy('sort_order')->get(),
             'bispEligibility' => Category::with('parent')->where('slug', '8171-eligibility-guide')->first(),
             'latestPosts' => Post::with($withCategory)->latestPublished()->take(6)->get(),
@@ -48,18 +53,13 @@ class HomeController extends Controller
         ];
     }
 
-    private function latestJobs(?Category $jobs)
+    /** Published jobs that have not passed their closing date. */
+    private function openJobs(?Category $jobs): Builder
     {
-        if (! $jobs) {
-            return collect();
-        }
-
         return Post::with('category.parent')
-            ->latestPublished()
-            ->whereIn('category_id', $jobs->familyIds())
-            ->where(fn ($query) => $query->whereNull('closing_date')->orWhereDate('closing_date', '>=', today()))
-            ->take(5)
-            ->get();
+            ->published()
+            ->whereIn('category_id', $jobs ? $jobs->familyIds() : [])
+            ->where(fn ($query) => $query->whereNull('closing_date')->orWhereDate('closing_date', '>=', today()));
     }
 
     private function decorTiles(?Category $decor)

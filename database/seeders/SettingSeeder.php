@@ -11,13 +11,13 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             'tagline' => 'Trusted information on jobs, government schemes and education in Pakistan.',
-            'hero_title' => 'Reliable Information on Jobs, Schemes, BISP and Education',
-            'hero_text' => 'Latest jobs, government schemes, BISP 8171 updates, admissions and home decor ideas, all in one place.',
+            'hero_title' => 'Find Your Next Job in Pakistan',
+            'hero_text' => 'Government, private, bank and teaching jobs with last dates and official sources, plus schemes and admissions in one place.',
             'hero_chips' => [
-                ['label' => 'Latest Jobs in Pakistan', 'url' => '/jobs/latest-jobs-in-pakistan'],
-                ['label' => '8171 Eligibility', 'url' => '/bisp-8171/8171-eligibility-guide'],
-                ['label' => 'Entry Tests', 'url' => '/education/entry-tests'],
-                ['label' => 'Solar Schemes', 'url' => '/government-schemes/solar-schemes'],
+                ['label' => 'Government Jobs', 'url' => '/jobs/government-jobs'],
+                ['label' => 'Bank Jobs', 'url' => '/jobs/bank-jobs'],
+                ['label' => 'Teaching Jobs', 'url' => '/jobs/teaching-jobs'],
+                ['label' => 'Work From Home', 'url' => '/jobs/online-work-from-home-jobs'],
             ],
             'stats' => [
                 ['value' => '6', 'label' => 'Main Categories'],

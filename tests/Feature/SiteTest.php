@@ -42,8 +42,8 @@ class SiteTest extends TestCase
     public function test_homepage_renders_all_sections_in_order(): void
     {
         $this->get('/')->assertOk()->assertSeeInOrder([
-            'class="hero"', 'class="stats"', 'Browse Categories', 'Disclaimer', 'Trending Now',
-            'Latest Jobs', 'How to Apply', 'Latest Posts', 'Admissions Calendar', 'Home &amp; Decor Ideas',
+            'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Browse Categories', 'Disclaimer', 'Trending Now',
+            'How to Apply', 'Latest Posts', 'Admissions Calendar', 'Home &amp; Decor Ideas',
             'From Our Blog', 'Frequently Asked Questions', 'id="newsletter"', '<footer>',
         ], false)->assertSee('FAQPage', false);
     }

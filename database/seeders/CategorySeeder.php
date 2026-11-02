@@ -48,6 +48,18 @@ class CategorySeeder extends Seeder
         'diy-decoration-ideas' => ['decor-classic-lounge', '#5B6B64'],
     ];
 
+    private const JOB_ICONS = [
+        'government-jobs' => '🏛️',
+        'private-jobs' => '🏢',
+        'bank-jobs' => '🏦',
+        'army-police-jobs' => '🛡️',
+        'teaching-jobs' => '📚',
+        'wapda-railway-jobs' => '⚡',
+        'fpsc-ppsc-jobs' => '📝',
+        'online-work-from-home-jobs' => '💻',
+        'latest-jobs-in-pakistan' => '🔔',
+    ];
+
     public function run(): void
     {
         foreach (self::TREE as $order => [$name, $slug, $color, $icon, $image, $description, $children]) {
@@ -68,6 +80,7 @@ class CategorySeeder extends Seeder
                     'parent_id' => $root->id,
                     'name' => $childName,
                     'color' => $tileColor,
+                    'icon' => self::JOB_ICONS[$childSlug] ?? null,
                     'image' => $this->seedImage($tileImage),
                     'sort_order' => $childOrder,
                 ]);
