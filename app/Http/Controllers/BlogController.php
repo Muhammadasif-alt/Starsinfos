@@ -18,7 +18,7 @@ class BlogController extends Controller
         $posts = BlogPost::with('author', 'category')->latestPublished()
             ->when($activeTopic, fn ($query, $topic) => $query->where('topic', $topic))
             ->when($term !== '', fn ($query) => $query->search($term))
-            ->paginate(9)
+            ->paginate(6)
             ->withQueryString();
 
         $filtered = $activeTopic || $term !== '' || $posts->currentPage() > 1;
