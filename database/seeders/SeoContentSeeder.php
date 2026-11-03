@@ -184,7 +184,7 @@ class SeoContentSeeder extends Seeder
                     ['question' => 'Where is the job?', 'answer' => 'The post is at Cadet College Hasanabdal in Hasan Abdal, Attock district, Punjab.'],
                     ['question' => 'How much experience is required?', 'answer' => 'The listing asks for 2 years or more of experience.'],
                 ],
-                'related' => ['All Teaching & Education Jobs' => '/jobs/teaching-jobs', 'How to Write a CV for Jobs in Pakistan' => '/blog/how-to-write-a-cv-tips-for-jobs-in-pakistan', 'Education & Admissions' => '/education'],
+                'related' => ['All Teaching & Education Jobs' => '/jobs/teaching-jobs', 'How to Write a CV for Jobs in Pakistan' => '/blog/how-to-write-a-cv-tips-for-jobs-in-pakistan', 'Career Advice' => '/blog'],
                 'body' => '<p><strong>Cadet College Hasanabdal</strong>, one of Pakistan\'s best-known cadet colleges in Hasan Abdal (Attock district, Punjab), has listed a <strong>Junior Accountant (BPS-11)</strong> post on the National Jobs Portal. It is a contract post and applications close on <strong>15 November 2026</strong>.</p>'
                     .'<h2>Job at a Glance</h2>'
                     .$this->table(['Organization' => 'Cadet College Hasanabdal', 'Post' => 'Junior Accountant', 'Pay scale' => 'BPS-11', 'Vacancies' => '1', 'Job type' => 'Contract', 'Experience' => '2 years or more', 'Location' => 'Hasan Abdal, Attock (Punjab)', 'Last date' => '15 November 2026'])
@@ -220,7 +220,7 @@ class SeoContentSeeder extends Seeder
                     ['question' => 'Where do I apply?', 'answer' => 'Apply on the official IBCC portal at pmychromebooks.ibcc.edu.pk.'],
                     ['question' => 'Can Sindh students apply?', 'answer' => 'Sindh registration opens board by board after Class 9 results. The portal showed BISE Larkano open and other Sindh boards on hold or coming soon.'],
                 ],
-                'related' => ['All Student Scholarships' => '/government-schemes/student-scholarships', 'CM Punjab Laptop Program Phase 2' => '/government-schemes/cm-punjab-laptop-program-phase-2-eligibility-and-latest-status', 'Education & Admissions' => '/education'],
+                'related' => ['All Student Scholarships' => '/government-schemes/student-scholarships', 'CM Punjab Laptop Program Phase 2' => '/government-schemes/cm-punjab-laptop-program-phase-2-eligibility-and-latest-status', 'Career Advice' => '/blog'],
                 'body' => '<p>The <strong>Prime Minister\'s Youth Chromebook Scheme</strong> gives Chromebooks to top-performing government school students across Pakistan. Applications are made on the official <strong>IBCC portal</strong>, based on the Annual Examinations 2026.</p>'
                     .'<h2>Scheme at a Glance</h2>'
                     .$this->table(['Scheme' => 'Prime Minister\'s Youth Chromebook Scheme', 'For' => 'Top-performing government school students', 'Classes' => 'Grade 9 (SSC-I); also Grade 10 for AJK, ICT and GB boards', 'Status' => 'Open (Sindh boards opening in phases)', 'Apply through' => 'pmychromebooks.ibcc.edu.pk'])

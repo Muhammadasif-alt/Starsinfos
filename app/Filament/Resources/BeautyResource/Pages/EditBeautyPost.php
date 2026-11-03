@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\BispResource\Pages;
+namespace App\Filament\Resources\BeautyResource\Pages;
 
-use App\Filament\Resources\BispResource;
+use App\Filament\Resources\BeautyResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditBisp extends EditRecord
+class EditBeautyPost extends EditRecord
 {
-    protected static string $resource = BispResource::class;
+    protected static string $resource = BeautyResource::class;
 
     protected function getHeaderActions(): array
     {

@@ -13,7 +13,7 @@
             <h1>{!! $highlight !== '' ? str_replace($highlight, '<mark>'.$highlight.'</mark>', e($settings['hero_title'] ?? config('app.name'))) : e($settings['hero_title'] ?? config('app.name')) !!}</h1>
             <p>{{ $settings['hero_text'] ?? '' }}</p>
             <form class="search" action="{{ route('search') }}" role="search">
-                <input type="search" name="q" placeholder="Search jobs, schemes, admissions…" aria-label="Search">
+                <input type="search" name="q" placeholder="Search jobs, schemes, style tips…" aria-label="Search">
                 <button type="submit">Search</button>
             </form>
             <div class="chips">
@@ -138,30 +138,6 @@
         @foreach ($latestPosts as $post)
             @include('partials.post-card')
         @endforeach
-    </div>
-
-    <div class="sh"><h2>Admissions Calendar &amp; BISP Tools</h2><a href="{{ url('education') }}">All admissions →</a></div>
-    <div class="two">
-        <div class="tw"><table>
-            <tr><th>Program</th><th>Type</th><th>Last Date</th><th>Entry Test</th></tr>
-            @foreach ($admissions as $admission)
-                <tr>
-                    <td>@if ($admission->link)<a href="{{ $admission->link }}" target="_blank" rel="nofollow noopener">{{ $admission->program }}</a>@else{{ $admission->program }}@endif</td>
-                    <td>{{ $admission->type }}</td>
-                    <td>{{ $admission->last_date->format('j M Y') }}</td>
-                    <td>{{ $admission->test_date?->format('j M Y') ?? 'No test' }}</td>
-                </tr>
-            @endforeach
-        </table></div>
-        <div class="panel bisp">
-            <h3 class="icon-title"><x-site-icon name="card" /> BISP 8171 Quick Tools</h3>
-            @foreach ($bispTools as $tool)
-                <p>• <a href="{{ $tool->url() }}">{{ $tool->name }}</a></p>
-            @endforeach
-            @if ($bispEligibility)
-                <a class="btn" href="{{ $bispEligibility->url() }}">Check Eligibility Guide</a>
-            @endif
-        </div>
     </div>
 
     <div class="sh"><h2>Career Advice</h2><a href="{{ route('blog.index') }}">All career advice →</a></div>

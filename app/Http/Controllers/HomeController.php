@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admission;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Faq;
@@ -15,8 +14,6 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    private const BISP_TOOLS = ['cnic-status-check-guide', 'payment-updates', 'registration-dynamic-survey', 'official-portal-guides'];
-
     public function __invoke(): View
     {
         $data = Cache::remember(SiteCache::HOME, SiteCache::TTL, fn () => $this->homeData());
@@ -41,10 +38,7 @@ class HomeController extends Controller
                 ->where(fn ($query) => $query->whereNull('closing_date')->orWhereDate('closing_date', '>=', today()))
                 ->where(fn ($query) => $query->whereNull('application_status')->orWhere('application_status', '!=', 'Closed'))
                 ->take(3)->get(),
-            'bispTools' => Category::with('parent')->whereIn('slug', self::BISP_TOOLS)->orderBy('sort_order')->get(),
-            'bispEligibility' => Category::with('parent')->where('slug', '8171-eligibility-guide')->first(),
             'latestPosts' => Post::with($withCategory)->latestPublished()->take(6)->get(),
-            'admissions' => Admission::whereDate('last_date', '>=', today())->orderBy('sort_order')->get(),
             'careerPosts' => BlogPost::with('author', 'category')->latestPublished()->take(4)->get(),
             'faqs' => Faq::where('is_active', true)->orderBy('sort_order')->get(),
         ];

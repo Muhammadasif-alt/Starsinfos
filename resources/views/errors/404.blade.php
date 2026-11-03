@@ -3,7 +3,7 @@
 @section('hero')
     <x-page-hero title="Page Not Found" lead="This page does not exist. Try a search or go back to the homepage.">
         <form class="search" action="{{ route('search') }}" role="search">
-            <input type="search" name="q" placeholder="Search jobs, BISP, admissions…" aria-label="Search">
+            <input type="search" name="q" placeholder="Search jobs, schemes, style tips…" aria-label="Search">
             <button type="submit">Search</button>
         </form>
     </x-page-hero>

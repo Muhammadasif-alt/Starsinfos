@@ -9,8 +9,7 @@ class FaqSeeder extends Seeder
 {
     private const FAQS = [
         ['Is this an official government website?', 'No. This is an information website only. Always confirm details on the official portal.'],
-        ['How up to date is the BISP 8171 information?', 'We check for updates regularly and label older information as "Outdated".'],
-        ['Can I submit my own article?', 'Yes. Please get in touch through our "Write for Us" page.'],
+        ['Can I submit my own article?', 'Yes. Send us your topic and a writing sample through our Contact Us page.'],
     ];
 
     public function run(): void

@@ -30,27 +30,28 @@ class SiteTest extends TestCase
 
     public function test_seed_matches_the_brief(): void
     {
-        $this->assertSame(4, Category::whereNull('parent_id')->count());
-        $this->assertSame(24, Post::count());
+        $this->assertSame(['jobs', 'government-schemes', 'beauty-style'], Category::roots()->pluck('slug')->all());
+        $this->assertSame(12, Post::count());
         $this->assertSame(4, BlogPost::count());
+        $this->assertSame(6, Category::where('slug', 'beauty-style')->first()->children()->count());
 
-        Category::whereNull('parent_id')->get()->each(
-            fn (Category $root) => $this->assertSame(6, Post::whereIn('category_id', $root->familyIds())->count(), $root->slug),
-        );
+        foreach (['jobs', 'government-schemes'] as $slug) {
+            $this->assertSame(6, Post::whereIn('category_id', Category::where('slug', $slug)->first()->familyIds())->count(), $slug);
+        }
     }
 
     public function test_homepage_renders_all_sections_in_order(): void
     {
         $this->get('/')->assertOk()->assertSeeInOrder([
             'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Browse Categories', 'Disclaimer', 'Trending Now',
-            'How to Apply', 'Latest Posts', 'Admissions Calendar',
+            'How to Apply', 'Latest Posts',
             'Career Advice', 'Frequently Asked Questions', '<footer',
         ], false)->assertSee('FAQPage', false);
     }
 
     public function test_every_public_url_resolves(): void
     {
-        $urls = collect(['/search?q=bisp', '/search', '/blog', '/sitemap.xml', '/robots.txt'])
+        $urls = collect(['/search?q=jobs', '/search', '/blog', '/sitemap.xml', '/robots.txt'])
             ->concat(Category::with('parent')->get()->map->url())
             ->concat(Page::all()->map->url())
             ->concat(Post::with('category.parent')->get()->map->url())
@@ -64,9 +65,7 @@ class SiteTest extends TestCase
     {
         $this->get('/jobs')->assertOk()->assertSee('jobs-filter', false);
         $this->get('/government-schemes/solar-schemes')->assertOk()->assertSee('scheme-cats', false);
-        $this->get('/bisp-8171')->assertOk()->assertDontSee('scheme-cats', false);
-        $this->get('/education')->assertOk()->assertSee('edu-updates', false)->assertSee('Admissions Calendar');
-        $this->get('/education/entry-tests')->assertOk()->assertSee('edu-updates', false)->assertDontSee('edu-cards', false);
+        $this->get('/beauty-style')->assertOk()->assertDontSee('scheme-cats', false);
     }
 
     public function test_jobs_can_be_filtered(): void
@@ -96,20 +95,25 @@ class SiteTest extends TestCase
         $this->get('/blog?q=Panel')->assertSee('Facing a Panel Interview')->assertDontSee('Writing a Strong CV');
     }
 
-    public function test_bisp_is_hidden_from_the_header_menu_but_stays_live(): void
+    public function test_menu_lists_only_the_kept_sections(): void
     {
-        $response = $this->get('/')->assertOk();
+        $menu = Str::betweenFirst($this->get('/')->assertOk()->getContent(), '<nav id="m"', '</nav>');
 
-        $this->assertStringNotContainsString('BISP 8171', Str::betweenFirst($response->getContent(), '<nav id="m"', '</nav>'));
-        $this->assertStringContainsString('>Career Advice<', Str::betweenFirst($response->getContent(), '<nav id="m"', '</nav>'));
-        $response->assertSee('BISP 8171 Quick Tools');
+        foreach (['>Jobs<', '>Government Schemes<', '>Beauty &amp; Style<', '>Career Advice<'] as $item) {
+            $this->assertStringContainsString($item, $menu);
+        }
+        foreach (['BISP', 'Education'] as $item) {
+            $this->assertStringNotContainsString($item, $menu);
+        }
 
-        $this->get('/bisp-8171')->assertOk();
+        $this->get('/bisp-8171')->assertNotFound();
+        $this->get('/education')->assertNotFound();
+        $this->get('/write-for-us')->assertNotFound();
     }
 
-    public function test_disclaimer_only_shows_on_bisp_and_schemes(): void
+    public function test_disclaimer_only_shows_on_schemes(): void
     {
-        $this->get('/bisp-8171')->assertSee('<b>Disclaimer:</b>', false);
+        $this->get('/government-schemes')->assertSee('<b>Disclaimer:</b>', false);
         $this->get('/government-schemes/solar-schemes')->assertSee('<b>Disclaimer:</b>', false);
         $this->get('/jobs')->assertDontSee('<b>Disclaimer:</b>', false);
     }
@@ -117,7 +121,7 @@ class SiteTest extends TestCase
     public function test_drafts_and_posts_under_the_wrong_category_are_hidden(): void
     {
         $post = Post::with('category.parent')->first();
-        $this->get('/bisp-8171/'.$post->slug)->assertNotFound();
+        $this->get('/beauty-style/'.$post->slug)->assertNotFound();
 
         $post->update(['status' => 'draft']);
         $this->get($post->url())->assertNotFound();
@@ -175,7 +179,7 @@ class SiteTest extends TestCase
         $admin = User::factory()->create(['role' => 'admin']);
         $this->actingAs($admin);
 
-        foreach (['', '/categories', '/posts', '/blog-posts', '/pages', '/admissions', '/faqs', '/subscribers', '/contact-messages', '/users', '/settings'] as $path) {
+        foreach (['', '/categories', '/posts', '/blog-posts', '/pages', '/faqs', '/subscribers', '/contact-messages', '/users', '/settings'] as $path) {
             $this->get('/admin'.$path)->assertOk();
         }
     }

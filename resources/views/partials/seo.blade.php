@@ -6,6 +6,7 @@
 <title>{{ $seoTitle }}</title>
 <meta name="description" content="{{ $seoDescription }}">
 <meta name="google-site-verification" content="eIL-g-SgY4AemxAGCF7W3RtcbBXSgjGMRpVFyDrYNTg">
+<meta name="msvalidate.01" content="C2A03253D85A4A5495DC8DC8113C1585">
 <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
 <link rel="canonical" href="{{ $seoUrl }}">

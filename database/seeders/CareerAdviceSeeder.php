@@ -165,7 +165,7 @@ class CareerAdviceSeeder extends Seeder
             [
                 'slug' => 'entry-test-preparation-a-30-day-plan',
                 'title' => 'Entry Test Preparation: A 30-Day Plan',
-                'topic' => 'entry-test', 'category' => 'education', 'author' => 'ali.author@example.com', 'image' => 'career-desk',
+                'topic' => 'entry-test', 'category' => 'jobs', 'author' => 'ali.author@example.com', 'image' => 'career-desk',
                 'excerpt' => 'A realistic month-long study plan for university entry tests, with weekly goals, practice tests and revision tips.',
                 'meta_title' => 'Entry Test Preparation: A 30-Day Study Plan',
                 'meta_description' => 'Prepare for university entry tests in 30 days with a simple weekly plan: cover the syllabus, practise past papers, take mock tests and revise smartly.',
@@ -175,7 +175,7 @@ class CareerAdviceSeeder extends Seeder
                     ['question' => 'Where can I find the syllabus?', 'answer' => 'Always use the syllabus published by the body that conducts your test, since it changes from year to year.'],
                     ['question' => 'How many mock tests should I take?', 'answer' => 'Aim for at least one full timed mock test each week, then more in the final week.'],
                 ],
-                'related' => ['Entry Tests' => '/education/entry-tests', 'Education & Admissions' => '/education', 'Admissions Calendar' => '/education'],
+                'related' => ['All Entry Test Guides' => '/blog?topic=entry-test', 'How to Write a CV' => '/blog/how-to-write-a-cv-tips-for-jobs-in-pakistan', 'Browse the latest jobs' => '/jobs'],
                 'body' => <<<'HTML'
                     <p>A month is not long, but it is enough to make a real difference if you use it well. The secret is to follow a plan instead of jumping between books.</p>
                     <h2>Before You Start</h2>

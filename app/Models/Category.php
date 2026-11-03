@@ -15,7 +15,7 @@ class Category extends Model
     use FlushesSiteCache, HasFactory;
 
     /** Root categories whose archives and posts must show the disclaimer. */
-    private const DISCLAIMER_SLUGS = ['bisp-8171', 'government-schemes'];
+    private const DISCLAIMER_SLUGS = ['government-schemes'];
 
     protected $fillable = ['parent_id', 'name', 'slug', 'description', 'color', 'icon', 'image', 'sort_order'];
 

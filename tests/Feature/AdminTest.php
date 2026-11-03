@@ -54,7 +54,7 @@ class AdminTest extends TestCase
 
     public function test_section_pages_load_and_only_list_their_own_posts(): void
     {
-        foreach (['', '/jobs', '/jobs/create', '/government-schemes', '/government-schemes/create', '/education-posts', '/education-posts/create', '/bisp', '/bisp/create', '/blog-posts/create'] as $path) {
+        foreach (['', '/jobs', '/jobs/create', '/government-schemes', '/government-schemes/create', '/beauty-style', '/beauty-style/create', '/blog-posts/create'] as $path) {
             $this->get('/admin'.$path)->assertOk();
         }
 

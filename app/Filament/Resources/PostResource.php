@@ -24,7 +24,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * All posts in one list. Jobs, Government Schemes, Education and BISP each extend this
+ * All posts in one list. Jobs, Government Schemes and Beauty & Style each extend this
  * with their own menu entry, filtered list and a form that only shows the fields they use.
  */
 class PostResource extends Resource

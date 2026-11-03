@@ -31,7 +31,7 @@
     <article>
         <span class="job-card__icon"><x-site-icon name="award" /></span>
         <h2>Our Mission</h2>
-        <p>To give every job seeker, student and family in Pakistan clear, practical information about jobs, government schemes and admissions, in simple language and with a link to the official source.</p>
+        <p>To give every job seeker, student and family in Pakistan clear, practical information about jobs, government schemes, careers and style, in simple language and with a link to the official source.</p>
     </article>
     <article>
         <span class="job-card__icon"><x-site-icon name="globe" /></span>
@@ -95,10 +95,9 @@
     <span class="jobs-cta__icon"><x-site-icon name="handshake" :size="44" /></span>
     <div>
         <h2>Found a Mistake or Have a Question?</h2>
-        <p>Write to us at <a href="mailto:{{ config('mail.admin_address') }}">{{ config('mail.admin_address') }}</a>, or share your knowledge with our readers.</p>
+        <p>Write to us at <a href="mailto:{{ config('mail.admin_address') }}">{{ config('mail.admin_address') }}</a>.</p>
     </div>
     <div class="cta-band__actions">
         <a class="button button--gold" href="{{ url('contact-us') }}">Contact Us →</a>
-        <a class="button button--ghost" href="{{ url('write-for-us') }}">Write for Us</a>
     </div>
 </div>

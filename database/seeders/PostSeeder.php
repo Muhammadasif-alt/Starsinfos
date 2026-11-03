@@ -32,22 +32,6 @@ class PostSeeder extends Seeder
             ['housing-schemes', 'Housing Schemes – Application Process', 'schemes-banner', null, []],
             ['eligibility-application-process', 'Government Scheme Eligibility – Common Requirements', 'schemes-banner', null, []],
         ],
-        'https://bisp.gov.pk' => [
-            ['8171-eligibility-guide', '8171 Eligibility Guide: Who Can Apply?', 'bisp-banner', null, ['is_featured']],
-            ['payment-updates', '8171 Payment Update – CNIC Status Check', 'bisp-8171-update', null, []],
-            ['cnic-status-check-guide', 'How to Check Your CNIC Status', 'bisp-mobile', null, []],
-            ['registration-dynamic-survey', 'Dynamic Survey Registration – Step by Step', 'bisp-logo', null, []],
-            ['official-portal-guides', 'How to Use the BISP Official Portal', 'bisp-mobile', null, []],
-            ['bisp-latest-updates', 'BISP Latest Updates: What Is New?', 'bisp-office', null, []],
-        ],
-        'https://www.hec.gov.pk' => [
-            ['bs-admissions', 'BS Admissions Open – Merit List & Entry Test Dates', 'education-banner', 10, []],
-            ['entry-tests', 'Entry Test Schedule for BS Programs', 'education-banner', 18, ['is_trending']],
-            ['university-admissions', 'University Admissions – How to Apply Online', 'education-banner', 25, []],
-            ['college-admissions', 'Intermediate College Admissions Guide', 'education-banner', 30, []],
-            ['scholarships', 'Scholarships for Pakistani Students', 'education-banner', null, []],
-            ['results-merit-lists', 'Results & Merit Lists: How to Check Them', 'education-banner', null, []],
-        ],
     ];
 
     public function run(): void

@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
             PageSeeder::class,
             PostSeeder::class,
             BlogPostSeeder::class,
-            AdmissionSeeder::class,
             FaqSeeder::class,
         ]);
     }

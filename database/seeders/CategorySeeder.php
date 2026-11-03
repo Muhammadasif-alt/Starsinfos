@@ -20,13 +20,8 @@ class CategorySeeder extends Seeder
             'Government Financial Assistance', 'Housing Schemes', 'Youth Loan Schemes', 'Solar Schemes',
             'Student Scholarships', 'Business Support Programs', 'Registration Guides', 'Eligibility & Application Process', 'Bank Schemes & Loans',
         ]],
-        ['BISP 8171', 'bisp-8171', '#7C3AED', 'card', 'bisp-banner', 'Eligibility, Payments, CNIC Status, Survey', [
-            'BISP Latest Updates', '8171 Eligibility Guide', 'Payment Updates', 'Registration & Dynamic Survey',
-            'CNIC Status Check Guide', 'BISP Beneficiary Information', 'Official Portal Guides',
-        ]],
-        ['Education & Admissions', 'education', '#0E8FA3', 'graduation', 'education-banner', 'BS, University, Entry Tests, Merit Lists', [
-            'BS Admissions', 'University Admissions', 'College Admissions', 'Entry Tests',
-            'Results & Merit Lists', 'Scholarships', 'Matric & Intermediate', 'Degree Programs',
+        ['Beauty & Style', 'beauty-style', '#B83280', 'sparkles', null, 'Skincare, makeup, hair care, fashion and grooming tips', [
+            'Skincare', 'Makeup', 'Hair Care', 'Fashion & Clothing', 'Bridal', "Men's Grooming",
         ]],
     ];
 
@@ -54,15 +49,13 @@ class CategorySeeder extends Seeder
         'bank-schemes-loans' => 'banknote',
     ];
 
-    private const EDUCATION_ICONS = [
-        'bs-admissions' => 'graduation',
-        'university-admissions' => 'landmark',
-        'college-admissions' => 'building',
-        'entry-tests' => 'pen',
-        'results-merit-lists' => 'chart',
-        'scholarships' => 'award',
-        'matric-intermediate' => 'book',
-        'degree-programs' => 'file',
+    private const BEAUTY_ICONS = [
+        'skincare' => 'droplet',
+        'makeup' => 'sparkles',
+        'hair-care' => 'scissors',
+        'fashion-clothing' => 'shirt',
+        'bridal' => 'heart',
+        'mens-grooming' => 'user',
     ];
 
     public function run(): void
@@ -84,7 +77,7 @@ class CategorySeeder extends Seeder
                     'parent_id' => $root->id,
                     'name' => $childName,
                     'color' => $color,
-                    'icon' => self::JOB_ICONS[$childSlug] ?? self::SCHEME_ICONS[$childSlug] ?? self::EDUCATION_ICONS[$childSlug] ?? null,
+                    'icon' => self::JOB_ICONS[$childSlug] ?? self::SCHEME_ICONS[$childSlug] ?? self::BEAUTY_ICONS[$childSlug] ?? null,
                     'sort_order' => $childOrder,
                 ]);
             }

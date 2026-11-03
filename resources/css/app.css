@@ -1,7 +1,7 @@
 /* Homepage design styles */
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 --bg:#FFFFFF;--card:#fff;--ink:#12251E;--mute:#5B6B64;--line:#DCE6E1;--p:#0B6B4F;--p2:#084F3A;--acc:#F2A900;
---jobs:#2563EB;--sch:#0B6B4F;--news:#D13B3B;--bisp:#7C3AED;--edu:#0E8FA3}
+--jobs:#2563EB;--sch:#0B6B4F;--news:#D13B3B;--edu:#0E8FA3}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -46,7 +46,6 @@ footer .cp{display:flex;justify-content:space-between;align-items:center;flex-wr
 .list{display:flex;flex-direction:column;gap:14px}.li{flex:1;display:flex;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;transition:.2s}.li:hover{border-color:var(--c)}.li:hover b{color:var(--c)}.li b{display:block;margin:6px 0 2px;font-size:17px;line-height:1.3}.li small{color:var(--mute);font-size:13px}.li__thumb{flex:none;width:130px;height:88px;border-radius:12px;overflow:hidden;background:var(--c)}
 .two{display:grid;grid-template-columns:1.5fr 1fr;gap:24px}.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px}.panel h3{margin:0 0 14px;font-size:22px}
 .job{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);font-size:17px}.job:last-child{border:0}.job em{font-style:normal;font-size:13px;background:#E8F1FF;color:#2563EB;padding:4px 12px;border-radius:99px;white-space:nowrap;height:fit-content}
-.bisp{background:linear-gradient(160deg,#F4EEFF,#fff);border-color:#DCCBFB}.bisp p{font-size:17px;color:var(--mute);margin:0 0 14px}.btn{display:block;text-align:center;background:var(--bisp);color:#fff;border-radius:12px;padding:15px;font-weight:700;margin-top:22px}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}.step{position:relative}.step:not(:last-child)::after{content:"";position:absolute;top:22px;left:58px;right:-16px;height:3px;background:var(--line)}.step i{font-style:normal;display:inline-grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--p);color:#fff;font-size:19px;font-weight:700;margin-bottom:14px}.step h4{margin:0 0 8px;font-size:20px}.step p{margin:0;font-size:15px;color:var(--mute)}
 .tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:16px;background:var(--card);border:1px solid var(--line)}th,td{padding:18px 22px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}th{background:#F2F8F5;color:var(--p2)}
 details{border-bottom:1px solid var(--line);padding:20px 4px}summary{font-size:18px;font-weight:600;cursor:pointer}details p{margin:12px 0 0;color:var(--mute);font-size:16px}
@@ -67,7 +66,7 @@ details{border-bottom:1px solid var(--line);padding:20px 4px}summary{font-size:1
 .big.has-img{background:linear-gradient(to top,rgba(8,30,23,.96) 22%,rgba(8,30,23,.8) 38%,rgba(8,30,23,0) 62%),var(--img) top/cover}
 .av img{width:100%;height:100%;border-radius:50%;object-fit:cover}
 .li,.job span a{min-width:0}
-.job a:hover,.bisp a:not(.btn):hover,.li:hover{color:var(--p)}
+.job a:hover,.li:hover{color:var(--p)}
 
 /* Inner pages */
 .crumbs{font-size:14px;color:var(--mute);margin:0 0 18px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
@@ -278,38 +277,6 @@ details{border-bottom:1px solid var(--line);padding:20px 4px}summary{font-size:1
 .icon-title{display:flex;align-items:center;gap:10px}
 .icon-title svg{color:var(--bisp)}
 
-/* Education & Admissions page */
-.button--gold{background:var(--acc);border-color:var(--acc);color:#2b1d00}
-.button--gold:hover{background:#FFC72C;border-color:#FFC72C;color:#2b1d00}
-.edu-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
-.edu-card{display:flex;flex-direction:column;min-height:250px;background:linear-gradient(90deg,#fff 30%,rgba(255,255,255,.75) 52%,rgba(255,255,255,0) 75%),var(--img) right center/cover no-repeat,#fff;border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 1px 3px rgba(18,37,30,.06);transition:.2s}
-.edu-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(11,107,79,.14);border-color:var(--p)}
-.edu-card__icon{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:14px;background:#E6F3EC;color:var(--p2);margin-bottom:16px}
-.edu-card h2{margin:0 0 6px;font-size:22px}
-.edu-card p{margin:0 0 16px;color:var(--mute);font-size:15px;max-width:62%}.edu-card h2{max-width:70%}
-.edu-card__cta{margin-top:auto;color:var(--p);font-weight:700;font-size:15px}
-.edu-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:28px;align-items:start;margin-top:48px}
-.edu-updates{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 1px 3px rgba(18,37,30,.06)}
-.edu-updates header{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--p2);color:#fff;padding:18px 22px}
-.edu-updates header h2{display:flex;align-items:center;gap:10px;margin:0;font-size:22px}
-.edu-updates header span{font-size:14px;opacity:.85}
-.edu-updates .pager{margin:16px 0}
-.edu-update{display:flex;align-items:center;gap:16px;padding:16px 22px;border-top:1px solid var(--line)}
-.edu-update:first-of-type{border-top:0}
-.edu-update:hover b{color:var(--p)}
-.edu-update__date{flex:none;display:grid;place-items:center;width:52px;border:1px solid var(--line);border-radius:10px;padding:6px 0;font-size:12px;color:var(--mute)}
-.edu-update__date b{font-size:20px;line-height:1.1;color:var(--ink)}
-.edu-update__body{flex:1;min-width:0;display:grid;gap:3px}
-.edu-update__body b{font-size:16px;line-height:1.35}
-.edu-update__body small{color:var(--mute);font-size:13px}
-.edu-update__go{color:var(--mute);font-size:24px}
-.edu-calendar .tw{border-radius:16px}
-@media(max-width:1100px){.edu-cards{grid-template-columns:repeat(2,1fr)}.edu-grid{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:640px){.edu-cards{grid-template-columns:minmax(0,1fr)}}
-@media(min-width:1101px){.scheme-strip{flex-wrap:nowrap}.scheme-strip a{flex:1 1 0;min-width:0;gap:10px;padding:14px 12px}}
-.scheme-strip svg,.jobs-search__cats svg{stroke-width:2.3}
-.scheme-strip svg{width:34px;height:34px;flex:none}
-.job-row__icon svg,.job-card__icon svg,.job-cat__icon svg,.edu-card__icon svg,.cat .ic svg{stroke-width:2.2}
 
 /* Post and blog detail pages */
 .page-hero .meta .tag{color:#fff}

@@ -5,10 +5,6 @@
             <span class="ic"><x-site-icon name="file" /></span>
             <span><b>Email Us</b><small>{{ config('mail.admin_address') }}</small></span>
         </a>
-        <a class="contact-link" href="{{ url('write-for-us') }}">
-            <span class="ic"><x-site-icon name="pen" /></span>
-            <span><b>Write for Us</b><small>Share an article idea with our team.</small></span>
-        </a>
         <a class="contact-link" href="{{ url('editorial-policy') }}">
             <span class="ic"><x-site-icon name="check" /></span>
             <span><b>Editorial Policy</b><small>See how we check our information.</small></span>

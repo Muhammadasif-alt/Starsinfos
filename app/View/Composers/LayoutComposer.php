@@ -11,13 +11,10 @@ use Illuminate\View\View;
 
 class LayoutComposer
 {
-    /** Position of the Blog link in the header menu, after Government Schemes. */
-    private const BLOG_MENU_POSITION = 2;
+    /** Position of the Career Advice link in the header menu, after Beauty & Style. */
+    private const BLOG_MENU_POSITION = 3;
 
-    private const MENU_ORDER = ['jobs', 'government-schemes', 'education'];
-
-    /** Categories that stay live but are left out of the header menu. */
-    private const MENU_HIDDEN = ['bisp-8171'];
+    private const MENU_ORDER = ['jobs', 'government-schemes', 'beauty-style'];
 
     /** Pages linked from the copyright line instead of a footer column. */
     private const LEGAL_PAGES = ['contact-us', 'privacy-policy', 'terms-and-conditions'];
@@ -38,7 +35,6 @@ class LayoutComposer
         ]);
 
         $menu = $data['footerCategories']
-            ->reject(fn (Category $category) => in_array($category->slug, self::MENU_HIDDEN, true))
             ->sortBy(fn (Category $category) => array_search($category->slug, self::MENU_ORDER, true))
             ->map(fn (Category $category) => ['label' => $category->name, 'url' => $category->url()])
             ->values();

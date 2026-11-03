@@ -31,7 +31,7 @@ class CurrentListingsSeeder extends Seeder
     public function run(): void
     {
         // Only touches seeded samples, so featured and trending choices made in the admin survive a rerun.
-        Post::whereIn('slug', [...self::SAMPLES, '8171-eligibility-guide-who-can-apply'])->update(['is_featured' => false, 'is_trending' => false]);
+        Post::whereIn('slug', self::SAMPLES)->update(['is_featured' => false, 'is_trending' => false]);
         Post::whereIn('slug', self::SAMPLES)->update(['status' => 'draft']);
 
         $this->publishSchemeGuides();
