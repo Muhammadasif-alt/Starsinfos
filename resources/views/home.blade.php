@@ -7,7 +7,7 @@
 @endpush
 
 @section('hero')
-    <section class="hero" style="--img:url('{{ asset('images/home-hero.jpg') }}')"><div class="wrap hero__inner">
+    <section class="hero" style="--img:url('{{ asset('images/home-hero-world.jpg') }}')"><div class="wrap hero__inner">
         <div>
             @php($highlight = e($settings['hero_highlight'] ?? ''))
             <h1>{!! $highlight !== '' ? str_replace($highlight, '<mark>'.$highlight.'</mark>', e($settings['hero_title'] ?? config('app.name'))) : e($settings['hero_title'] ?? config('app.name')) !!}</h1>

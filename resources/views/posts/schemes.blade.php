@@ -7,6 +7,7 @@
 @section('hero')
     <x-listing-hero
         icon="landmark"
+        image="home-hero.jpg"
         eyebrow="Government Schemes"
         :title="$category->name"
         lead="Loans, housing, solar, scholarships and welfare programs"

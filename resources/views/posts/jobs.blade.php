@@ -7,6 +7,7 @@
 @section('hero')
     <x-listing-hero
         icon="briefcase"
+        image="home-hero.jpg"
         eyebrow="Career Opportunities"
         :title="$category->name"
         lead="Find Your Next Job in Pakistan"
