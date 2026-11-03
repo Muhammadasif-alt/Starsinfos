@@ -441,6 +441,7 @@ footer{background:linear-gradient(180deg,rgba(8,79,58,.96) 0,rgba(8,79,58,.88) 5
 /* Beauty & Style page: uses the site green so it matches Jobs and Schemes */
 .beauty-topics,.beauty-latest{margin-top:48px}
 .beauty-featured,.beauty-faqs{margin-top:64px}
+.beauty-split+.beauty-featured{margin-top:16px}
 .beauty-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .beauty-tile{position:relative;display:block;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,var(--p),#2FBF8F);box-shadow:0 1px 3px rgba(18,37,30,.08);transition:.25s}
 .beauty-tile:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(11,107,79,.22)}
@@ -452,8 +453,12 @@ footer{background:linear-gradient(180deg,rgba(8,79,58,.96) 0,rgba(8,79,58,.88) 5
 .beauty-tile__body{position:absolute;z-index:1;left:18px;right:18px;bottom:16px;color:#fff}
 .beauty-tile__body b{display:block;font-size:19px;line-height:1.25}
 .beauty-tile__body small{display:block;margin-top:4px;font-size:13px;opacity:.9}
-.beauty-split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:64px;padding:32px;background:#F4FAF7;border:1px solid var(--line);border-radius:26px}
-.beauty-split--flip .beauty-split__img{order:2}
+.beauty-split{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;margin-top:64px;padding:72px 0}
+.beauty-split--flip{background:#F4FAF7;box-shadow:0 0 0 100vmax #F4FAF7;clip-path:inset(0 -100vmax)}
+.beauty-split--flip .beauty-split__media{order:2}
+.beauty-split__media{position:relative;padding:0 0 48px 0}
+.beauty-split__small{position:absolute;right:-28px;bottom:0;width:34%;aspect-ratio:3/4;object-fit:cover;border:6px solid #fff;border-radius:18px;box-shadow:0 16px 36px rgba(18,37,30,.2)}
+.beauty-split--flip .beauty-split__small{right:auto;left:-28px}
 .beauty-split__img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:20px;box-shadow:0 18px 40px rgba(11,107,79,.16)}
 .beauty-split__eyebrow{display:inline-flex;align-items:center;gap:8px;background:#E3F2EC;color:var(--p);font-weight:700;font-size:14px;padding:6px 14px;border-radius:999px}
 .beauty-split__body h2{font-size:32px;line-height:1.2;margin:16px 0 12px}
@@ -466,5 +471,5 @@ footer{background:linear-gradient(180deg,rgba(8,79,58,.96) 0,rgba(8,79,58,.88) 5
 .beauty-empty p{margin:0 0 20px;color:var(--mute)}
 .beauty-empty .cta-band__actions{justify-content:center}
 @media(max-width:1100px){.beauty-tiles{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:960px){.beauty-tiles{grid-template-columns:repeat(2,1fr)}.beauty-split{grid-template-columns:minmax(0,1fr);gap:24px;margin-top:40px;padding:20px}.beauty-split--flip .beauty-split__img{order:0}.beauty-split__body h2{font-size:26px}}
+@media(max-width:960px){.beauty-tiles{grid-template-columns:repeat(2,1fr)}.beauty-split{grid-template-columns:minmax(0,1fr);gap:28px;margin-top:40px;padding:40px 0}.beauty-split--flip .beauty-split__media{order:0}.beauty-split__small,.beauty-split--flip .beauty-split__small{right:12px;left:auto;width:32%}.beauty-split__body h2{font-size:26px}}
 @media(max-width:640px){.beauty-tiles{gap:12px}.beauty-tile__icon{width:34px;height:34px;top:10px;left:10px}.beauty-tile__body{left:12px;right:12px;bottom:10px}.beauty-tile__body b{font-size:15px}}
