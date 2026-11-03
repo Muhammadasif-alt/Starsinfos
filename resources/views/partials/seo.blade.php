@@ -5,6 +5,7 @@
 @endphp
 <title>{{ $seoTitle }}</title>
 <meta name="description" content="{{ $seoDescription }}">
+<meta name="google-site-verification" content="eIL-g-SgY4AemxAGCF7W3RtcbBXSgjGMRpVFyDrYNTg">
 <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
 <link rel="canonical" href="{{ $seoUrl }}">
