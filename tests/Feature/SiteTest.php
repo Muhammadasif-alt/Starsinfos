@@ -31,7 +31,7 @@ class SiteTest extends TestCase
     public function test_seed_matches_the_brief(): void
     {
         $this->assertSame(['jobs', 'government-schemes', 'beauty-style'], Category::roots()->pluck('slug')->all());
-        $this->assertSame(12, Post::count());
+        $this->assertSame(19, Post::count());
         $this->assertSame(4, BlogPost::count());
         $this->assertSame(7, Category::where('slug', 'beauty-style')->first()->children()->count());
 
@@ -65,8 +65,10 @@ class SiteTest extends TestCase
     {
         $this->get('/jobs')->assertOk()->assertSee('jobs-filter', false);
         $this->get('/government-schemes/solar-schemes')->assertOk()->assertSee('scheme-cats', false);
-        $this->get('/beauty-style')->assertOk()->assertSee('Explore Topics')->assertSee('Nail Care');
-        $this->get('/beauty-style/makeup')->assertOk()->assertSee('coming soon')->assertDontSee('Explore Topics');
+        $this->get('/beauty-style')->assertOk()->assertSee('Explore Topics')->assertSee('Nail Care')
+            ->assertSee('Featured Articles')->assertSee('beauty-split', false)->assertSee('"@type":"FAQPage"', false);
+        $this->get('/beauty-style/makeup')->assertOk()->assertSee('Everyday Makeup Look for Beginners')->assertDontSee('Explore Topics');
+        $this->get('/beauty-style/everyday-makeup-look-for-beginners')->assertOk()->assertSee('Frequently Asked Questions');
     }
 
     public function test_jobs_can_be_filtered(): void

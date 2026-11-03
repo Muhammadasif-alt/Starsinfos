@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             BlogPostSeeder::class,
             FaqSeeder::class,
+            BeautyContentSeeder::class,
         ]);
     }
 }

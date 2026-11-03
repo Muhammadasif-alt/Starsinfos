@@ -102,6 +102,7 @@ class ContentController extends Controller
                 'root' => $root,
                 'subcategories' => $root->children()->with('parent')->withCount('publishedPosts')->get(),
                 'posts' => Post::with('category.parent')->latestPublished()->whereIn('category_id', $category->familyIds())->paginate(12),
+                'featured' => $category->parent ? collect() : Post::with('category.parent')->latestPublished()->whereIn('category_id', $category->familyIds())->take(4)->get(),
             ]);
         }
 

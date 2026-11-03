@@ -58,6 +58,67 @@
         </section>
     @endunless
 
+    @if ($featured->isNotEmpty())
+        <section class="beauty-featured" aria-labelledby="beauty-featured">
+            <div class="sh"><h2 id="beauty-featured">Featured Articles</h2></div>
+            <div class="feat">
+                @php($lead = $featured->first())
+                <a @class(['big', 'has-img' => $lead->image_url]) href="{{ $lead->url() }}">
+                    @if ($lead->image_url)
+                        <img class="big__img" src="{{ $lead->image_url }}" alt="{{ $lead->title }}" loading="lazy">
+                    @endif
+                    <span class="big__body">
+                        <span class="tag">{{ $lead->category->name }}</span>
+                        <h3>{{ $lead->title }}</h3>
+                        <small>{{ $lead->excerpt }} · {{ $lead->published_at->format('j M Y') }}</small>
+                    </span>
+                </a>
+                <div class="list">
+                    @foreach ($featured->skip(1) as $post)
+                        <a class="li" style="--c:{{ $post->category->color }}" href="{{ $post->url() }}">
+                            <span class="li__thumb">
+                                @if ($post->image_url)
+                                    <img src="{{ $post->image_url }}" alt="" loading="lazy">
+                                @endif
+                            </span>
+                            <span>
+                                <span class="tag">{{ $post->category->name }}</span>
+                                <b>{{ $post->title }}</b>
+                                <small>{{ $post->published_at->format('j M Y') }}</small>
+                            </span>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @unless ($category->parent)
+        @foreach ([
+            ['skincare', 'beauty-split-skin.jpg', 'Skincare', 'Healthy skin starts with a simple routine', 'Heat, dust and strong sun are part of daily life in Pakistan. A gentle cleanser, a light moisturiser and sunscreen every morning do more for your skin than a shelf full of products.', ['Cleanse twice a day with a mild face wash', 'Use SPF 30 or higher sunscreen every morning', 'Try one new product at a time and patch test it first']],
+            ['hair-care', 'beauty-split-hair.jpg', 'Hair Care', 'Soft, frizz-free hair in every season', 'Hard water, humidity and heat styling can leave hair dry and dull. Regular conditioning, light oiling before washing and less heat keep hair healthy and easy to manage.', ['Condition the lengths after every wash', 'Use a heat protectant before straightening or curling', 'Cover hair from strong sun and dust outdoors']],
+            ['nail-care', 'beauty-split-nails.jpg', 'Nail Care', 'Neat, strong nails without a salon', 'A short weekly manicure at home keeps nails clean and less likely to break. Gloves for housework and hand cream after washing make the biggest difference.', ['Trim straight across and file in one direction', 'Push back cuticles gently instead of cutting them', 'Give nails a break between polish layers']],
+        ] as [$slug, $image, $eyebrow, $heading, $text, $points])
+            @php($topic = $subcategories->firstWhere('slug', $slug))
+            <section @class(['beauty-split', 'beauty-split--flip' => $loop->even])>
+                <img class="beauty-split__img" src="{{ asset('images/'.$image) }}" alt="{{ $eyebrow }} tips" loading="lazy">
+                <div class="beauty-split__body">
+                    <span class="beauty-split__eyebrow"><x-site-icon :name="$topic?->icon ?? 'sparkles'" :size="18" />{{ $eyebrow }}</span>
+                    <h2>{{ $heading }}</h2>
+                    <p>{{ $text }}</p>
+                    <ul>
+                        @foreach ($points as $point)
+                            <li><x-site-icon name="check" :size="18" />{{ $point }}</li>
+                        @endforeach
+                    </ul>
+                    @if ($topic)
+                        <a class="button" href="{{ $topic->url() }}">Read {{ $eyebrow }} Tips</a>
+                    @endif
+                </div>
+            </section>
+        @endforeach
+    @endunless
+
     <section aria-labelledby="beauty-latest">
         <div class="sh jobs-layout__head">
             <h2 id="beauty-latest">{{ $category->parent ? $category->name : 'Latest Beauty & Style' }}</h2>
@@ -83,4 +144,23 @@
             {{ $posts->links() }}
         @endif
     </section>
+
+    @unless ($category->parent)
+        @php($beautyFaqs = [
+            ['question' => 'What is the most important step in a skincare routine?', 'answer' => 'Sunscreen. A broad-spectrum SPF 30 or higher sunscreen every morning protects against tanning, dark spots and early ageing, which are common in Pakistan’s strong sun.'],
+            ['question' => 'How can I find out my skin type?', 'answer' => 'Wash your face with a mild cleanser and wait an hour. If it looks shiny all over, it is oily; tight or flaky means dry; shiny only on the forehead and nose means combination.'],
+            ['question' => 'Are home remedies safe for the face?', 'answer' => 'Some are gentle, but lemon juice, toothpaste and baking soda can irritate or burn the skin. Patch test anything new on a small area first.'],
+            ['question' => 'How often should I oil my hair?', 'answer' => 'Once or twice a week before washing suits most people. Use less, or skip it, if your scalp is oily or has dandruff.'],
+            ['question' => 'When should I see a dermatologist?', 'answer' => 'See a qualified dermatologist for acne that leaves marks, rashes, sudden hair fall, nail changes or any problem that does not improve with simple care.'],
+        ])
+        @push('schema')
+            <script type="application/ld+json">@json(\App\Support\JsonLd::faq($beautyFaqs))</script>
+        @endpush
+        <section class="beauty-faqs" aria-labelledby="beauty-faqs">
+            <div class="sh"><h2 id="beauty-faqs">Frequently Asked Questions</h2></div>
+            @foreach ($beautyFaqs as $faq)
+                <details @if ($loop->first) open @endif><summary>{{ $faq['question'] }}</summary><p>{{ $faq['answer'] }}</p></details>
+            @endforeach
+        </section>
+    @endunless
 @endsection

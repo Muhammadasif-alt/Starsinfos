@@ -458,3 +458,14 @@ footer{background:linear-gradient(180deg,rgba(8,79,58,.96) 0,rgba(8,79,58,.88) 5
 .scheme-strip svg{width:34px;height:34px;flex:none}
 .job-row__icon svg,.job-card__icon svg,.job-cat__icon svg,.cat .ic svg{stroke-width:2.2}
 .beauty-topics{margin-top:48px}
+.beauty-featured,.beauty-faqs{margin-top:48px}
+.beauty-split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:56px}
+.beauty-split--flip .beauty-split__img{order:2}
+.beauty-split__img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:22px;box-shadow:0 18px 40px rgba(157,23,77,.14)}
+.beauty-split__eyebrow{display:inline-flex;align-items:center;gap:8px;background:#FCE7F3;color:#9D174D;font-weight:700;font-size:14px;padding:6px 14px;border-radius:999px}
+.beauty-split__body h2{font-size:32px;line-height:1.2;margin:16px 0 12px}
+.beauty-split__body p{color:var(--mute);font-size:17px;margin:0 0 18px}
+.beauty-split__body ul{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:12px}
+.beauty-split__body li{display:flex;gap:10px;align-items:flex-start;font-size:16px}
+.beauty-split__body li svg{flex:none;margin-top:3px;color:#B83280;stroke-width:2.6}
+@media(max-width:960px){.beauty-split{grid-template-columns:minmax(0,1fr);gap:24px;margin-top:40px}.beauty-split--flip .beauty-split__img{order:0}.beauty-split__body h2{font-size:26px}}
