@@ -225,6 +225,29 @@ class BeautyContentSeeder extends Seeder
                 ]),
                 'related' => ['Daily Skincare Routine' => '/beauty-style/simple-daily-skincare-routine-for-pakistani-weather', 'Hair Care in Hot Weather' => '/beauty-style/hair-care-tips-for-healthy-hair-in-hot-weather'],
             ],
+            [
+                'category' => 'body-care',
+                'slug' => 'body-care-routine-for-soft-healthy-skin',
+                'image' => 'beauty-body-care',
+                'title' => 'Body Care Routine for Soft, Healthy Skin All Year',
+                'meta_title' => 'Easy Body Care Routine for Soft, Healthy Skin in Every Season',
+                'meta_description' => 'A simple body care routine for Pakistan’s summers and winters: bathing, moisturising, exfoliating, sun protection and caring for hands and feet.',
+                'excerpt' => 'Bathing, moisturising and sun protection habits that keep skin soft from summer heat to dry winters.',
+                'tags' => ['Body Care', 'Moisturiser', 'Dry Skin', 'Summer Care', 'Winter Care'],
+                'body' => '<p>We often look after our face and forget the rest of our skin. Heat, sweat, hard water and dry winter air affect the whole body, and a few minutes a day keeps skin soft and comfortable.</p>'
+                    .'<h2>Daily Basics</h2><ol><li>Bathe with lukewarm water, not very hot water, which dries the skin.</li><li>Use a mild soap or body wash, especially if your skin is dry.</li><li>Pat skin dry with a soft towel instead of rubbing.</li><li>Apply body lotion within a few minutes of bathing, while skin is still slightly damp.</li></ol>'
+                    .'<h2>Body Care by Season</h2>'
+                    .$this->table('Season', 'What helps', ['Summer' => 'Light lotion, loose cotton clothes, bathing after heavy sweating, sunscreen on arms and neck', 'Monsoon' => 'Keep skin folds dry, change out of damp clothes quickly and use a gentle body wash', 'Winter' => 'Richer cream or oil after bathing, shorter showers and more water through the day'])
+                    .'<h2>Gentle Exfoliation</h2><p>Once a week, a soft loofah or a mild scrub removes dead skin on elbows, knees and heels. Do not scrub hard or on irritated skin.</p>'
+                    .'<h2>Hands and Feet</h2><ul><li>Use hand cream after washing hands and before sleeping.</li><li>Soak feet in warm water, use a pumice stone on rough heels, then moisturise.</li><li>Wear comfortable, clean footwear and dry between the toes.</li></ul>'
+                    .'<h2>Drink Water and Eat Well</h2><p>Enough water, fruit, vegetables and sleep show on your skin. Itching, rashes or patches that do not improve should be checked by a doctor.</p>',
+                'faqs' => $this->faqs([
+                    'When is the best time to apply body lotion?' => 'Right after bathing, while the skin is still a little damp. This locks in moisture better than applying it on fully dry skin.',
+                    'How often should I exfoliate my body?' => 'Once a week is enough for most people. Exfoliating too often can make skin dry and sensitive.',
+                    'How can I treat cracked heels at home?' => 'Soak feet in warm water, gently use a pumice stone, then apply a thick foot cream and wear cotton socks overnight. See a doctor if heels bleed or hurt.',
+                ]),
+                'related' => ['Daily Skincare Routine' => '/beauty-style/simple-daily-skincare-routine-for-pakistani-weather', 'Nail Care at Home' => '/beauty-style/nail-care-at-home-for-strong-healthy-nails'],
+            ],
         ];
     }
 }

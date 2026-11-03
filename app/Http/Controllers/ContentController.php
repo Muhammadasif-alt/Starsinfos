@@ -97,12 +97,15 @@ class ContentController extends Controller
         }
 
         if ($root->slug === 'beauty-style') {
+            $posts = fn () => Post::with('category.parent')->latestPublished()->whereIn('category_id', $category->familyIds());
+            $featured = $category->parent ? collect() : $posts()->take(4)->get();
+
             return view('posts.beauty', [
                 'category' => $category,
                 'root' => $root,
                 'subcategories' => $root->children()->with('parent')->withCount('publishedPosts')->get(),
-                'posts' => Post::with('category.parent')->latestPublished()->whereIn('category_id', $category->familyIds())->paginate(12),
-                'featured' => $category->parent ? collect() : Post::with('category.parent')->latestPublished()->whereIn('category_id', $category->familyIds())->take(4)->get(),
+                'featured' => $featured,
+                'posts' => $posts()->whereNotIn('id', $featured->pluck('id'))->paginate(12),
             ]);
         }
 

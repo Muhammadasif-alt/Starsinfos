@@ -31,9 +31,9 @@ class SiteTest extends TestCase
     public function test_seed_matches_the_brief(): void
     {
         $this->assertSame(['jobs', 'government-schemes', 'beauty-style'], Category::roots()->pluck('slug')->all());
-        $this->assertSame(19, Post::count());
+        $this->assertSame(20, Post::count());
         $this->assertSame(4, BlogPost::count());
-        $this->assertSame(7, Category::where('slug', 'beauty-style')->first()->children()->count());
+        $this->assertSame(8, Category::where('slug', 'beauty-style')->first()->children()->count());
 
         foreach (['jobs', 'government-schemes'] as $slug) {
             $this->assertSame(6, Post::whereIn('category_id', Category::where('slug', $slug)->first()->familyIds())->count(), $slug);

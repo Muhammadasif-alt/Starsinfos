@@ -20,8 +20,8 @@ class CategorySeeder extends Seeder
             'Government Financial Assistance', 'Housing Schemes', 'Youth Loan Schemes', 'Solar Schemes',
             'Student Scholarships', 'Business Support Programs', 'Registration Guides', 'Eligibility & Application Process', 'Bank Schemes & Loans',
         ]],
-        ['Beauty & Style', 'beauty-style', '#B83280', 'sparkles', null, 'Skincare, makeup, hair care, fashion and grooming tips', [
-            'Skincare', 'Makeup', 'Hair Care', 'Nail Care', 'Fashion & Clothing', 'Bridal', "Men's Grooming",
+        ['Beauty & Style', 'beauty-style', '#0B6B4F', 'sparkles', null, 'Skincare, makeup, hair care, fashion and grooming tips', [
+            'Skincare', 'Makeup', 'Hair Care', 'Nail Care', 'Fashion & Clothing', 'Bridal', "Men's Grooming", 'Body Care',
         ]],
     ];
 
@@ -57,6 +57,7 @@ class CategorySeeder extends Seeder
         'fashion-clothing' => 'shirt',
         'bridal' => 'heart',
         'mens-grooming' => 'user',
+        'body-care' => 'sun',
     ];
 
     public function run(): void
