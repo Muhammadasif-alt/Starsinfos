@@ -11,10 +11,11 @@
     </section>
 @endif
 
-@if ($post->tags)
+@php($tags = is_string($post->tags) ? array_filter(array_map('trim', explode(',', $post->tags))) : (array) $post->tags)
+@if ($tags)
     <div class="detail-tags">
         <strong>Tags:</strong>
-        @foreach ($post->tags as $tag)
+        @foreach ($tags as $tag)
             <a href="{{ route('search', ['q' => $tag]) }}" rel="tag">{{ $tag }}</a>
         @endforeach
     </div>

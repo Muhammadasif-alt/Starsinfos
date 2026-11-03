@@ -17,7 +17,7 @@ class SeoSection
             ->schema([
                 TextInput::make('meta_title')->maxLength(255),
                 Textarea::make('meta_description')->rows(2)->maxLength(500)->helperText('Aim for 120 to 155 characters.'),
-                TagsInput::make('tags')->separator(',')->helperText('Short search phrases, e.g. Islamabad Police Jobs.'),
+                TagsInput::make('tags')->helperText('Short search phrases, e.g. Islamabad Police Jobs.'),
                 Repeater::make('faqs')->label('FAQs')->defaultItems(0)->collapsible()->schema([
                     TextInput::make('question')->required()->maxLength(255),
                     Textarea::make('answer')->required()->rows(2),

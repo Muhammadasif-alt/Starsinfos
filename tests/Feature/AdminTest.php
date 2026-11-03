@@ -71,6 +71,18 @@ class AdminTest extends TestCase
         $this->get('/jobs?location=Quetta')->assertSee('Clerk Jobs Quetta');
     }
 
+    public function test_tags_saved_from_the_admin_stay_a_list(): void
+    {
+        Livewire::test(CreatePost::class)
+            ->fillForm($this->postData(['tags' => ['Bank Jobs', 'Lahore']]))
+            ->call('create')
+            ->assertHasNoFormErrors();
+
+        $post = Post::where('slug', 'admin-created-post')->first();
+        $this->assertSame(['Bank Jobs', 'Lahore'], $post->tags);
+        $this->get($post->url())->assertOk()->assertSee('rel="tag">Lahore', false);
+    }
+
     public function test_post_slug_cannot_shadow_a_subcategory(): void
     {
         Livewire::test(CreatePost::class)
