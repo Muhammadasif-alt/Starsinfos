@@ -473,3 +473,20 @@ footer{background:linear-gradient(180deg,rgba(8,79,58,.96) 0,rgba(8,79,58,.88) 5
 @media(max-width:1100px){.beauty-tiles{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:960px){.beauty-tiles{grid-template-columns:repeat(2,1fr)}.beauty-split{grid-template-columns:minmax(0,1fr);gap:28px;margin-top:40px;padding:40px 0}.beauty-split--flip .beauty-split__media{order:0}.beauty-split__small,.beauty-split--flip .beauty-split__small{right:12px;left:auto;width:32%}.beauty-split__body h2{font-size:26px}}
 @media(max-width:640px){.beauty-tiles{gap:12px}.beauty-tile__icon{width:34px;height:34px;top:10px;left:10px}.beauty-tile__body{left:12px;right:12px;bottom:10px}.beauty-tile__body b{font-size:15px}}
+.beauty-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.beauty-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.25s}
+.beauty-card:hover{transform:translateY(-4px);border-color:#B7D9CB;box-shadow:0 16px 34px rgba(11,107,79,.14)}
+.beauty-card__img{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:#E3F2EC}
+.beauty-card__img img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.beauty-card:hover .beauty-card__img img{transform:scale(1.05)}
+.beauty-card__tag{position:absolute;left:12px;top:12px;background:#fff;color:var(--p);font-size:12px;font-weight:700;padding:4px 11px;border-radius:99px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.beauty-card__body{flex:1;display:flex;flex-direction:column;padding:18px}
+.beauty-card__body b{font-size:17px;line-height:1.35;transition:.2s}
+.beauty-card:hover .beauty-card__body b{color:var(--p)}
+.beauty-card__excerpt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:8px 0 16px;color:var(--mute);font-size:14px}
+.beauty-card__meta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--line)}
+.beauty-card__meta small{color:var(--mute);font-size:13px}
+.beauty-card__more{color:var(--p);font-weight:700;font-size:14px}
+.beauty-more{display:flex;justify-content:center;margin-top:32px}
+@media(max-width:1100px){.beauty-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.beauty-cards{grid-template-columns:minmax(0,1fr)}}

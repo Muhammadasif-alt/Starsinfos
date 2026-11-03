@@ -97,15 +97,18 @@ class ContentController extends Controller
         }
 
         if ($root->slug === 'beauty-style') {
+            // The section front page shows a short selection; ?all=1 lists every article.
+            $overview = ! $category->parent && ! $request->boolean('all');
             $posts = fn () => Post::with('category.parent')->latestPublished()->whereIn('category_id', $category->familyIds());
-            $featured = $category->parent ? collect() : $posts()->take(4)->get();
+            $featured = $overview ? $posts()->take(4)->get() : collect();
 
             return view('posts.beauty', [
                 'category' => $category,
                 'root' => $root,
+                'overview' => $overview,
                 'subcategories' => $root->children()->with('parent')->withCount('publishedPosts')->get(),
                 'featured' => $featured,
-                'posts' => $posts()->whereNotIn('id', $featured->pluck('id'))->paginate(12),
+                'posts' => $posts()->whereNotIn('id', $featured->pluck('id'))->paginate($overview ? 4 : 12)->withQueryString(),
             ]);
         }
 

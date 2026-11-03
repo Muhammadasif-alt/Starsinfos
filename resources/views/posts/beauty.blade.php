@@ -35,7 +35,7 @@
 @endsection
 
 @section('content')
-    @unless ($category->parent)
+    @if ($overview)
         <section class="beauty-topics" aria-labelledby="beauty-topics">
             <div class="sh jobs-layout__head"><h2 id="beauty-topics">Explore Topics</h2><span class="listing-count">{{ $subcategories->count() }} topics</span></div>
             <div class="beauty-tiles">
@@ -53,9 +53,9 @@
                 @endforeach
             </div>
         </section>
-    @endunless
+    @endif
 
-    @unless ($category->parent)
+    @if ($overview)
         @foreach ([
             ['skincare', 'beauty-split-skin.jpg', 'beauty-split-skin-small.jpg', 'Skincare', 'Healthy skin starts with a simple routine', 'Heat, dust and strong sun are part of daily life in Pakistan. A gentle cleanser, a light moisturiser and sunscreen every morning do more for your skin than a shelf full of products.', ['Cleanse twice a day with a mild face wash', 'Use SPF 30 or higher sunscreen every morning', 'Try one new product at a time and patch test it first']],
             ['bridal', 'beauty-split-bridal.jpg', 'beauty-split-bridal-small.jpg', 'Bridal', 'Look and feel your best on your wedding day', 'Bridal beauty works best when you start early. Plan skincare, hair and makeup trials weeks ahead, and avoid trying anything new in the last few days before the mehndi, barat and walima.', ['Book your makeup artist two to three months ahead', 'Have a full makeup and hair trial a month before', 'No new products or facials in the final week']],
@@ -81,7 +81,7 @@
                 </div>
             </section>
         @endforeach
-    @endunless
+    @endif
 
     @if ($featured->isNotEmpty())
         <section class="beauty-featured" aria-labelledby="beauty-featured">
@@ -121,8 +121,10 @@
     @if ($posts->isNotEmpty() || $featured->isEmpty())
         <section class="beauty-latest" aria-labelledby="beauty-latest">
             <div class="sh jobs-layout__head">
-                <h2 id="beauty-latest">{{ $category->parent ? $category->name : 'More Beauty & Style Articles' }}</h2>
-                <span class="listing-count">{{ $posts->total() }} {{ Str::plural('article', $posts->total()) }}</span>
+                <h2 id="beauty-latest">{{ $category->parent ? $category->name : ($overview ? 'More Beauty & Style Articles' : 'All Beauty & Style Articles') }}</h2>
+                @unless ($overview)
+                    <span class="listing-count">{{ $posts->total() }} {{ Str::plural('article', $posts->total()) }}</span>
+                @endunless
             </div>
 
             @if ($posts->isEmpty())
@@ -136,17 +138,38 @@
                     </div>
                 </div>
             @else
-                <div class="posts">
+                <div class="beauty-cards">
                     @foreach ($posts as $post)
-                        @include('partials.post-card')
+                        <a class="beauty-card" href="{{ $post->url() }}">
+                            <span class="beauty-card__img">
+                                @if ($post->image_url)
+                                    <img src="{{ $post->image_url }}" alt="{{ $post->title }}" loading="lazy">
+                                @endif
+                                <span class="beauty-card__tag">{{ $post->category->name }}</span>
+                            </span>
+                            <span class="beauty-card__body">
+                                <b>{{ $post->title }}</b>
+                                <span class="beauty-card__excerpt">{{ $post->excerpt }}</span>
+                                <span class="beauty-card__meta">
+                                    <small>{{ $post->published_at->format('j M Y') }}</small>
+                                    <span class="beauty-card__more">Read more →</span>
+                                </span>
+                            </span>
+                        </a>
                     @endforeach
                 </div>
-                {{ $posts->links() }}
+                @if ($overview)
+                    <div class="beauty-more">
+                        <a class="button" href="{{ $root->url() }}?all=1#beauty-latest">View All Articles →</a>
+                    </div>
+                @else
+                    {{ $posts->links() }}
+                @endif
             @endif
         </section>
     @endif
 
-    @unless ($category->parent)
+    @if ($overview)
         @php($beautyFaqs = [
             ['question' => 'What is the most important step in a skincare routine?', 'answer' => 'Sunscreen. A broad-spectrum SPF 30 or higher sunscreen every morning protects against tanning, dark spots and early ageing, which are common in Pakistan’s strong sun.'],
             ['question' => 'How can I find out my skin type?', 'answer' => 'Wash your face with a mild cleanser and wait an hour. If it looks shiny all over, it is oily; tight or flaky means dry; shiny only on the forehead and nose means combination.'],
@@ -163,5 +186,5 @@
                 <details @if ($loop->first) open @endif><summary>{{ $faq['question'] }}</summary><p>{{ $faq['answer'] }}</p></details>
             @endforeach
         </section>
-    @endunless
+    @endif
 @endsection

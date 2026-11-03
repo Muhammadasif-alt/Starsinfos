@@ -68,6 +68,8 @@ class SiteTest extends TestCase
         $this->get('/beauty-style')->assertOk()->assertSee('Explore Topics')->assertSee('Nail Care')
             ->assertSee('Featured Articles')->assertSee('beauty-split', false)->assertSee('"@type":"FAQPage"', false);
         $this->get('/beauty-style/makeup')->assertOk()->assertSee('Everyday Makeup Look for Beginners')->assertDontSee('Explore Topics');
+        $this->get('/beauty-style')->assertSee('View All Articles')->assertSee('Body Care Routine for Soft, Healthy Skin All Year');
+        $this->get('/beauty-style?all=1')->assertOk()->assertSee('All Beauty &amp; Style Articles', false)->assertSee('8 articles')->assertDontSee('Explore Topics');
         $this->get('/beauty-style/everyday-makeup-look-for-beginners')->assertOk()->assertSee('Frequently Asked Questions');
     }
 
