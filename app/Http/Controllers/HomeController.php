@@ -28,7 +28,6 @@ class HomeController extends Controller
         $withCategory = ['category.parent'];
 
         return [
-            'categories' => $roots,
             'featured' => Post::with($withCategory)->latestPublished()->where('is_featured', true)->first(),
             'trending' => Post::with($withCategory)->latestPublished()->where('is_trending', true)->take(4)->get(),
             'jobsCategory' => $jobsCategory,
@@ -38,7 +37,8 @@ class HomeController extends Controller
                 ->where(fn ($query) => $query->whereNull('closing_date')->orWhereDate('closing_date', '>=', today()))
                 ->where(fn ($query) => $query->whereNull('application_status')->orWhere('application_status', '!=', 'Closed'))
                 ->take(3)->get(),
-            'latestPosts' => Post::with($withCategory)->latestPublished()->take(6)->get(),
+            'latestArticles' => Post::with($withCategory)->latestPublished()
+                ->whereIn('category_id', $roots->firstWhere('slug', 'beauty-style')?->familyIds() ?? [])->take(4)->get(),
             'careerPosts' => BlogPost::with('author', 'category')->latestPublished()->take(4)->get(),
             'faqs' => Faq::where('is_active', true)->orderBy('sort_order')->get(),
         ];

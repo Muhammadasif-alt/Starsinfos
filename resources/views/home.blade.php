@@ -79,17 +79,6 @@
         @endforeach
     </div>
 
-    <div class="sh"><h2>Browse Categories</h2></div>
-    <div class="grid">
-        @foreach ($categories as $category)
-            <a class="cat" style="--c:{{ $category->color }}" href="{{ $category->url() }}">
-                <div class="ic"><x-site-icon :name="$category->icon" :size="26" /></div>
-                <h3>{{ $category->name }}</h3>
-                <p>{{ $category->description }}</p>
-            </a>
-        @endforeach
-    </div>
-
     @include('partials.disclaimer')
 
     @if ($featured || $trending->isNotEmpty())
@@ -126,19 +115,14 @@
     </div>
     @endif
 
-    <div class="sh"><h2>How to Apply (Simple Steps)</h2></div>
-    <div class="steps">
-        @foreach ($settings['steps'] ?? [] as $step)
-            <div class="step"><i>{{ $loop->iteration }}</i><h4>{{ $step['title'] }}</h4><p>{{ $step['text'] }}</p></div>
+    @if ($latestArticles->isNotEmpty())
+    <div class="sh"><h2>Latest Articles</h2><a href="{{ url('beauty-style') }}?all=1">View all →</a></div>
+    <div class="beauty-cards">
+        @foreach ($latestArticles as $post)
+            @include('partials.article-card')
         @endforeach
     </div>
-
-    <div class="sh"><h2>Latest Posts</h2><a href="{{ route('search') }}">View all →</a></div>
-    <div class="posts">
-        @foreach ($latestPosts as $post)
-            @include('partials.post-card')
-        @endforeach
-    </div>
+    @endif
 
     <div class="sh"><h2>Career Advice</h2><a href="{{ route('blog.index') }}">All career advice →</a></div>
     <div class="feat">

@@ -43,10 +43,16 @@ class SiteTest extends TestCase
     public function test_homepage_renders_all_sections_in_order(): void
     {
         $this->get('/')->assertOk()->assertSeeInOrder([
-            'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Browse Categories', 'Disclaimer', 'Trending Now',
-            'How to Apply', 'Latest Posts',
-            'Career Advice', 'Frequently Asked Questions', '<footer',
-        ], false)->assertSee('FAQPage', false);
+            'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Disclaimer', 'Trending Now',
+            'Latest Articles', 'Career Advice', 'Frequently Asked Questions', 'How often is the information updated?', '<footer',
+        ], false)->assertSee('FAQPage', false)->assertDontSee('Browse Categories')->assertDontSee('How to Apply (Simple Steps)');
+    }
+
+    public function test_contact_page_has_the_form_faqs_and_schema(): void
+    {
+        $this->get('/contact-us')->assertOk()->assertSee('Send Us a Message')->assertSee('Response Time')
+            ->assertSee('"@type":"ContactPage"', false)->assertSee('"@type":"FAQPage"', false)
+            ->assertSee('Can you apply for a job or scheme on my behalf?');
     }
 
     public function test_every_public_url_resolves(): void

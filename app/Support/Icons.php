@@ -39,6 +39,8 @@ class Icons
         'user' => '<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>',
         'award' => '<circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/>',
         'chart' => '<path d="M3 3v18h18"/><path d="M18 17V9m-5 8V5m-5 12v-3"/>',
+        'mail' => '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
+        'clock' => '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
         'handshake' => '<path d="m11 17 2 2a1 1 0 1 0 3-3m-3.5-3.5 2.5 2.5a1 1 0 1 0 3-3l-3.9-3.9a2.8 2.8 0 0 0-4 0l-.9.9a1 1 0 1 1-3-3l2.8-2.8a5.8 5.8 0 0 1 7 1l.7.7 2.8 2.8M2 9l4-4m16 8-4 4M6 9l-4 4 4 4"/>',
     ];
 
