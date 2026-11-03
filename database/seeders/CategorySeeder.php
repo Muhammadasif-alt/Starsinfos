@@ -21,7 +21,7 @@ class CategorySeeder extends Seeder
             'Student Scholarships', 'Business Support Programs', 'Registration Guides', 'Eligibility & Application Process', 'Bank Schemes & Loans',
         ]],
         ['Beauty & Style', 'beauty-style', '#B83280', 'sparkles', null, 'Skincare, makeup, hair care, fashion and grooming tips', [
-            'Skincare', 'Makeup', 'Hair Care', 'Fashion & Clothing', 'Bridal', "Men's Grooming",
+            'Skincare', 'Makeup', 'Hair Care', 'Nail Care', 'Fashion & Clothing', 'Bridal', "Men's Grooming",
         ]],
     ];
 
@@ -53,6 +53,7 @@ class CategorySeeder extends Seeder
         'skincare' => 'droplet',
         'makeup' => 'sparkles',
         'hair-care' => 'scissors',
+        'nail-care' => 'sparkles',
         'fashion-clothing' => 'shirt',
         'bridal' => 'heart',
         'mens-grooming' => 'user',

@@ -429,3 +429,32 @@ footer{background:linear-gradient(180deg,rgba(8,79,58,.96) 0,rgba(8,79,58,.88) 5
 .about-cover{grid-template-columns:repeat(5,1fr)}
 @media(max-width:1100px){.about-cover{grid-template-columns:repeat(2,1fr)}}
 .detail__banner{aspect-ratio:auto;object-fit:contain;height:auto;background:#fff}
+
+/* Beauty & Style page */
+.beauty-strip a.active,.beauty-strip a:hover{background:#FCE7F3;color:#9D174D}
+.beauty-strip svg{color:#B83280}
+.beauty-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.beauty-tile{display:block;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 1px 3px rgba(18,37,30,.06);transition:.2s}
+.beauty-tile:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(157,23,77,.14);border-color:#F9A8D4}
+.beauty-tile__img{display:grid;place-items:center;aspect-ratio:16/10;background:linear-gradient(135deg,#FDF2F8,#FCE7F3);color:#B83280;overflow:hidden}
+.beauty-tile__img img{width:100%;height:100%;object-fit:cover;transition:.3s}
+.beauty-tile:hover .beauty-tile__img img{transform:scale(1.04)}
+.beauty-tile__body{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px}
+.beauty-tile__body b{font-size:17px}
+.beauty-tile__body small{color:var(--mute);font-size:13px}
+.beauty-empty{text-align:center;background:linear-gradient(160deg,#FDF2F8,#fff);border:1px dashed #F9A8D4;border-radius:20px;padding:48px 24px;color:#9D174D}
+.beauty-empty h3{margin:12px 0 6px;font-size:22px;color:var(--ink)}
+.beauty-empty p{margin:0 0 20px;color:var(--mute)}
+.beauty-empty .cta-band__actions{justify-content:center}
+@media(max-width:1100px){.beauty-tiles{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:960px){.beauty-tiles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.beauty-tiles{grid-template-columns:minmax(0,1fr)}}
+
+/* Shared pieces used by the Career Advice, About and listing pages */
+.button--gold{background:var(--acc);border-color:var(--acc);color:#2b1d00}
+.button--gold:hover{background:#FFC72C;border-color:#FFC72C;color:#2b1d00}
+@media(min-width:1101px){.scheme-strip{flex-wrap:nowrap}.scheme-strip a{flex:1 1 0;min-width:0;gap:10px;padding:14px 12px}}
+.scheme-strip svg,.jobs-search__cats svg{stroke-width:2.3}
+.scheme-strip svg{width:34px;height:34px;flex:none}
+.job-row__icon svg,.job-card__icon svg,.job-cat__icon svg,.cat .ic svg{stroke-width:2.2}
+.beauty-topics{margin-top:48px}

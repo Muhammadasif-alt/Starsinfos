@@ -33,7 +33,7 @@ class SiteTest extends TestCase
         $this->assertSame(['jobs', 'government-schemes', 'beauty-style'], Category::roots()->pluck('slug')->all());
         $this->assertSame(12, Post::count());
         $this->assertSame(4, BlogPost::count());
-        $this->assertSame(6, Category::where('slug', 'beauty-style')->first()->children()->count());
+        $this->assertSame(7, Category::where('slug', 'beauty-style')->first()->children()->count());
 
         foreach (['jobs', 'government-schemes'] as $slug) {
             $this->assertSame(6, Post::whereIn('category_id', Category::where('slug', $slug)->first()->familyIds())->count(), $slug);
@@ -65,7 +65,8 @@ class SiteTest extends TestCase
     {
         $this->get('/jobs')->assertOk()->assertSee('jobs-filter', false);
         $this->get('/government-schemes/solar-schemes')->assertOk()->assertSee('scheme-cats', false);
-        $this->get('/beauty-style')->assertOk()->assertDontSee('scheme-cats', false);
+        $this->get('/beauty-style')->assertOk()->assertSee('Explore Topics')->assertSee('Nail Care');
+        $this->get('/beauty-style/makeup')->assertOk()->assertSee('coming soon')->assertDontSee('Explore Topics');
     }
 
     public function test_jobs_can_be_filtered(): void

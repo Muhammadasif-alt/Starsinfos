@@ -96,6 +96,15 @@ class ContentController extends Controller
             return $this->jobs($category, $root, $request);
         }
 
+        if ($root->slug === 'beauty-style') {
+            return view('posts.beauty', [
+                'category' => $category,
+                'root' => $root,
+                'subcategories' => $root->children()->with('parent')->withCount('publishedPosts')->get(),
+                'posts' => Post::with('category.parent')->latestPublished()->whereIn('category_id', $category->familyIds())->paginate(12),
+            ]);
+        }
+
         $usesListing = $root->slug === 'government-schemes';
 
         $posts = Post::with('category.parent')->published()
