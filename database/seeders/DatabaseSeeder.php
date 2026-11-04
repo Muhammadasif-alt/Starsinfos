@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             BlogPostSeeder::class,
             FaqSeeder::class,
             BeautyContentSeeder::class,
+            ArticleSeeder::class,
         ]);
     }
 }

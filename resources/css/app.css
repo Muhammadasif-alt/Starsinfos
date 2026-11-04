@@ -515,3 +515,8 @@ a.contact-card:hover{transform:translateY(-3px);border-color:#B7D9CB;box-shadow:
 .contact-faqs{margin-top:16px}
 @media(max-width:960px){.contact-cards{grid-template-columns:minmax(0,1fr)}.contact-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:640px){.contact-form__row{grid-template-columns:minmax(0,1fr)}.contact-aside{padding:24px}}
+
+/* Official-link buttons inside article bodies */
+.prose a.apply-button{margin:4px 8px 4px 0;display:inline-flex;align-items:center;gap:8px;background:var(--p);color:#fff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:12px;box-shadow:0 8px 20px rgba(11,107,79,.2);transition:.2s}
+.prose a.apply-button::after{content:"→"}
+.prose a.apply-button:hover{background:var(--p2);transform:translateY(-1px)}

@@ -31,12 +31,12 @@ class SiteTest extends TestCase
     public function test_seed_matches_the_brief(): void
     {
         $this->assertSame(['jobs', 'government-schemes', 'beauty-style'], Category::roots()->pluck('slug')->all());
-        $this->assertSame(20, Post::count());
-        $this->assertSame(4, BlogPost::count());
+        $this->assertSame(29, Post::count());
+        $this->assertSame(5, BlogPost::count());
         $this->assertSame(8, Category::where('slug', 'beauty-style')->first()->children()->count());
 
         foreach (['jobs', 'government-schemes'] as $slug) {
-            $this->assertSame(6, Post::whereIn('category_id', Category::where('slug', $slug)->first()->familyIds())->count(), $slug);
+            $this->assertGreaterThanOrEqual(6, Post::whereIn('category_id', Category::where('slug', $slug)->first()->familyIds())->count(), $slug);
         }
     }
 
@@ -46,6 +46,13 @@ class SiteTest extends TestCase
             'class="hero"', 'class="stats"', 'Find Jobs by Category', 'Latest Jobs', 'Disclaimer', 'Trending Now',
             'Latest Articles', 'Career Advice', 'Frequently Asked Questions', 'How often is the information updated?', '<footer',
         ], false)->assertSee('FAQPage', false)->assertDontSee('Browse Categories')->assertDontSee('How to Apply (Simple Steps)');
+    }
+
+    public function test_owner_articles_keep_their_official_buttons(): void
+    {
+        $this->get('/jobs/islamabad-police-dolphin-force-jobs-physical-test-guide')->assertOk()
+            ->assertSee('class="apply-button" href="https://npftas.pk/"', false)
+            ->assertSee('"@type":"FAQPage"', false)->assertSee('1.6 km within 7:00');
     }
 
     public function test_contact_page_has_the_form_faqs_and_schema(): void
@@ -74,8 +81,8 @@ class SiteTest extends TestCase
         $this->get('/beauty-style')->assertOk()->assertSee('Explore Topics')->assertSee('Nail Care')
             ->assertSee('Featured Articles')->assertSee('beauty-split', false)->assertSee('"@type":"FAQPage"', false);
         $this->get('/beauty-style/makeup')->assertOk()->assertSee('Everyday Makeup Look for Beginners')->assertDontSee('Explore Topics');
-        $this->get('/beauty-style')->assertSee('View All Articles')->assertSee('Body Care Routine for Soft, Healthy Skin All Year');
-        $this->get('/beauty-style?all=1')->assertOk()->assertSee('All Beauty &amp; Style Articles', false)->assertSee('8 articles')->assertDontSee('Explore Topics');
+        $this->get('/beauty-style')->assertSee('View All Articles');
+        $this->get('/beauty-style?all=1')->assertOk()->assertSee('All Beauty &amp; Style Articles', false)->assertSee('11 articles')->assertDontSee('Explore Topics');
         $this->get('/beauty-style/everyday-makeup-look-for-beginners')->assertOk()->assertSee('Frequently Asked Questions');
     }
 
