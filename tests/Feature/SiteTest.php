@@ -48,6 +48,19 @@ class SiteTest extends TestCase
         ], false)->assertSee('FAQPage', false)->assertDontSee('Browse Categories')->assertDontSee('How to Apply (Simple Steps)');
     }
 
+    public function test_homepage_cache_leaves_out_article_bodies(): void
+    {
+        Post::latest('published_at')->first()->update(['body' => str_repeat('<p>'.Str::random(1000).'</p>', 500)]);
+
+        $this->get('/')->assertOk();
+
+        $cached = \Illuminate\Support\Facades\Cache::get(\App\Support\SiteCache::HOME);
+        foreach (['trending', 'latestUpdates', 'latestArticles', 'careerPosts', 'jobs'] as $key) {
+            $cached[$key]->each(fn ($model) => $this->assertArrayNotHasKey('body', $model->getAttributes(), $key));
+        }
+        $this->assertLessThan(200000, strlen(serialize($cached)));
+    }
+
     public function test_owner_articles_keep_their_official_buttons(): void
     {
         $this->get('/jobs/islamabad-police-dolphin-force-jobs-physical-test-guide')->assertOk()

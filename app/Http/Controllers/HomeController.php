@@ -9,6 +9,9 @@ use App\Models\Post;
 use App\Models\Setting;
 use App\Support\SiteCache;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
@@ -16,7 +19,7 @@ class HomeController extends Controller
 {
     public function __invoke(): View
     {
-        $data = Cache::remember(SiteCache::HOME, SiteCache::TTL, fn () => $this->homeData());
+        $data = Cache::remember(SiteCache::HOME, SiteCache::TTL, fn () => $this->withoutBodies($this->homeData()));
 
         return view('home', $data + ['settings' => Setting::allValues()]);
     }
@@ -42,6 +45,25 @@ class HomeController extends Controller
             'careerPosts' => BlogPost::with('author', 'category')->latestPublished()->take(4)->get(),
             'faqs' => Faq::where('is_active', true)->orderBy('sort_order')->get(),
         ];
+    }
+
+    /**
+     * The homepage only shows cards, so article bodies are dropped before caching.
+     * A body with pasted base64 images can be several MB and would overflow the cache column.
+     */
+    private function withoutBodies(array $data): array
+    {
+        $strip = function ($model) {
+            if ($model instanceof Model && array_key_exists('body', $model->getAttributes())) {
+                $model->setRawAttributes(Arr::except($model->getAttributes(), 'body'), true);
+            }
+        };
+
+        foreach ($data as $value) {
+            $value instanceof Collection ? $value->each($strip) : $strip($value);
+        }
+
+        return $data;
     }
 
     /** Published jobs that have not passed their closing date. */
