@@ -31,8 +31,8 @@ class SiteTest extends TestCase
     public function test_seed_matches_the_brief(): void
     {
         $this->assertSame(['jobs', 'government-schemes', 'beauty-style'], Category::roots()->pluck('slug')->all());
-        $this->assertSame(29, Post::count());
-        $this->assertSame(5, BlogPost::count());
+        $this->assertSame(36, Post::count());
+        $this->assertSame(6, BlogPost::count());
         $this->assertSame(8, Category::where('slug', 'beauty-style')->first()->children()->count());
 
         foreach (['jobs', 'government-schemes'] as $slug) {
@@ -53,6 +53,20 @@ class SiteTest extends TestCase
         $this->get('/jobs/islamabad-police-dolphin-force-jobs-physical-test-guide')->assertOk()
             ->assertSee('class="apply-button" href="https://npftas.pk/"', false)
             ->assertSee('"@type":"FAQPage"', false)->assertSee('1.6 km within 7:00');
+
+        $this->get('/jobs/how-to-apply-for-wapda-jobs-in-pakistan')->assertOk()
+            ->assertSee('class="apply-button" href="https://njp.gov.pk/employers/257"', false);
+
+        $slugs = ['how-to-apply-for-wapda-jobs-in-pakistan', 'asf-jobs-asi-corporal-physical-test-syllabus', 'sunscreen-guide-pakistan-spf-30-vs-50',
+            'kurti-styling-ideas-daily-office-pakistani-outfits', 'nail-art-at-home-for-beginners', 'cm-punjab-solar-scheme-balloting-result-next-steps',
+            'free-solar-panel-scheme-result-check-cnic'];
+
+        foreach ($slugs as $slug) {
+            $this->get(Post::where('slug', $slug)->firstOrFail()->url())->assertOk()->assertSee('"@type":"FAQPage"', false);
+        }
+
+        $this->get(BlogPost::where('slug', 'government-job-test-preparation-nts-fpsc-ppsc')->firstOrFail()->url())->assertOk()
+            ->assertSee('"@type":"FAQPage"', false)->assertSee('NTS vs FPSC vs PPSC');
     }
 
     public function test_contact_page_has_the_form_faqs_and_schema(): void
@@ -82,7 +96,7 @@ class SiteTest extends TestCase
             ->assertSee('Featured Articles')->assertSee('beauty-split', false)->assertSee('"@type":"FAQPage"', false);
         $this->get('/beauty-style/makeup')->assertOk()->assertSee('Everyday Makeup Look for Beginners')->assertDontSee('Explore Topics');
         $this->get('/beauty-style')->assertSee('View All Articles');
-        $this->get('/beauty-style?all=1')->assertOk()->assertSee('All Beauty &amp; Style Articles', false)->assertSee('11 articles')->assertDontSee('Explore Topics');
+        $this->get('/beauty-style?all=1')->assertOk()->assertSee('All Beauty &amp; Style Articles', false)->assertSee('14 articles')->assertDontSee('Explore Topics');
         $this->get('/beauty-style/everyday-makeup-look-for-beginners')->assertOk()->assertSee('Frequently Asked Questions');
     }
 
