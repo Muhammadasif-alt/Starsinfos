@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\ExtractsInlineImages;
 use App\Models\Concerns\FlushesSiteCache;
 use App\Models\Concerns\HasPublication;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
-    use FlushesSiteCache, HasFactory, HasPublication;
+    use ExtractsInlineImages, FlushesSiteCache, HasFactory, HasPublication;
 
     public const JOB_TYPES = ['Permanent', 'Contract', 'Internship'];
 

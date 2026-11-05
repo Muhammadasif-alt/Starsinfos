@@ -82,6 +82,22 @@ class SiteTest extends TestCase
             ->assertSee('"@type":"FAQPage"', false)->assertSee('NTS vs FPSC vs PPSC');
     }
 
+    public function test_pasted_base64_images_are_saved_as_files(): void
+    {
+        $png = base64_encode(base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='));
+        $post = Post::with('category.parent')->first();
+        $post->update(['body' => '<p>Look</p><figure data-trix-attachment="{&quot;url&quot;:&quot;data:image/png;base64,'.$png.'&quot;}"><img src="data:image/png;base64,'.$png.'"></figure><img src="data:image/png;base64,bm90IGFuIGltYWdl">']);
+
+        $path = 'content/'.sha1(base64_decode($png)).'.png';
+        Storage::disk('public')->assertExists($path);
+        $this->assertSame(2, substr_count($post->fresh()->body, '/storage/'.$path));
+        $this->assertStringContainsString('data:image/png;base64,bm90IGFuIGltYWdl', $post->fresh()->body);
+
+        BlogPost::query()->update(['body' => '<img src="data:image/png;base64,'.$png.'">']);
+        $this->artisan('content:extract-images')->assertSuccessful();
+        $this->assertSame(0, BlogPost::where('body', 'like', '%data:image/%')->count());
+    }
+
     public function test_contact_page_has_the_form_faqs_and_schema(): void
     {
         $this->get('/contact-us')->assertOk()->assertSee('Send Us a Message')->assertSee('Response Time')

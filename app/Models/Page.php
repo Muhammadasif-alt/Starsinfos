@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\ExtractsInlineImages;
 use App\Models\Concerns\FlushesSiteCache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-    use FlushesSiteCache;
+    use ExtractsInlineImages, FlushesSiteCache;
 
     protected $fillable = ['title', 'slug', 'excerpt', 'body', 'status'];
 
