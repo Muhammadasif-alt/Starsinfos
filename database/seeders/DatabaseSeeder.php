@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
             BeautyContentSeeder::class,
             ArticleSeeder::class,
         ]);
+
+        // Older seeders still define these short duplicates; the fuller guides replace them.
+        \App\Models\Post::whereIn('slug', \App\Support\RetiredPosts::slugs())->delete();
     }
 }

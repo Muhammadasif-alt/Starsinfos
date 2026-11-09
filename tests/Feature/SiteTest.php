@@ -98,6 +98,15 @@ class SiteTest extends TestCase
         $this->assertSame(0, BlogPost::where('body', 'like', '%data:image/%')->count());
     }
 
+    public function test_retired_duplicate_posts_redirect_to_their_full_guides(): void
+    {
+        $this->assertSame(0, Post::whereIn('slug', \App\Support\RetiredPosts::slugs())->count());
+
+        foreach (\App\Support\RetiredPosts::REDIRECTS as $old => $new) {
+            $this->get($old)->assertStatus(301)->assertRedirect($new);
+        }
+    }
+
     public function test_contact_page_has_the_form_faqs_and_schema(): void
     {
         $this->get('/contact-us')->assertOk()->assertSee('Send Us a Message')->assertSee('Response Time')

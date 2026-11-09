@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Post;
+use App\Support\RetiredPosts;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -28,8 +30,12 @@ class ContentController extends Controller
     }
 
     /** /{category}/{slug}: a subcategory archive, otherwise a post in that category. */
-    public function nested(Request $request, string $category, string $slug): View
+    public function nested(Request $request, string $category, string $slug): View|RedirectResponse
     {
+        if ($target = RetiredPosts::target("$category/$slug")) {
+            return redirect($target, 301);
+        }
+
         $root = Category::roots()->where('slug', $category)->firstOrFail();
 
         $subcategory = $root->children()->with('parent')->where('slug', $slug)->first();
