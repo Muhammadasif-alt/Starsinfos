@@ -107,6 +107,36 @@ class SiteTest extends TestCase
         }
     }
 
+    public function test_admin_article_html_is_normalized_on_save(): void
+    {
+        $post = Post::with('category.parent')->first();
+        $post->update([
+            'title' => "  Long Hair Ideas\t\t",
+            'excerpt' => '',
+            'faqs' => [],
+            'body' => '<p>Intro text here, long enough to be used as the summary.</p><h1>1. Long Layers<figure><img src="/storage/content/a.webp"><figcaption>Long Layers</figcaption></figure></h1><p>Body</p>'
+                .'<h2>Frequently Asked Questions (FAQs)</h2><h3>1. How often should I trim?</h3><p>Every 8 to 12 weeks.</p><h3>2. Is heat bad?</h3><p>Use a <a href="#">protectant</a>.</p>'
+                .'<h2>Conclusion</h2><p>Bye.</p>',
+        ]);
+        $post->refresh();
+
+        $this->assertSame('Long Hair Ideas', $post->title);
+        $this->assertSame('Intro text here, long enough to be used as the summary.', $post->excerpt);
+        $this->assertStringContainsString('<h2>1. Long Layers</h2><figure><img alt="Long Layers" src="/storage/content/a.webp">', $post->body);
+        $this->assertStringNotContainsString('<h1', $post->body);
+        $this->assertStringNotContainsString('Frequently Asked', $post->body);
+        $this->assertStringContainsString('<h2>Conclusion</h2>', $post->body);
+        $this->assertSame([
+            ['question' => 'How often should I trim?', 'answer' => 'Every 8 to 12 weeks.'],
+            ['question' => 'Is heat bad?', 'answer' => 'Use a protectant.'],
+        ], $post->faqs);
+
+        $html = $this->get($post->url())->assertOk()->getContent();
+        $this->assertStringContainsString('"@type":"FAQPage"', $html);
+        $this->assertStringContainsString('"position":2', $html);
+        $this->assertStringContainsString('"logo":{"@type":"ImageObject"', $html);
+    }
+
     public function test_contact_page_has_the_form_faqs_and_schema(): void
     {
         $this->get('/contact-us')->assertOk()->assertSee('Send Us a Message')->assertSee('Response Time')

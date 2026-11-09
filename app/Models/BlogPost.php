@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\ExtractsInlineImages;
 use App\Models\Concerns\FlushesSiteCache;
 use App\Models\Concerns\HasPublication;
+use App\Models\Concerns\NormalizesArticle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BlogPost extends Model
 {
-    use ExtractsInlineImages, FlushesSiteCache, HasFactory, HasPublication;
+    use ExtractsInlineImages, FlushesSiteCache, HasFactory, HasPublication, NormalizesArticle;
 
     private const WORDS_PER_MINUTE = 200;
 

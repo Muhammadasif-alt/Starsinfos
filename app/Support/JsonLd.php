@@ -4,39 +4,58 @@ namespace App\Support;
 
 use App\Models\BlogPost;
 use App\Models\Post;
+use Illuminate\Support\Str;
 
 class JsonLd
 {
     public static function article(Post|BlogPost $post): array
     {
-        return [
+        return array_filter([
             '@context' => 'https://schema.org',
-            '@type' => 'Article',
-            'headline' => $post->title,
+            '@type' => $post instanceof BlogPost ? 'BlogPosting' : 'Article',
+            'headline' => Str::limit($post->title, 110, ''),
             'description' => $post->seo_description,
-            'image' => $post->image_url,
+            'image' => $post->image_url ? ['@type' => 'ImageObject', 'url' => $post->image_url] : null,
             'datePublished' => $post->published_at?->toIso8601String(),
             'dateModified' => $post->updated_at?->toIso8601String(),
+            'inLanguage' => 'en',
+            'keywords' => self::keywords($post->tags) ?: null,
+            'articleSection' => $post->category?->name,
             'author' => ['@type' => 'Person', 'name' => $post->author->name],
-            'publisher' => ['@type' => 'Organization', 'name' => config('app.name')],
-            'mainEntityOfPage' => $post->url(),
+            'publisher' => self::publisher(),
+            'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $post->url()],
+        ], fn ($value) => $value !== null);
+    }
+
+    public static function publisher(): array
+    {
+        return [
+            '@type' => 'Organization',
+            'name' => config('app.name'),
+            'url' => url('/'),
+            'logo' => ['@type' => 'ImageObject', 'url' => asset('images/logo.png')],
         ];
+    }
+
+    private static function keywords(mixed $tags): string
+    {
+        $tags = is_string($tags) ? explode(',', $tags) : (array) $tags;
+
+        return implode(', ', array_filter(array_map('trim', $tags)));
     }
 
     /** @param array<string, string|null> $crumbs label => url */
     public static function breadcrumbs(array $crumbs): array
     {
-        $position = 0;
-
         return [
             '@context' => 'https://schema.org',
             '@type' => 'BreadcrumbList',
-            'itemListElement' => collect($crumbs)->map(fn (?string $url, string $label) => array_filter([
+            'itemListElement' => collect($crumbs)->keys()->values()->map(fn (string $label, int $index) => array_filter([
                 '@type' => 'ListItem',
-                'position' => ++$position,
+                'position' => $index + 1,
                 'name' => $label,
-                'item' => $url,
-            ]))->values()->all(),
+                'item' => $crumbs[$label],
+            ]))->all(),
         ];
     }
 
